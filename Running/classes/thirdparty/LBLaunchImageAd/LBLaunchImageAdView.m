@@ -207,20 +207,6 @@
 
 #pragma mark - 开启关闭动画
 - (void)startcloseAnimation{
-//    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//    opacityAnimation.duration = 0.5;
-//    opacityAnimation.fromValue = [NSNumber numberWithFloat:1.0];
-//    opacityAnimation.toValue = [NSNumber numberWithFloat:0.3];
-//    opacityAnimation.removedOnCompletion = NO;
-//    opacityAnimation.fillMode = kCAFillModeForwards;
-//    
-//    [self.aDImgView.layer addAnimation:opacityAnimation forKey:@"animateOpacity"];
-//    [NSTimer scheduledTimerWithTimeInterval:opacityAnimation.duration
-//                                     target:self
-//                                   selector:@selector(closeAddImgAnimation)
-//                                   userInfo:nil
-//                                    repeats:NO];
-
     [self closeAddImgAnimation];
 }
 

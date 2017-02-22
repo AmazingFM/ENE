@@ -214,6 +214,7 @@
 		3AA541BF1DAD285A005AC671 /* icon-pay-fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541BD1DAD285A005AC671 /* icon-pay-fail@2x.png */; };
 		3AA541C01DAD285A005AC671 /* icon-pay-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541BE1DAD285A005AC671 /* icon-pay-success@2x.png */; };
 		3AC41C721D7D56E10060CB59 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC41C711D7D56E10060CB59 /* Config.m */; };
+		3ADF078B1E5D830300263E48 /* YMCollectionTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADF078A1E5D830300263E48 /* YMCollectionTestController.m */; };
 		3AF51EE41D9278A200829EE5 /* YMDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EE31D9278A200829EE5 /* YMDataBase.m */; };
 		3AF51EEB1D938E8E00829EE5 /* YMAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EEA1D938E8E00829EE5 /* YMAddressViewController.m */; };
 		3AF51EEE1D938EE600829EE5 /* YMOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EED1D938EE600829EE5 /* YMOrdersViewController.m */; };
@@ -526,6 +527,8 @@
 		3AA541BE1DAD285A005AC671 /* icon-pay-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-pay-success@2x.png"; sourceTree = "<group>"; };
 		3AC41C701D7D56E10060CB59 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		3AC41C711D7D56E10060CB59 /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		3ADF07891E5D830300263E48 /* YMCollectionTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMCollectionTestController.h; sourceTree = "<group>"; };
+		3ADF078A1E5D830300263E48 /* YMCollectionTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMCollectionTestController.m; sourceTree = "<group>"; };
 		3AF51EE21D9278A200829EE5 /* YMDataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDataBase.h; sourceTree = "<group>"; };
 		3AF51EE31D9278A200829EE5 /* YMDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDataBase.m; sourceTree = "<group>"; };
 		3AF51EE91D938E8E00829EE5 /* YMAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMAddressViewController.h; sourceTree = "<group>"; };
@@ -804,6 +807,8 @@
 				3A2B5D2E1D76E6850036720E /* controllers */,
 				3A2B5D8A1D77118E0036720E /* Categories */,
 				3A03369B1D7EB0C400877D59 /* thirdparty */,
+				3ADF07891E5D830300263E48 /* YMCollectionTestController.h */,
+				3ADF078A1E5D830300263E48 /* YMCollectionTestController.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -1439,6 +1444,7 @@
 				3A2B5DB91D77118E0036720E /* NSString+pinyin.m in Sources */,
 				3A2B5D471D76F9F80036720E /* YMMainViewController.m in Sources */,
 				3AA541A61DA7AC26005AC671 /* UUChartLabel.m in Sources */,
+				3ADF078B1E5D830300263E48 /* YMCollectionTestController.m in Sources */,
 				3A7F624C1DC23A7E0076E3E2 /* YMPageControl.m in Sources */,
 				3A2B5D411D76F5180036720E /* YMRootViewController.m in Sources */,
 				3A7B2D6A1DA154E8004A149B /* YMAddressCell.m in Sources */,

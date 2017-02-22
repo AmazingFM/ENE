@@ -14,7 +14,6 @@
 
 #import "YMCellItems.h"
 
-@class YMGoodsListCell;
 @class YMGoodsCollectionViewCell;
 
 @protocol YMGoodsCollectionViewCellDelegate <NSObject>

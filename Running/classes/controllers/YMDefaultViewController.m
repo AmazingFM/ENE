@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-//        [self getCityList];
+        [self performSelectorInBackground:@selector(getCityList) withObject:nil];
     }
     return self;
 }
@@ -31,9 +31,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserInfo:) name:kYMNoticeLoginInIdentifier object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserInfo:) name:kYMNoticeLoginInIdentifier object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doNothing) name:kYMNoticeLoginOutIdentifier object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doNothing) name:kYMNoticeLoginOutIdentifier object:nil];
 }
 
 - (void)dealloc
