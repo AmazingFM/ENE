@@ -10,6 +10,6 @@
 
 @interface YMHomeViewController : YMBaseViewController
 
-@property (nonatomic, assign) int index;
+//@property (nonatomic, assign) int index;
 
 @end

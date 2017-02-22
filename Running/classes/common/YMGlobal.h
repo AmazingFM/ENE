@@ -11,6 +11,13 @@
 
 #import "YMMainViewController.h"
 
+//#ifdef YM_DEBUG
+//#define NSLog(fmt, ...)     NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+//#define NSLog(fmt, ...)     NSLog((@"" fmt), ##__VA_ARGS__);
+//#else
+//#define NSLog(...)
+//#endif
+
 extern float g_nOSVersion;
 extern NSString *g_strVersion;
 extern int g_BuildNumber;

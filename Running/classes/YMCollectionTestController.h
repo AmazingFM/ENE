@@ -7,8 +7,22 @@
 //
 
 #import "YMBaseViewController.h"
-#import "YMGoodsListController.h"
 
-@interface YMCollectionTestController : YMGoodsListController
+#import "MJRefresh.h"
+#import "MJExtension.h"
+#import "MJRefreshComponent.h"
+
+
+@interface YMCollectionTestController : YMBaseViewController 
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, retain) NSMutableArray *itemArray;
+@property (nonatomic) int pageNum;
+@property (nonatomic) BOOL lastPage;
+@property (nonatomic, retain) MJRefreshComponent *myRefreshView;
+
+@property (nonatomic, retain) NSString *spec_id;
+
 
 @end
