@@ -1,0 +1,8 @@
+订单新增已上传
+http://139.196.237.165/ene/AppServ/index.php?a=OrderAdd&app_id=1&req_seq=2&time_stamp=20160907212800&sign=47839274
+
+我的订单查询
+http://139.196.237.165/ene/AppServ/index.php?a=OrderList&app_id=1&req_seq=2&time_stamp=20160907212800&sign=47839274
+
+购物车 商品信息批量查询
+http://139.196.237.165/ene/AppServ/index.php?a=GoodsArrayQuery&app_id=1&req_seq=2&time_stamp=20160907212800&sign=47839274

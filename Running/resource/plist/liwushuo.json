@@ -1,0 +1,296 @@
+{
+    "code": 200,
+    "data": {
+        "categories": [
+            {
+                "icon_url": "http://img03.liwushuo.com/image/150615/3nc5tejwl.png-pw144",
+                "id": 1,
+                "name": "保健品",
+                "order": 11,
+                "status": 0,
+                "subcategories": [
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/urgs9vy8a.png-pw144",
+                        "id": 7,
+                        "items_count": -45,
+                        "name": "智能设备",
+                        "order": 7,
+                        "parent_id": 1,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/d4dhjw1we.png-pw144",
+                        "id": 6,
+                        "items_count": -210,
+                        "name": "鲜花蛋糕",
+                        "order": 6,
+                        "parent_id": 1,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150626/itxjlg4jh.png-pw144",
+                        "id": 5,
+                        "items_count": -18,
+                        "name": "书 ",
+                        "order": 5,
+                        "parent_id": 1,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/12vqbzrkq.png-pw144",
+                        "id": 4,
+                        "items_count": -131,
+                        "name": "模型拼图",
+                        "order": 4,
+                        "parent_id": 1,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150312/xdjtcaanm.png-pw144",
+                        "id": 3,
+                        "items_count": -68,
+                        "name": "毛绒公仔",
+                        "order": 3,
+                        "parent_id": 1,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/dsu66u5k2.png-pw144",
+                        "id": 2,
+                        "items_count": -72,
+                        "name": "动漫/明星周边",
+                        "order": 2,
+                        "parent_id": 1,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/v65bdnets.png-pw144",
+                        "id": 1,
+                        "items_count": -469,
+                        "name": "创意礼品",
+                        "order": 1,
+                        "parent_id": 1,
+                        "status": 0
+                    }
+                ]
+            },
+            {
+                "icon_url": "http://img01.liwushuo.com/image/150427/as9ys97f0.png-pw144",
+                "id": 2,
+                "name": "补品 ",
+                "order": 10,
+                "status": 0,
+                "subcategories": [
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/80mkxagby.png-pw144",
+                        "id": 13,
+                        "items_count": -33,
+                        "name": "手饰",
+                        "order": 6,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/vprcl0vym.png-pw144",
+                        "id": 12,
+                        "items_count": -94,
+                        "name": "手表",
+                        "order": 5,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/w0h2yoa72.png-pw144",
+                        "id": 11,
+                        "items_count": 200,
+                        "name": "帽子",
+                        "order": 4,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/9k7a3umu1.png-pw144",
+                        "id": 10,
+                        "items_count": 22,
+                        "name": "镜框",
+                        "order": 3,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/u7txf6xvn.png-pw144",
+                        "id": 9,
+                        "items_count": -210,
+                        "name": "发饰",
+                        "order": 2,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/u8pq01q9t.png-pw144",
+                        "id": 8,
+                        "items_count": 72,
+                        "name": "耳饰",
+                        "order": 1,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/0b8w4xhis.png-pw144",
+                        "id": 14,
+                        "items_count": 4,
+                        "name": "手套",
+                        "order": 0,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/ijgrwvrn5.png-pw144",
+                        "id": 15,
+                        "items_count": 209,
+                        "name": "围巾/口罩",
+                        "order": 0,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/mkhkh14j8.png-pw144",
+                        "id": 16,
+                        "items_count": -70,
+                        "name": "项链",
+                        "order": 0,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/0yw7qk140.png-pw144",
+                        "id": 91,
+                        "items_count": -16,
+                        "name": "领结/领带/腰带",
+                        "order": 0,
+                        "parent_id": 2,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/0m85d9pts.png-pw144",
+                        "id": 96,
+                        "items_count": 157,
+                        "name": "袜子",
+                        "order": 0,
+                        "parent_id": 2,
+                        "status": 0
+                    }
+                ]
+            },
+            {
+                "icon_url": "http://img03.liwushuo.com/image/150615/ap97rx8is.png-pw144",
+                "id": 3,
+                "name": "养身",
+                "order": 9,
+                "status": 0,
+                "subcategories": [
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/bj9ch14r1.png-pw144",
+                        "id": 18,
+                        "items_count": 40,
+                        "name": "抱枕/靠垫/坐垫",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/kijh56ebm.png-pw144",
+                        "id": 29,
+                        "items_count": 75,
+                        "name": "装饰画",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/78a2812io.png-pw144",
+                        "id": 28,
+                        "items_count": -434,
+                        "name": "钟表摆件",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/hjyqt8u8j.png-pw144",
+                        "id": 27,
+                        "items_count": 6,
+                        "name": "香薰用品",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/9mdsiq7sa.png-pw144",
+                        "id": 26,
+                        "items_count": 415,
+                        "name": "收纳整理",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img03.liwushuo.com/image/150615/rjxihwrxq.png-pw144",
+                        "id": 25,
+                        "items_count": 190,
+                        "name": "生活神器",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/1mlvwwz03.png-pw144",
+                        "id": 24,
+                        "items_count": 71,
+                        "name": "生活家电",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/scggy105e.png-pw144",
+                        "id": 23,
+                        "items_count": -132,
+                        "name": "伞",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/56t6d6ca8.png-pw144",
+                        "id": 22,
+                        "items_count": 376,
+                        "name": "家居纺饰",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img02.liwushuo.com/image/150615/7l6ljnnbq.png-pw144",
+                        "id": 19,
+                        "items_count": -23,
+                        "name": "宠物用品",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    },
+                    {
+                        "icon_url": "http://img01.liwushuo.com/image/150615/az2zg2gxm.png-pw144",
+                        "id": 95,
+                        "items_count": 27,
+                        "name": "手帕/毛巾",
+                        "order": 0,
+                        "parent_id": 3,
+                        "status": 0
+                    }
+                ]
+            }
+        ]
+    },
+    "message": "OK"
+}
