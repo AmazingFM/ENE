@@ -268,10 +268,7 @@
 - (void)refresh
 {
     self.myRefreshView = self.collectionView.mj_header;
-    
-    if (self.lastPage) {
-        [self.collectionView.mj_footer resetNoMoreData];
-    }
+    [self.collectionView.mj_footer resetNoMoreData];
     self.lastPage = NO;
     self.pageNum = 1;
     [self startRequest];
@@ -283,9 +280,8 @@
     
     if (!self.lastPage) {
         self.pageNum++;
+        [self startRequest];
     }
-    [self startRequest];
-
 }
 
 #pragma mark UICollectionViewDataSource
@@ -401,14 +397,16 @@
                     
                     //..下拉刷新
                     if (self.myRefreshView == self.collectionView.mj_header) {
-                        self.itemArray = arrayM;
-                        self.collectionView.mj_footer.hidden = self.lastPage;
+                        [self.itemArray removeAllObjects];
+                        [self.itemArray addObjectsFromArray:arrayM];
+                        
                         [self.collectionView reloadData];
                         [self.myRefreshView endRefreshing];
-                        
+                        if (self.lastPage) {
+                            [self.collectionView.mj_footer endRefreshingWithNoMoreData];
+                        }
                     } else if (self.myRefreshView == self.collectionView.mj_footer) {
                         [self.itemArray addObjectsFromArray:arrayM];
-//                        [self.mainTable reloadData];
                         [self.collectionView reloadData];
                         [self.myRefreshView endRefreshing];
                         if (self.lastPage) {
@@ -420,6 +418,7 @@
                     _noItemDesc.hidden = YES;
 
                 } else {
+                    [self.myRefreshView endRefreshing];
                     self.collectionView.hidden = YES;
                     _noItemImg.hidden = NO;
                     _noItemDesc.hidden = NO;

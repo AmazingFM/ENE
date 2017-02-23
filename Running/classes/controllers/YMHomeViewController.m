@@ -198,8 +198,8 @@
     self.myRefreshView = self.collectionView.mj_footer;
     if (!self.lastPage) {
         self.pageNum++;
+        [self getGoodsList];
     }
-    [self getGoodsList];
 }
 
 
@@ -430,7 +430,7 @@
     self.params[kYM_SPECID] = self.spec_id;
     
     self.params[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    self.params[kYM_PAGESIZE] = @"30";
+    self.params[kYM_PAGESIZE] = @"1";
     
     [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:self.params success:^(id responseObject) {
         [self.myRefreshView endRefreshing];
@@ -483,7 +483,6 @@
                         }
                     } else if (self.myRefreshView == self.collectionView.mj_footer) {
                         [self.itemArray addObjectsFromArray:arrayM];
-                        //                        [self.mainTable reloadData];
                         [self.collectionView reloadData];
                         [self.myRefreshView endRefreshing];
                         if (self.lastPage) {
