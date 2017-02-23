@@ -31,8 +31,8 @@
 +(BOOL)saveFileToDocument:(NSData*)data withName:(NSString*)fileName;
 
 #pragma mark 存储
-+(NSObject*)loadKey:(NSString*)key;
-+(BOOL)saveKey:(NSString*)key value:(NSObject*)value;
++(id)loadKey:(NSString*)key;
++(void)saveKey:(NSString*)key value:(id)value;
 
 #pragma mark NSDate相关字符串处理
 + (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)format;

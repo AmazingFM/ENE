@@ -26,6 +26,7 @@
 #import "YMBaseItem.h"
 
 #define kPageScrollViewHeight 200
+#define kPageSize @"20"
 
 @protocol YMHomeCollectionHeaderDelegate <NSObject>
 
@@ -430,7 +431,7 @@
     self.params[kYM_SPECID] = self.spec_id;
     
     self.params[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    self.params[kYM_PAGESIZE] = @"1";
+    self.params[kYM_PAGESIZE] = kPageSize;
     
     [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:self.params success:^(id responseObject) {
         [self.myRefreshView endRefreshing];

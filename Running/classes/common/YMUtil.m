@@ -167,17 +167,17 @@ NSString *kKeyChainUUIDAccessGroup = @"com.running";
     return [data writeToFile:realPath atomically:YES];
 }
 
-+(NSObject*)loadKey:(NSString*)key{
++(id)loadKey:(NSString*)key{
     NSUserDefaults* userDefault=[NSUserDefaults standardUserDefaults];
-    return [userDefault valueForKey:key];
+    return [userDefault objectForKey:key];
 }
 
-+(BOOL)saveKey:(NSString*)key value:(NSObject*)value{
++(void)saveKey:(NSString*)key value:(id)value{
     NSUserDefaults* userDefault=[NSUserDefaults standardUserDefaults];
     if(userDefault){
         [userDefault setObject:value forKey:key];
     }
-    return [userDefault synchronize];
+    [userDefault synchronize];
 }
 
 +(BOOL)needUpgradeVersion:(NSString*)version newVersion:(NSString*)newVersion{

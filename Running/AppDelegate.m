@@ -25,7 +25,7 @@
 #import "LBLaunchImageAdView.h"
 #import "YMUserManager.h"
 #import "YMDataManager.h"
-
+#import "YMVersionManager.h"
 
 float g_nOSVersion;
 NSString *g_strVersion;
@@ -154,7 +154,8 @@ UIWindow *g_mainWindow;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [[YMVersionManager sharedManager] getVersionInfo];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

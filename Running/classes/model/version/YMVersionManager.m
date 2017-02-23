@@ -29,6 +29,8 @@
     return instance;
 }
 
+#define kUpdateVersionKey @"kUpdateVersionKey"
+
 - (void)getVersionInfo
 {
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -53,34 +55,61 @@
             NSString *resp_id = respDict[kYM_RESPID];
             if ([resp_id integerValue]==0) {
                 NSDictionary *versionInfoDict = respDict[kYM_RESPDATA];
-                self.newestVersion = versionInfoDict[@"version_code"];
-                self.downloadUrl = versionInfoDict[@"download_url"];
-                self.updateLog = versionInfoDict[@"update_log"];
-                self.forced = ![versionInfoDict[@"forces"] boolValue];
+                //保存版本更新信息
+                [YMUtil saveKey:kUpdateVersionKey value:versionInfoDict];
                 
-                if ([self.newestVersion floatValue]==[g_strVersion floatValue]) {
-
-                    UIAlertView *alertView = nil;
-                    if (self.forced) {
-                        alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:self.updateLog delegate:self cancelButtonTitle:@"更新" otherButtonTitles:nil];
-                        alertView.tag = 0;
-                    } else {
-                        alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:self.updateLog delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"更新", nil];
-                        alertView.tag = 1;
-                    }
-                    
-                    [alertView show];
-                }
+                [self dealWithServerInfo:versionInfoDict];
+                
             } else {
                 NSString *resp_desc = respDict[kYM_RESPDESC];
                 showDefaultAlert(resp_id, resp_desc);
             }
         }
     } failure:^(NSError *error) {
-        //
+        NSDictionary *versionInfoDict = [YMUtil loadKey:kUpdateVersionKey];
+        [self dealWithServerInfo:versionInfoDict];
     }];
 }
 
+- (void)dealWithServerInfo:(NSDictionary *)versionInfoDict
+{
+    self.newestVersion = versionInfoDict[@"version_code"];
+    self.downloadUrl = versionInfoDict[@"download_url"];
+    self.updateLog = versionInfoDict[@"update_log"];
+    self.forced = ![versionInfoDict[@"forces"] boolValue];
+    
+    if ([self needUpgradeVesion:g_strVersion newVersion:self.newestVersion]) {
+        UIAlertView *alertView = nil;
+        if (self.forced) {
+            alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:self.updateLog delegate:self cancelButtonTitle:@"更新" otherButtonTitles:nil];
+            alertView.tag = 0;
+        } else {
+            alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:self.updateLog delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"更新", nil];
+            alertView.tag = 1;
+        }
+        
+        [alertView show];
+    }
+}
+
+- (BOOL)needUpgradeVesion:(NSString *)version newVersion:(NSString *)newVersion
+{
+    NSArray *vers = [version componentsSeparatedByString:@"."];
+    NSArray *newVers = [newVersion componentsSeparatedByString:@"."];
+    
+    if ([newVers[0] intValue]>[vers[0] intValue]) {
+        return YES;
+    } else {
+        if([newVers[1] intValue]>[vers[1] intValue]) {
+            return YES;
+        } else {
+            if([newVers[2] intValue]>[vers[2] intValue]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag==0) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.downloadUrl]];
