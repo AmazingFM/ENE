@@ -20,7 +20,6 @@
 #import "YMGlobal.h"
 #import "UIColor+Util.h"
 
-#import "YMSegment.h"
 #import "YMLocalResource.h"
 //用于网络请求
 #import "YMDataManager.h"
@@ -50,7 +49,6 @@
 
 @interface YMCollectionTestController () <UISearchBarDelegate, YMPageScrollViewDelegate, YMGoodsCollectionViewCellDelegate,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
-//    YMPageScrollView *_pageScrollView;
     NSMutableArray *_goodsTopArr;
     
     float rowHeight;
@@ -59,8 +57,6 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *dataList;
-@property (nonatomic, retain) YMSegment *ymSegment;
-@property (nonatomic, weak) UIScrollView *bigScroll;
 
 @end
 
@@ -137,7 +133,7 @@
         _collectionView.alwaysBounceVertical = YES;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        [_collectionView setBackgroundColor:[UIColor clearColor]];
+
         //注册cell
         [_collectionView registerClass:[YMGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"goodslist"];
         [_collectionView registerClass:[YMCollectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"collectHeaderViewId"];

@@ -9,7 +9,4 @@
 #import "YMBaseViewController.h"
 
 @interface YMHomeViewController : YMBaseViewController
-
-//@property (nonatomic, assign) int index;
-
 @end
