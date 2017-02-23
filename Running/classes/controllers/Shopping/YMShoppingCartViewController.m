@@ -404,13 +404,13 @@
     self.navigationItem.title=@"购物车";
     self.view.backgroundColor = rgba(242, 242, 242, 1);
 
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _mainTableView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight-kYMNavigationBarHeight-kYMTabbarHeight-20-44);
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMTabbarHeight-44) style:UITableViewStylePlain];
+//    _mainTableView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight-kYMNavigationBarHeight-kYMTabbarHeight-20-44);
     _mainTableView.backgroundColor = rgba(242, 242, 242, 1);
     _mainTableView.showsVerticalScrollIndicator = NO;
     _mainTableView.showsHorizontalScrollIndicator = NO;
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _mainTableView.bounces = NO;
+    _mainTableView.bounces = YES;
     _mainTableView.delegate=self;
     _mainTableView.dataSource=self;
     _mainTableView.tableFooterView = [[UIView alloc] init];
@@ -490,10 +490,10 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 - (void)removeNotificationCell
@@ -515,11 +515,11 @@
     for (UIView *sub in subviews) {
         CGFloat maxY = CGRectGetMaxY(sub.frame);
         if ([sub isKindOfClass:[UITableView class]]) {
-            sub.frame = CGRectMake(0,0,sub.frame.size.width, g_screenHeight-_toolbar.frame.size.height-rect.size.height-20-kYMNavigationBarHeight);
-            sub.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.0, sub.frame.size.height/2);
+            sub.frame = CGRectMake(0,kYMTopBarHeight,sub.frame.size.width, g_screenHeight-_toolbar.frame.size.height-rect.size.height-kYMTopBarHeight);
+//            sub.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.0, (kYMTopBarHeight+sub.frame.size.height)/2);
         } else {
             if (maxY > y - 2) {
-                sub.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.0, sub.center.y - maxY + y-(44+20) );
+                sub.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.0, sub.center.y - maxY + y );
             }
         }
     }
@@ -545,9 +545,9 @@
         }
     }
     _toolbar.frame=CGRectMake(0, g_screenHeight, g_screenWidth, _toolbar.frame.size.height);
-    _footerViewForSection.frame = CGRectMake(0, g_screenHeight-kYMNavigationBarHeight-kYMTabbarHeight-20-44,g_screenWidth, 44);
+    _footerViewForSection.frame = CGRectMake(0, g_screenHeight-kYMTabbarHeight-44,g_screenWidth, 44);
     
-    _mainTableView.frame=CGRectMake(0, 0, g_screenWidth, g_screenHeight-kYMNavigationBarHeight-kYMTabbarHeight-20-44);
+    _mainTableView.frame=CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMTabbarHeight-44);
     [UIView commitAnimations];
 }
 
@@ -646,7 +646,7 @@
 - (UIView *)footerViewForSection
 {
     if (_footerViewForSection==nil) {
-        _footerViewForSection = [[UIView alloc] initWithFrame:CGRectMake(0,_mainTableView.frame.size.height,g_screenWidth, 44.f)];
+        _footerViewForSection = [[UIView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(_mainTableView.frame),g_screenWidth, 44.f)];
         _footerViewForSection.backgroundColor = [UIColor whiteColor];
         
         _allBottomBtn = [[UIButton alloc] initWithFrame:CGRectMake(kYMBorderMargin,(44-kBtnWidth)/2,kBtnWidth,kBtnWidth)];

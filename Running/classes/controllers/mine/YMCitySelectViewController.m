@@ -46,7 +46,7 @@
     indicator.center = CGPointMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5);
     [self.view addSubview:indicator];
 
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(kYMBorderMargin, 0, g_screenWidth-2*kYMBorderMargin, g_screenHeight-kYMNavigationBarHeight-20) style:UITableViewStylePlain];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(kYMBorderMargin, kYMTopBarHeight, g_screenWidth-2*kYMBorderMargin, g_screenHeight-kYMTopBarHeight) style:UITableViewStylePlain];
     _mainTableView.backgroundColor = [UIColor clearColor];
     _mainTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.separatorColor = [UIColor lightGrayColor];

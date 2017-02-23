@@ -71,10 +71,9 @@
  */
 - (void)loadMenuBar
 {
-    YMCollectionTestController *home = [[YMCollectionTestController alloc] init];
+//    YMCollectionTestController *home = [[YMCollectionTestController alloc] init];
+    YMHomeViewController *home = [[YMHomeViewController alloc] init];
     YMBaseNavigationController *homeNav = [[YMBaseNavigationController alloc] initWithRootViewController:home];
-//    YMHomeViewController *home = [[YMHomeViewController alloc] init];
-//    YMBaseNavigationController *homeNav = [[YMBaseNavigationController alloc] initWithRootViewController:home];
     
     YMCategoryViewController *category = [[YMCategoryViewController alloc] init];
     YMBaseNavigationController *categoryNav = [[YMBaseNavigationController alloc] initWithRootViewController:category];
@@ -89,7 +88,7 @@
     YMBaseNavigationController *adviceNav = [[YMBaseNavigationController alloc] initWithRootViewController:advice];
     
     self.viewControllers = @[homeNav, shoppingNav, categoryNav, mineNav, adviceNav];
-    NSArray *titles = @[@"首页", @"购物车", @"分类", @"我的", @"咨询"];
+    NSArray *titles = @[@"首页", @"购物车", @"分类", @"我的", @"客服咨询"];
     NSArray *images = @[@"tabbar-home", @"tabbar-shopping", @"tabbar-category", @"tabbar-mine", @"tabbar-advice"];
     [self.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
         item.tag = kYMMainMenuBarItemTag+idx;

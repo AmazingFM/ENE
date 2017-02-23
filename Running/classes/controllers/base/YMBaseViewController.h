@@ -21,8 +21,8 @@
 @interface YMBaseViewController : UIViewController
 @property (nonatomic, retain) NSMutableDictionary<NSString *, NSString *> *params;
 
--(void)refresh;
--(void)setRefresh:(BOOL)flag;
+- (void)refresh;
+- (void)setRefresh:(BOOL)flag;
 - (void)showCustomHUDView:(NSString *)title;
 - (void)showTextHUDView:(NSString *)title;
 - (BOOL)getParameters;

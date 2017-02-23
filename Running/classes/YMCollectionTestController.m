@@ -103,6 +103,7 @@
 //    [MXNavigationBarManager setTintColor:[UIColor blackColor]];
 //    [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
 //    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 //    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
@@ -115,33 +116,34 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    self.automaticallyAdjustsScrollViewInsets = YES;
     //统一导航样式
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
     
-    [self.naviNew removeFromSuperview];
+//    [self.naviNew removeFromSuperview];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGPoint point = scrollView.contentOffset;
-    if (point.y < 0) {
-        //不能向上拉的逻辑
-        self.collectionView.contentOffset = CGPointMake(0.0, 0.0);
-        self.collectionView.userInteractionEnabled = YES;
-    }
-    NSLog(@"point %@",NSStringFromCGPoint(point));
-    
-    //变色的逻辑
-    if (point.y>=136&&point.y<=200) {
-        CGFloat ap = (point.y-136)/64;
-        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:ap];
-    }else if (point.y>200){
-        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:1];
-    }else{
-        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:0];
-    }
-    
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    CGPoint point = scrollView.contentOffset;
+//    if (point.y < 0) {
+//        //不能向上拉的逻辑
+//        self.collectionView.contentOffset = CGPointMake(0.0, 0.0);
+//        self.collectionView.userInteractionEnabled = YES;
+//    }
+//    NSLog(@"point %@",NSStringFromCGPoint(point));
+//    
+//    //变色的逻辑
+//    if (point.y>=136&&point.y<=200) {
+//        CGFloat ap = (point.y-136)/64;
+//        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:ap];
+//    }else if (point.y>200){
+//        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:1];
+//    }else{
+//        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:0];
+//    }
+//    
+//}
 
 - (NSMutableArray *)itemArray
 {

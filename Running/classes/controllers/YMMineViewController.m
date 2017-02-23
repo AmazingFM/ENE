@@ -75,11 +75,11 @@
     [self.view addSubview:_mainTableView];
     
     UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    settingBtn.frame = CGRectMake(g_screenWidth-10-32,20+(44.f-32)/2,32,32);
+    settingBtn.frame = CGRectMake(0,0,32,32);;//CGRectMake(g_screenWidth-10-32,20+(44.f-32)/2,32,32);
     [settingBtn setImage:[UIImage imageNamed:@"icon_setting"] forState:UIControlStateNormal];
     settingBtn.imageView.contentMode= UIViewContentModeScaleToFill;
     [settingBtn addTarget:self action:@selector(settingBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:settingBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingBtn];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserInfo:) name:kYMNoticeUserInfoUpdateIdentifier object:nil];
@@ -87,8 +87,7 @@
 
 - (void)updateUserInfo:(NSNotification *)notice
 {
-    NSDictionary *userInfo = notice.userInfo;
-    
+//    NSDictionary *userInfo = notice.userInfo;
 }
 
 - (void)dealloc
@@ -99,14 +98,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
     [self requestOrdersState];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [super viewWillDisappear:animated];
+//    self.automaticallyAdjustsScrollViewInsets = YES;
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
 }
 
 - (void)addHeader

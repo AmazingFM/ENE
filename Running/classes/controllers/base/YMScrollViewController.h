@@ -7,23 +7,8 @@
 //
 
 #import "YMBaseViewController.h"
+#import "YMScrollBarMenuView.h"
 
-@protocol YMScrollMenuControllerDelegate <NSObject>
-
--(void)menuControllerWillSelectIndex:(int)index;
--(void)menuControllerSelectAtIndex:(int)index;
-
-@end
-
-@interface YMScrollBarMenuView : UIView
-@property(nonatomic,assign)id<YMScrollMenuControllerDelegate> menuDelegate;
-@property(nonatomic,assign)int selectedIndex;
--(void)setMenuItems:(NSArray*)items;
--(void)setMenuFont:(float)fontSize;
--(void)setTitle:(NSString*)title atIndex:(int)index;
--(void)setVisibleSelectedIndex:(int)selectedIndex;
--(void)setOffset:(int)index;
-@end
 
 @interface YMScrollViewController : YMBaseViewController
 @property(nonatomic,strong)UIScrollView*    scrollView;

@@ -11,7 +11,7 @@
 #import "YMGoodsListController.h"
 #import "YMGoodsDetailController.h"
 #import "YMSearchViewController.h"
-
+#import "YMCollectionViewFlowLayout.h"
 #import "YMPageScrollView.h"
 
 #import "YMCommon.h"
@@ -107,7 +107,6 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = rgba(242, 242, 242, 1);
     
-    
     [self.view addSubview:self.collectionView];
     
     [self addSearchBar];
@@ -119,9 +118,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+
     [self refresh];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    //统一导航样式
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
 }
 
 - (NSMutableArray *)itemArray
@@ -135,7 +145,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    self.collectionView.frame = self.view.bounds;
+    self.collectionView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight);
 }
 
 - (UICollectionView *)collectionView
@@ -145,7 +155,8 @@
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
         flowLayout.minimumLineSpacing = 10;
         flowLayout.minimumInteritemSpacing = 1;
-        flowLayout.headerReferenceSize = CGSizeMake(g_screenWidth, kPageScrollViewHeight+10);
+        flowLayout.headerReferenceSize = CGSizeMake(g_screenWidth, kPageScrollViewHeight);
+        flowLayout.sectionInset = UIEdgeInsetsMake(10,5,0,5);
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor clearColor];
@@ -202,7 +213,6 @@
         [self getGoodsList];
     }
 }
-
 
 - (void)getHeaderData
 {

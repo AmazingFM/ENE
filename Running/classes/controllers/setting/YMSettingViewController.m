@@ -40,16 +40,16 @@
     _titles = @[@[@"推送消息设置", @"清除本地缓存"], @[@"修改密码", @"关于"]];
     
     float tableHeight = 4*kYMTableViewDefaultRowHeight+10.f;
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth,tableHeight)];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth,tableHeight+kYMTopBarHeight)];
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    _mainTableView.backgroundColor = rgba(242, 242, 242, 1);
+    _mainTableView.backgroundColor = [UIColor whiteColor];
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.scrollEnabled = NO;
     _mainTableView.tableFooterView = [[UIView alloc] init];
     
     _quitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _quitButton.frame = CGRectMake(kYMBorderMargin,CGRectGetMaxY(_mainTableView.frame)+10.f,g_screenWidth-2*kYMBorderMargin, 40);
+    _quitButton.frame = CGRectMake(kYMBorderMargin,_mainTableView.frame.size.height+20,g_screenWidth-2*kYMBorderMargin, 40);
     [_quitButton setCornerRadius:5.f];
     
     _quitButton.backgroundColor = [UIColor redColor];
@@ -65,8 +65,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self performSelector:@selector(refresh) withObject:nil afterDelay:0.2];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //    self.automaticallyAdjustsScrollViewInsets = YES;
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
 }
 
 - (void)back
@@ -170,20 +177,27 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView* myView = [[UIView alloc] init];
-    myView.backgroundColor = [UIColor clearColor];
+    myView.backgroundColor = rgba(242, 242, 242, 1);
+    return myView;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView* myView = [[UIView alloc] init];
+    myView.backgroundColor = rgba(242, 242, 242, 1);
     return myView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section==0){
-        return 1.0f;
+        return 0;
     }else {
         return 10.0f;
     }
 }
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.6f;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    return 0.6f;
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _titles.count;

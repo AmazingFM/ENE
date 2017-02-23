@@ -19,14 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [super viewDidLoad];
-
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
 //        self.extendedLayoutIncludesOpaqueBars = NO;
 //        self.modalPresentationCapturesStatusBarAppearance = NO;
         self.automaticallyAdjustsScrollViewInsets = YES;
-
-//    
+//
 //    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
 //        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 //    }

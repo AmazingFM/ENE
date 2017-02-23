@@ -15,6 +15,7 @@
 
 #import "YMUtil.h"
 #import "YMUserManager.h"
+#import "YMScrollBarMenuView.h"
 
 
 #define kYMGoodsDetailTag 100
@@ -39,7 +40,7 @@
     float offsety = 0;
     float vPadding = 8;
     
-    offsety +=  g_screenHeight*3/5+vPadding;
+    offsety +=  g_screenHeight*2/5+vPadding;
     CGSize size = [YMUtil sizeOfString:self.goods.goods_name withWidth:g_screenWidth-2*kYMPadding font:kYMGoodsListTitleFont];
     
     offsety += size.height+vPadding;
@@ -77,7 +78,7 @@
 }
 @end
 
-@interface YMGoodsDetailController() <UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, CAAnimationDelegate>
+@interface YMGoodsDetailController() <UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, CAAnimationDelegate, YMScrollMenuControllerDelegate>
 {
     UITableView *_mainTable;
     CALayer     *layer;
@@ -92,6 +93,7 @@
 @property (nonatomic, retain) YMGoodsDetailItem *goodsItem;
 @property (nonatomic, retain) UIButton *addCartButton;
 @property (nonatomic,strong) UIBezierPath *path;
+@property (nonatomic, retain) YMScrollBarMenuView *barMenuView;
 @end
 
 @implementation YMGoodsDetailController
@@ -170,22 +172,15 @@
     self.path = [UIBezierPath bezierPath];
     [_path moveToPoint:_addCartButton.center];
     [_path addQuadCurveToPoint:CGPointMake(perWidth*2.5, _addCartButton.center.y) controlPoint:CGPointMake(perWidth*3, _addCartButton.centerY-200)];
-
     
-    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.frame = CGRectMake(10,20+(44.f-32)/2,32,32);
-    [loginBtn setImage:[UIImage imageNamed:@"nav_back_round"] forState:UIControlStateNormal];
-    loginBtn.imageView.contentMode= UIViewContentModeScaleToFill;
-    [loginBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:loginBtn];
+    self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
+    self.navigationItem.rightBarButtonItem = createBarItemIcon(@"icon-service",self, @selector(service));
     
-    navCollectButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [navCollectButton setImage:[UIImage imageNamed:@"nav-collect"] forState:UIControlStateNormal];
-    [navCollectButton setImage:[UIImage imageNamed:@"nav-collect-selected"] forState:UIControlStateSelected];
-    navCollectButton.frame=CGRectMake(g_screenWidth-10-32,20+(44.f-32)/2,32,32);
-    navCollectButton.tag = kYMGoodsDetailTag;
-    [navCollectButton addTarget:self action:@selector(addToCollect:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:navCollectButton];
+    _barMenuView=[[YMScrollBarMenuView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth/2,kYMScrollBarMenuHeight)];
+    _barMenuView.backgroundColor=[UIColor clearColor];
+    [_barMenuView setMenuItems:@[@"商品", @"评价"]];
+    _barMenuView.menuDelegate=self;
+    self.navigationItem.titleView = _barMenuView;
     
     if ([[YMDataBase sharedDatabase] isExistInIntrestCartWithId:self.goods_id andSubid:self.goods_subid]) {
         collectButton.selected = YES;
@@ -213,18 +208,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    //统一导航样式
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
     [self startGetGoodsInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
-
-
 
 - (YMGoodsDetailItem *)goodsItem
 {
@@ -238,6 +232,11 @@
 - (void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)service
+{
+    
 }
 
 - (void)barButtonClick:(UIButton *)sender
@@ -324,7 +323,7 @@
         
         YMPageScrollView *pageScroll = [cell viewWithTag:100];
         if (pageScroll==nil) {
-            pageScroll = [[YMPageScrollView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, g_screenHeight*3/5)];
+            pageScroll = [[YMPageScrollView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, g_screenHeight*2/5)];
             pageScroll.backgroundColor = [UIColor clearColor];
             [cell addSubview:pageScroll];
         }

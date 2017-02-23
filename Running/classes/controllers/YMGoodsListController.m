@@ -228,7 +228,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    self.collectionView.frame = CGRectMake(0, kYMTopBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-kYMTopBarHeight);//;self.view.bounds;
+    self.collectionView.frame = CGRectMake(0, kYMTopBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-kYMTopBarHeight-kYMTabbarHeight);//;self.view.bounds;
 }
 
 - (UICollectionView *)collectionView
@@ -250,7 +250,7 @@
         _collectionView.alwaysBounceVertical = YES;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.backgroundColor = [UIColor yellowColor];
+        _collectionView.backgroundColor = [UIColor clearColor];
         //注册cell
         [_collectionView registerClass:[YMGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"goodslist"];
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];

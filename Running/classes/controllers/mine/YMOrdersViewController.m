@@ -141,7 +141,7 @@
     
     self.view.backgroundColor = rgba(238, 238, 238, 1);
     
-    _barMenuView=[[YMScrollBarMenuView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth,kYMScrollBarMenuHeight)];
+    _barMenuView=[[YMScrollBarMenuView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight,g_screenWidth,kYMScrollBarMenuHeight)];
     _barMenuView.selectedIndex = self.selectedIndex;
     _barMenuView.backgroundColor=[UIColor whiteColor];
     [_barMenuView setMenuItems:self.titles];
@@ -149,7 +149,7 @@
     [self.view addSubview:_barMenuView];
     
 
-    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,kYMScrollBarMenuHeight,g_screenWidth, g_screenHeight-20-kYMNavigationBarHeight-kYMScrollBarMenuHeight) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight+kYMScrollBarMenuHeight,g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMScrollBarMenuHeight) style:UITableViewStylePlain];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

@@ -46,7 +46,7 @@
     
     rowHeight = 44.f;
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(kYMBorderMargin, 0, g_screenWidth-2*kYMBorderMargin, g_screenHeight-kYMNavigationBarHeight) style:UITableViewStylePlain];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(kYMBorderMargin, kYMTopBarHeight, g_screenWidth-2*kYMBorderMargin, g_screenHeight-kYMNavigationBarHeight-kYMTopBarHeight) style:UITableViewStylePlain];
     _mainTableView.backgroundColor = [UIColor clearColor];
     _mainTableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
     _mainTableView.separatorColor = [UIColor lightGrayColor];

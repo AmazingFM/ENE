@@ -55,7 +55,7 @@
 
     self.view.backgroundColor = rgba(238, 238, 238, 1);
     
-    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, g_screenHeight-20-2*kYMNavigationBarHeight) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight,g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMNavigationBarHeight) style:UITableViewStylePlain];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -85,7 +85,7 @@
     _noItemImg.hidden = YES;
     _noItemDesc.hidden = YES;
     
-    UIView *btnBack = [[UIView alloc] initWithFrame:CGRectMake(0, g_screenHeight-2*kYMNavigationBarHeight-20, g_screenWidth, kYMNavigationBarHeight)];
+    UIView *btnBack = [[UIView alloc] initWithFrame:CGRectMake(0, g_screenHeight-kYMNavigationBarHeight, g_screenWidth, kYMNavigationBarHeight)];
     btnBack.backgroundColor = [UIColor whiteColor];
     
     _addAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
