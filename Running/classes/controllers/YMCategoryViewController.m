@@ -73,7 +73,7 @@
 {
     goodsViewController = [[YMGoodsViewController alloc] init];
     goodsViewController.delegate = self;
-    goodsViewController.view.frame = CGRectMake(0,0, g_screenWidth,g_screenHeight);
+    goodsViewController.view.frame = CGRectMake(0,kYMTopBarHeight, g_screenWidth,g_screenHeight-kYMTopBarHeight);
     [self.view addSubview:goodsViewController.view];
     [goodsViewController viewWillAppear:YES];
 }

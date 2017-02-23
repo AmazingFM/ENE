@@ -14,6 +14,8 @@
 #import "YMAdviceViewController.h"
 #import "YMBaseNavigationController.h"
 
+#import "YMCollectionTestController.h"
+
 #import "UIColor+Util.h"
 #import "UITabBar+badge.h"
 #import "YMUserManager.h"
@@ -69,8 +71,10 @@
  */
 - (void)loadMenuBar
 {
-    YMHomeViewController *home = [[YMHomeViewController alloc] init];
+    YMCollectionTestController *home = [[YMCollectionTestController alloc] init];
     YMBaseNavigationController *homeNav = [[YMBaseNavigationController alloc] initWithRootViewController:home];
+//    YMHomeViewController *home = [[YMHomeViewController alloc] init];
+//    YMBaseNavigationController *homeNav = [[YMBaseNavigationController alloc] initWithRootViewController:home];
     
     YMCategoryViewController *category = [[YMCategoryViewController alloc] init];
     YMBaseNavigationController *categoryNav = [[YMBaseNavigationController alloc] initWithRootViewController:category];

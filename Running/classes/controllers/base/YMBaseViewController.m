@@ -20,20 +20,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [super viewDidLoad];
-    if ([[UIDevice currentDevice].systemVersion floatValue]>=7) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.extendedLayoutIncludesOpaqueBars = NO;
-        self.modalPresentationCapturesStatusBarAppearance = NO;
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    } else {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
-        self.wantsFullScreenLayout = YES;
-#endif
-    }
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.extendedLayoutIncludesOpaqueBars = NO;
+//        self.modalPresentationCapturesStatusBarAppearance = NO;
+        self.automaticallyAdjustsScrollViewInsets = YES;
+
+//    
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
 }
 
 - (NSMutableDictionary<NSString *, NSString *> *)params

@@ -20,6 +20,7 @@
 #define kYMTabbarHeight        49
 #define kYMNavigationBarHeight 44
 #define kYMScrollBarMenuHeight 40
+#define kYMTopBarHeight 64
 
 #define kYMBorderMargin 15
 #define kYMPadding  5

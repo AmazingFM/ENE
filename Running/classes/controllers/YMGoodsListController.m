@@ -52,14 +52,12 @@
         CGSize size = [YMUtil sizeWithFont:@"￥:00.00" withFont:kYMGoodsListPriceFont];
         size.height += 10;
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(offsetx, frameSize.height-size.height, frameSize.width-50, size.height)];
-//        _priceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _priceLabel.backgroundColor = [UIColor clearColor];
         _priceLabel.font = kYMGoodsListPriceFont;
         _priceLabel.textColor = [UIColor redColor];
         
         _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectMake(frameSize.width-10-(size.height-10), frameSize.height-size.height+5, size.height-10, size.height-10)];
         
-//        _favoriteBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _favoriteBtn.tag = kYMGoodsListButtonViewTag;
         _favoriteBtn.backgroundColor = [UIColor clearColor];
         [_favoriteBtn setImage:[UIImage imageNamed:@"icon-collect.png"] forState:UIControlStateNormal];
@@ -73,7 +71,6 @@
         size.height += 4;
 
         _subgnameLabel = [[UILabel alloc] initWithFrame:CGRectMake(offsetx, frameSize.height-size.height-defaultH, frameSize.width, size.height)];
-//        _subgnameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _subgnameLabel.backgroundColor = [UIColor clearColor];
         _subgnameLabel.font = kYMGoodsListDetailFont;
         _subgnameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -231,7 +228,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    self.collectionView.frame = self.view.bounds;
+    self.collectionView.frame = CGRectMake(0, kYMTopBarHeight, self.view.bounds.size.width, self.view.bounds.size.height-kYMTopBarHeight);//;self.view.bounds;
 }
 
 - (UICollectionView *)collectionView
@@ -247,14 +244,13 @@
         flowlayout.sectionInset = UIEdgeInsetsMake(5,5,0,5);
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowlayout];
-        _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         _collectionView.alwaysBounceVertical = YES;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        [_collectionView setBackgroundColor:[UIColor clearColor]];
+        _collectionView.backgroundColor = [UIColor yellowColor];
         //注册cell
         [_collectionView registerClass:[YMGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"goodslist"];
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];

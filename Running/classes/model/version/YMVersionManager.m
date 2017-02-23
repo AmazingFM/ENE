@@ -99,10 +99,10 @@
     
     if ([newVers[0] intValue]>[vers[0] intValue]) {
         return YES;
-    } else {
+    } else if ([newVers[0] intValue]==[vers[0] intValue]){
         if([newVers[1] intValue]>[vers[1] intValue]) {
             return YES;
-        } else {
+        } else if([newVers[1] intValue]==[vers[1] intValue]){
             if([newVers[2] intValue]>[vers[2] intValue]) {
                 return YES;
             }

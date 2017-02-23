@@ -77,6 +77,7 @@
 		3A0336A91D800BCF00877D59 /* YMRoundCornerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0336A81D800BCF00877D59 /* YMRoundCornerCell.m */; };
 		3A0336AD1D811DC500877D59 /* YMNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0336AC1D811DC500877D59 /* YMNetwork.m */; };
 		3A0336B01D811FEF00877D59 /* YMHttpNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0336AF1D811FEF00877D59 /* YMHttpNetwork.m */; };
+		3A082A8A1E5ECD9A00BD6747 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A891E5ECD9A00BD6747 /* MXNavigationBarManager.m */; };
 		3A14CF601E2DFE5300C72077 /* YMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF5F1E2DFE5300C72077 /* YMPackage.m */; };
 		3A14CF631E2DFE9000C72077 /* YMHttpPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF621E2DFE9000C72077 /* YMHttpPackage.m */; };
 		3A14CF671E2E178400C72077 /* YMVersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF661E2E178400C72077 /* YMVersionManager.m */; };
@@ -335,6 +336,8 @@
 		3A0336AC1D811DC500877D59 /* YMNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNetwork.m; sourceTree = "<group>"; };
 		3A0336AE1D811FEF00877D59 /* YMHttpNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHttpNetwork.h; sourceTree = "<group>"; };
 		3A0336AF1D811FEF00877D59 /* YMHttpNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMHttpNetwork.m; sourceTree = "<group>"; };
+		3A082A881E5ECD9A00BD6747 /* MXNavigationBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXNavigationBarManager.h; sourceTree = "<group>"; };
+		3A082A891E5ECD9A00BD6747 /* MXNavigationBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXNavigationBarManager.m; sourceTree = "<group>"; };
 		3A14CF5E1E2DFE5300C72077 /* YMPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMPackage.h; sourceTree = "<group>"; };
 		3A14CF5F1E2DFE5300C72077 /* YMPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMPackage.m; sourceTree = "<group>"; };
 		3A14CF611E2DFE9000C72077 /* YMHttpPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHttpPackage.h; sourceTree = "<group>"; };
@@ -698,6 +701,7 @@
 		3A03369B1D7EB0C400877D59 /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				3A082A871E5ECD9A00BD6747 /* MXNavigationBarManager */,
 				3A6038A01DB8A1AE004EA3A7 /* PPNetworkHelper */,
 				3AA541951DA7AC26005AC671 /* UUChart */,
 				2C3271C71D97BC63009D8CC1 /* LBLaunchImageAd */,
@@ -744,6 +748,15 @@
 				3A14CF621E2DFE9000C72077 /* YMHttpPackage.m */,
 			);
 			path = net;
+			sourceTree = "<group>";
+		};
+		3A082A871E5ECD9A00BD6747 /* MXNavigationBarManager */ = {
+			isa = PBXGroup;
+			children = (
+				3A082A881E5ECD9A00BD6747 /* MXNavigationBarManager.h */,
+				3A082A891E5ECD9A00BD6747 /* MXNavigationBarManager.m */,
+			);
+			path = MXNavigationBarManager;
 			sourceTree = "<group>";
 		};
 		3A14CF641E2E0B7A00C72077 /* version */ = {
@@ -1434,6 +1447,7 @@
 				2C621BEB1D84540300068F76 /* YMShoppingCartViewController.m in Sources */,
 				2C3BFAF51D9D636F00365424 /* YMNewAddressViewController.m in Sources */,
 				3A2B5DC21D77118E0036720E /* UIScrollView+ScalableCover.m in Sources */,
+				3A082A8A1E5ECD9A00BD6747 /* MXNavigationBarManager.m in Sources */,
 				3A2B5D4E1D76FB900036720E /* YMBaseNavigationController.m in Sources */,
 				3AA541A71DA7AC26005AC671 /* UULineChart.m in Sources */,
 				3AA541A31DA7AC26005AC671 /* UUBarChart.m in Sources */,
@@ -1677,7 +1691,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yeoman.ene;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "df6ea972-4493-4deb-a7c4-5395ddf817a9";
+				PROVISIONING_PROFILE = "1ac53d58-fade-46ac-99ff-5235e42e86a8";
 				PROVISIONING_PROFILE_SPECIFIER = YMWildPro_Adhoc;
 			};
 			name = Release;

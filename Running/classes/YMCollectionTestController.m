@@ -14,6 +14,8 @@
 #import "YMGoodsDetailController.h"
 #import "YMSearchViewController.h"
 
+#import "MXNavigationBarManager.h"
+
 #import "YMPageScrollView.h"
 #import "YMBaseItem.h"
 #import "YMCommon.h"
@@ -57,6 +59,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *dataList;
+@property (nonatomic, retain) UIView *naviNew;
 
 @end
 
@@ -93,9 +96,51 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+//    [MXNavigationBarManager managerWithController:self];
+//    [MXNavigationBarManager setBarColor:[UIColor clearColor]];
+    
+    //optional
+//    [MXNavigationBarManager setTintColor:[UIColor blackColor]];
+//    [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
+//    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+//    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//    self.naviNew = [[UIView alloc]initWithFrame:CGRectMake(0, -20, self.navigationController.navigationBar.bounds.size.width,self.navigationController.navigationBar.bounds.size.height+20)];
+//    self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:0];
+//    [self.navigationController.navigationBar insertSubview:self.naviNew atIndex:0];
     
     [self refresh];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //统一导航样式
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+    
+    [self.naviNew removeFromSuperview];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGPoint point = scrollView.contentOffset;
+    if (point.y < 0) {
+        //不能向上拉的逻辑
+        self.collectionView.contentOffset = CGPointMake(0.0, 0.0);
+        self.collectionView.userInteractionEnabled = YES;
+    }
+    NSLog(@"point %@",NSStringFromCGPoint(point));
+    
+    //变色的逻辑
+    if (point.y>=136&&point.y<=200) {
+        CGFloat ap = (point.y-136)/64;
+        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:ap];
+    }else if (point.y>200){
+        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:1];
+    }else{
+        self.naviNew.backgroundColor = [UIColor colorWithHex:0xff5179 alpha:0];
+    }
+    
 }
 
 - (NSMutableArray *)itemArray
