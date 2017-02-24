@@ -80,6 +80,11 @@
 		3A082A8A1E5ECD9A00BD6747 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A891E5ECD9A00BD6747 /* MXNavigationBarManager.m */; };
 		3A082A8C1E5F1F9300BD6747 /* icon-service@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A8B1E5F1F9300BD6747 /* icon-service@2x.png */; };
 		3A082A8F1E5F213A00BD6747 /* YMScrollBarMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A8E1E5F213A00BD6747 /* YMScrollBarMenuView.m */; };
+		3A082A921E5FBF3400BD6747 /* YMRatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A911E5FBF3400BD6747 /* YMRatingBar.m */; };
+		3A082A951E5FC51100BD6747 /* icon-starempty.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A931E5FC51100BD6747 /* icon-starempty.png */; };
+		3A082A961E5FC51100BD6747 /* icon-starfull.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A941E5FC51100BD6747 /* icon-starfull.png */; };
+		3A082A9A1E5FD19700BD6747 /* YMCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A991E5FD19700BD6747 /* YMCommentViewController.m */; };
+		3A082A9D1E5FD1EB00BD6747 /* YMImageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A9C1E5FD1EB00BD6747 /* YMImageLoadView.m */; };
 		3A14CF601E2DFE5300C72077 /* YMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF5F1E2DFE5300C72077 /* YMPackage.m */; };
 		3A14CF631E2DFE9000C72077 /* YMHttpPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF621E2DFE9000C72077 /* YMHttpPackage.m */; };
 		3A14CF671E2E178400C72077 /* YMVersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF661E2E178400C72077 /* YMVersionManager.m */; };
@@ -343,6 +348,14 @@
 		3A082A8B1E5F1F9300BD6747 /* icon-service@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-service@2x.png"; sourceTree = "<group>"; };
 		3A082A8D1E5F213A00BD6747 /* YMScrollBarMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMScrollBarMenuView.h; sourceTree = "<group>"; };
 		3A082A8E1E5F213A00BD6747 /* YMScrollBarMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMScrollBarMenuView.m; sourceTree = "<group>"; };
+		3A082A901E5FBF3400BD6747 /* YMRatingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMRatingBar.h; sourceTree = "<group>"; };
+		3A082A911E5FBF3400BD6747 /* YMRatingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMRatingBar.m; sourceTree = "<group>"; };
+		3A082A931E5FC51100BD6747 /* icon-starempty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-starempty.png"; sourceTree = "<group>"; };
+		3A082A941E5FC51100BD6747 /* icon-starfull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-starfull.png"; sourceTree = "<group>"; };
+		3A082A981E5FD19700BD6747 /* YMCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMCommentViewController.h; sourceTree = "<group>"; };
+		3A082A991E5FD19700BD6747 /* YMCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMCommentViewController.m; sourceTree = "<group>"; };
+		3A082A9B1E5FD1EB00BD6747 /* YMImageLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMImageLoadView.h; sourceTree = "<group>"; };
+		3A082A9C1E5FD1EB00BD6747 /* YMImageLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMImageLoadView.m; sourceTree = "<group>"; };
 		3A14CF5E1E2DFE5300C72077 /* YMPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMPackage.h; sourceTree = "<group>"; };
 		3A14CF5F1E2DFE5300C72077 /* YMPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMPackage.m; sourceTree = "<group>"; };
 		3A14CF611E2DFE9000C72077 /* YMHttpPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHttpPackage.h; sourceTree = "<group>"; };
@@ -688,6 +701,10 @@
 				3A7F624B1DC23A7E0076E3E2 /* YMPageControl.m */,
 				3A082A8D1E5F213A00BD6747 /* YMScrollBarMenuView.h */,
 				3A082A8E1E5F213A00BD6747 /* YMScrollBarMenuView.m */,
+				3A082A901E5FBF3400BD6747 /* YMRatingBar.h */,
+				3A082A911E5FBF3400BD6747 /* YMRatingBar.m */,
+				3A082A9B1E5FD1EB00BD6747 /* YMImageLoadView.h */,
+				3A082A9C1E5FD1EB00BD6747 /* YMImageLoadView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -765,6 +782,16 @@
 			);
 			path = MXNavigationBarManager;
 			sourceTree = "<group>";
+		};
+		3A082A971E5FD12C00BD6747 /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				3A082A981E5FD19700BD6747 /* YMCommentViewController.h */,
+				3A082A991E5FD19700BD6747 /* YMCommentViewController.m */,
+			);
+			name = comment;
+			path = Running/classes/comment;
+			sourceTree = SOURCE_ROOT;
 		};
 		3A14CF641E2E0B7A00C72077 /* version */ = {
 			isa = PBXGroup;
@@ -850,6 +877,7 @@
 		3A2B5D2E1D76E6850036720E /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A082A971E5FD12C00BD6747 /* comment */,
 				3AA5417A1DA68C17005AC671 /* recommend */,
 				2C3271871D9588D1009D8CC1 /* setting */,
 				2C621BE21D84533E00068F76 /* Shopping */,
@@ -1030,6 +1058,8 @@
 		3AA541001DA5E251005AC671 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				3A082A931E5FC51100BD6747 /* icon-starempty.png */,
+				3A082A941E5FC51100BD6747 /* icon-starfull.png */,
 				3A082A8B1E5F1F9300BD6747 /* icon-service@2x.png */,
 				3AA541BD1DAD285A005AC671 /* icon-pay-fail@2x.png */,
 				3AA541BE1DAD285A005AC671 /* icon-pay-success@2x.png */,
@@ -1321,6 +1351,7 @@
 				2C3271951D966CF3009D8CC1 /* defaultMenu.png in Resources */,
 				3AA541671DA5E251005AC671 /* product_detail_add_no@2x.png in Resources */,
 				3AA5416F1DA5E251005AC671 /* Unselected@2x.png in Resources */,
+				3A082A961E5FC51100BD6747 /* icon-starfull.png in Resources */,
 				3AA541AE1DA92D2F005AC671 /* collect_del@2x.png in Resources */,
 				3AA5418C1DA7444C005AC671 /* rc-tele@2x.png in Resources */,
 				3AA541491DA5E251005AC671 /* icon-edit@2x.png in Resources */,
@@ -1366,6 +1397,7 @@
 				3AA541451DA5E251005AC671 /* icon-checkon@2x.png in Resources */,
 				3AA541BF1DAD285A005AC671 /* icon-pay-fail@2x.png in Resources */,
 				3A5A3E281E30905A00BB4ABA /* main.json in Resources */,
+				3A082A951E5FC51100BD6747 /* icon-starempty.png in Resources */,
 				3AA5414F1DA5E251005AC671 /* login_bg.png in Resources */,
 				2C3271A21D96BC18009D8CC1 /* bigShadow.png in Resources */,
 				3AA5415B1DA5E251005AC671 /* icon_favourate@2x.png in Resources */,
@@ -1504,6 +1536,7 @@
 				3A7B2D671DA0CA46004A149B /* YMCitySelectViewController.m in Sources */,
 				3AA541941DA79424005AC671 /* YMShowNoticeController.m in Sources */,
 				2C72323E1D8AEA840084397B /* YMAddress.m in Sources */,
+				3A082A9A1E5FD19700BD6747 /* YMCommentViewController.m in Sources */,
 				2C3271B81D9761AE009D8CC1 /* YMDefaultViewController.m in Sources */,
 				3A2B5D541D77038A0036720E /* YMHomeViewController.m in Sources */,
 				2CC0107C1D7DDB9F0033232B /* YMRegisterViewController.m in Sources */,
@@ -1524,6 +1557,7 @@
 				3A2B5D171D76E5750036720E /* main.m in Sources */,
 				3AC41C721D7D56E10060CB59 /* Config.m in Sources */,
 				3AF51EEB1D938E8E00829EE5 /* YMAddressViewController.m in Sources */,
+				3A082A921E5FBF3400BD6747 /* YMRatingBar.m in Sources */,
 				3A14CF631E2DFE9000C72077 /* YMHttpPackage.m in Sources */,
 				2C32716E1D917CCD009D8CC1 /* YMBaseItem.m in Sources */,
 				2C3271CA1D97BC64009D8CC1 /* LBLaunchImageAdView.m in Sources */,
@@ -1546,6 +1580,7 @@
 				3A6038AB1DB8A1AE004EA3A7 /* PPNetworkHelper.m in Sources */,
 				2C5750FC1D803E4B0032285A /* YMCellItems.m in Sources */,
 				3A14CF601E2DFE5300C72077 /* YMPackage.m in Sources */,
+				3A082A9D1E5FD1EB00BD6747 /* YMImageLoadView.m in Sources */,
 				3A2B5D5D1D7704240036720E /* YMMineViewController.m in Sources */,
 				3A0336AD1D811DC500877D59 /* YMNetwork.m in Sources */,
 				2C72325F1D8B9F4B0084397B /* YMToolbarView.m in Sources */,
