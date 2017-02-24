@@ -282,13 +282,13 @@
 
 - (void)startSpecQuery
 {
-    if (![self getParameters]) {
-        return;
-    }
-    
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
 //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=SpecQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=SpecQuery"] parameters:parameters success:^(id responseObject) {
         [self.myRefreshView endRefreshing];
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [hud hideAnimated:YES];

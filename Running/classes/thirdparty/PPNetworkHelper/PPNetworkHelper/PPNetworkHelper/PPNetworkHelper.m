@@ -11,7 +11,9 @@
 #import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
-#import "YMUtil.h"
+#import "YMUserManager.h"
+#import "YMConfig.h"
+
 
 
 #ifdef DEBUG
@@ -20,7 +22,8 @@
 #define PPLog(...)
 #endif
 
-
+@interface PPNetworkHelper()
+@end
 @implementation PPNetworkHelper
 
 static NetworkStatus _status;
@@ -57,7 +60,6 @@ static BOOL _isNetwork;
         }
     }];
     [manager startMonitoring];
-    
 }
 
 + (void)checkNetworkStatusWithBlock:(NetworkStatus)status
@@ -88,24 +90,7 @@ static BOOL _isNetwork;
                    success:(HttpRequestSuccess)success
                    failure:(HttpRequestFailed)failure
 {
-    NSMutableDictionary *newParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    
-    NSString *md5Str = newParameters[@"sign"];
-    
-    if (md5Str==nil || md5Str.length==0) {
-        NSArray *keys = newParameters.allKeys;
-        NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(compare:)];
-        
-        NSMutableString *mStr = [NSMutableString stringWithString:@"ene"];
-        for (int i=0; i<sortedKeys.count; i++) {
-            [mStr appendFormat:@"%@%@", sortedKeys[i], newParameters[sortedKeys[i]]];
-        }
-        [mStr appendString:@"ene"];
-        md5Str = [YMUtil md5HexDigest:mStr];
-        newParameters[@"sign"] = md5Str;
-    }
-    
-    return [self POST:URL parameters:newParameters responseCache:nil success:success failure:failure];
+    return [self POST:URL parameters:parameters responseCache:nil success:success failure:failure];
 }
 
 
@@ -117,11 +102,13 @@ static BOOL _isNetwork;
                   success:(HttpRequestSuccess)success
                   failure:(HttpRequestFailed)failure
 {
+    NSDictionary *newParameters = [self addDescParams:parameters];
+    
     //读取缓存
     responseCache ? responseCache([PPNetworkCache getHttpCacheForKey:URL]) : nil;
     
     AFHTTPSessionManager *manager = [self createAFHTTPSessionManager];
-    return [manager GET:URL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    return [manager GET:URL parameters:newParameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -138,6 +125,38 @@ static BOOL _isNetwork;
     }];
 }
 
++ (NSDictionary *)addDescParams:(NSDictionary *)parameters
+{
+    NSString *uuid = [YMConfig sharedInstance].uuid;
+    NSString *currentDate = [YMConfig sharedInstance].currentDate;
+    NSString *reqSeq = [YMConfig sharedInstance].newReqSeqStr;
+    
+    NSMutableDictionary *newParamsDic = [NSMutableDictionary dictionaryWithDictionary:@{@"app_id":uuid, @"req_seq":reqSeq, @"time_stamp":currentDate}];
+    
+    
+    [newParamsDic addEntriesFromDictionary:parameters];
+    
+    if ([YMUserManager sharedInstance].user!=nil) {
+        newParamsDic[@"token"] = [YMUserManager sharedInstance].user.token;
+    }
+    
+    NSString *md5Str = newParamsDic[@"sign"];
+    
+    if (md5Str==nil || md5Str.length==0) {
+        NSArray *keys = newParamsDic.allKeys;
+        NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(compare:)];
+        
+        NSMutableString *mStr = [NSMutableString stringWithString:@"ene"];
+        for (int i=0; i<sortedKeys.count; i++) {
+            [mStr appendFormat:@"%@%@", sortedKeys[i], newParamsDic[sortedKeys[i]]];
+        }
+        [mStr appendString:@"ene"];
+        md5Str = [YMUtil md5HexDigest:mStr];
+        newParamsDic[@"sign"] = md5Str;
+    }
+
+    return newParamsDic;
+}
 
 #pragma mark - POST请求自动缓存
 
@@ -147,6 +166,24 @@ static BOOL _isNetwork;
                    success:(HttpRequestSuccess)success
                    failure:(HttpRequestFailed)failure
 {
+    NSDictionary *newParameters = [self addDescParams:parameters];
+//    NSMutableDictionary *newParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+//    
+//    NSString *md5Str = newParameters[@"sign"];
+//    
+//    if (md5Str==nil || md5Str.length==0) {
+//        NSArray *keys = newParameters.allKeys;
+//        NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(compare:)];
+//        
+//        NSMutableString *mStr = [NSMutableString stringWithString:@"ene"];
+//        for (int i=0; i<sortedKeys.count; i++) {
+//            [mStr appendFormat:@"%@%@", sortedKeys[i], newParameters[sortedKeys[i]]];
+//        }
+//        [mStr appendString:@"ene"];
+//        md5Str = [YMUtil md5HexDigest:mStr];
+//        newParameters[@"sign"] = md5Str;
+//    }
+    
     //读取缓存
     responseCache ? responseCache([PPNetworkCache getHttpCacheForKey:URL]) : nil;
     
@@ -156,7 +193,7 @@ static BOOL _isNetwork;
 //        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
     
-    return [manager POST:URL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    return [manager POST:URL parameters:newParameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

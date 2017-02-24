@@ -11,7 +11,7 @@
 
 #import "YMUserManager.h"
 #import "YMGlobal.h"
-#import "Config.h"
+#import "YMConfig.h"
 
 @interface YMSettingViewController () <UITableViewDelegate, UITableViewDataSource>
 {
@@ -39,8 +39,8 @@
     
     _titles = @[@[@"推送消息设置", @"清除本地缓存"], @[@"修改密码", @"关于"]];
     
-    float tableHeight = 4*kYMTableViewDefaultRowHeight+10.f;
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth,tableHeight+kYMTopBarHeight)];
+    float tableHeight = 4*kYMTableViewDefaultRowHeight+20.f;
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight, g_screenWidth,tableHeight)];
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     _mainTableView.backgroundColor = [UIColor whiteColor];
@@ -49,7 +49,7 @@
     _mainTableView.tableFooterView = [[UIView alloc] init];
     
     _quitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _quitButton.frame = CGRectMake(kYMBorderMargin,_mainTableView.frame.size.height+20,g_screenWidth-2*kYMBorderMargin, 40);
+    _quitButton.frame = CGRectMake(kYMBorderMargin,kYMTopBarHeight+_mainTableView.frame.size.height+10,g_screenWidth-2*kYMBorderMargin, 40);
     [_quitButton setCornerRadius:5.f];
     
     _quitButton.backgroundColor = [UIColor redColor];
@@ -58,8 +58,8 @@
     _quitButton.titleLabel.font = kYMNormalFont;
     [_quitButton addTarget:self action:@selector(quitLogin:) forControlEvents:UIControlEventTouchUpInside];
 
-    [self.view addSubview:_mainTableView];
     [self.view addSubview:_quitButton];
+    [self.view addSubview:_mainTableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,7 +71,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    //    self.automaticallyAdjustsScrollViewInsets = YES;
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
 }
@@ -160,7 +159,7 @@
 
 - (void)quitLogin:(UIButton *)sender
 {
-    [Config deleteOwnAccount];
+    [YMConfig deleteOwnAccount];
     [YMUserManager sharedInstance].user = nil;
     
     [g_mainMenu setMenuSelectedAtIndex:0];
@@ -174,30 +173,29 @@
     return kYMTableViewDefaultRowHeight;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView* myView = [[UIView alloc] init];
-    myView.backgroundColor = rgba(242, 242, 242, 1);
-    return myView;
-}
-
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView* myView = [[UIView alloc] init];
+//    myView.backgroundColor = rgba(242, 242, 242, 1);
+//    return myView;
+//}
+//
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView* myView = [[UIView alloc] init];
     myView.backgroundColor = rgba(242, 242, 242, 1);
     return myView;
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(section==0){
-        return 0;
-    }else {
-        return 10.0f;
-    }
-}
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 0.6f;
+//
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    if(section==1){
+//        return 10.f;
+//    }
+//    return 0;
 //}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 10.f;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _titles.count;

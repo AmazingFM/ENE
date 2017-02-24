@@ -556,23 +556,22 @@
 }
 
 #pragma mark 网络请求
-- (BOOL)getParameters
-{
-    [super getParameters];
-    
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    return YES;
-}
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+//    return YES;
+//}
 
 - (void)startGetInfo
 {
     [indicator startAnimating];
     
-    if (![self getParameters]) {
-        return;
-    }
-    
-    self.params[@"qry_usr_id"] = [YMUserManager sharedInstance].user.user_id;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"qry_usr_id"] = [YMUserManager sharedInstance].user.user_id;
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
@@ -580,7 +579,7 @@
         return;
     }
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserQuery"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [indicator stopAnimating];
         });
@@ -612,9 +611,9 @@
 
 - (void)updateUserInfo
 {
-    if (![self getParameters]) {
-        return;
-    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
@@ -633,10 +632,10 @@
         if ([item.key isEqualToString:@"submit"]||[item.key isEqualToString:@"readme"]||[item.key isEqualToString:@"remark_code"]) {
             continue;
         }
-        [self.params setObject:item.value forKey:item.key];
+        [parameters setObject:item.value forKey:item.key];
     }
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserModify"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserModify"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [indicator stopAnimating];
         });

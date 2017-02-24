@@ -15,7 +15,7 @@
 #import "YMUserManager.h"
 #import "YMBaseItem.h"
 #import "YMMyBoy.h"
-#import "Config.h"
+#import "YMConfig.h"
 
 #define kYMStatisticHeaderViewHeight 44.f
 #define kYMStatisticRowHeight 80.f
@@ -128,7 +128,7 @@
 
 - (void)loginOut:(UIButton *)sender
 {
-    [Config deleteOwnAccount];
+    [YMConfig deleteOwnAccount];
     
     [g_appDelegate setRootViewControllerWithLogin];
 }
@@ -352,17 +352,15 @@
 #pragma mark 网络请求
 - (void)startGetBoys
 {
-    if (![self getParameters]) {
-        return;
-    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    self.params[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    self.params[kYM_PAGESIZE] = @"30";
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
+    parameters[kYM_PAGESIZE] = @"30";
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CustList"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CustList"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });

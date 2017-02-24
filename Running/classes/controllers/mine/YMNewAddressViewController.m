@@ -341,16 +341,19 @@
 }
 
 #pragma mark 网络请求
-- (BOOL)getParameters
-{
-    [super getParameters];
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    return YES;
-}
+//- (BOOL)getParameters
+//{
+//    [super getParameters];
+//    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+//    return YES;
+//}
 
 - (void)startAddUserAddr
 {
-    [self getParameters];
+//    [self getParameters];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
     
     for (YMBaseCellItem *cellItem in itemlist) {
         if ([cellItem.key isEqualToString:@"delivery_name"] ||
@@ -361,7 +364,7 @@
                 showDefaultAlert(@"提示", [NSString stringWithFormat:@"请输入%@", cellItem.title]);
                 return;
             } else {
-                self.params[cellItem.key] = cellItem.value;
+                parameters[cellItem.key] = cellItem.value;
             }
         } else if ([cellItem.key isEqualToString:@"cityArea"]) {
             NSString *strUrl = [cellItem.value stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -372,11 +375,11 @@
         }
     }
     
-    self.params[@"status"] = [NSString stringWithFormat:@"%d", !_isDefault];
+    parameters[@"status"] = [NSString stringWithFormat:@"%d", !_isDefault];
     
     
     NSDictionary *cityDict = [_city keyValues];
-    [self.params addEntriesFromDictionary:cityDict];
+    [parameters addEntriesFromDictionary:cityDict];
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
@@ -386,7 +389,7 @@
     
     [indicator startAnimating];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrAdd"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrAdd"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [indicator stopAnimating];
         });
@@ -411,7 +414,9 @@
 
 - (void)startModifyAddress
 {
-    [self getParameters];
+//    [self getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
     
     for (YMBaseCellItem *cellItem in itemlist) {
         if ([cellItem.key isEqualToString:@"delivery_name"] ||
@@ -422,7 +427,7 @@
                 showDefaultAlert(@"提示", [NSString stringWithFormat:@"请输入%@", cellItem.title]);
                 return;
             } else {
-                self.params[cellItem.key] = cellItem.value;
+                parameters[cellItem.key] = cellItem.value;
             }
         } else if ([cellItem.key isEqualToString:@"cityArea"]) {
             NSString *strUrl = [cellItem.value stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -433,13 +438,13 @@
         }
     }
     
-    self.params[@"status"] = [NSString stringWithFormat:@"%d", !_isDefault];
+    parameters[@"status"] = [NSString stringWithFormat:@"%d", !_isDefault];
 
     if (self.userAddr!=nil) {
-        self.params[@"usraddr_id"] = self.userAddr.addressId;
+        parameters[@"usraddr_id"] = self.userAddr.addressId;
     }
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrModify"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrModify"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

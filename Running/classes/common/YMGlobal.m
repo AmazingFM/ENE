@@ -24,7 +24,6 @@ void initialize()
     
     [YMLocalResource sharedResource];
     [PPNetworkHelper startMonitoringNetwork];
-    [[YMDataManager shared] readSeqFromDefaults];
 }
 
 void showAlert(NSString* msg){

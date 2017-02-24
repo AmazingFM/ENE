@@ -184,13 +184,6 @@
     [self.navigationController pushViewController:newAddressVC animated:YES];
 }
 
-
-//NSString *addressId;
-//@property (nonatomic, copy) NSString *delivery_name;
-//@property (nonatomic, copy) NSString *contact_no;
-//@property (nonatomic, copy) NSString *delivery_addr;
-//@property (nonatomic, copy) NSString *status;
-
 - (void)modifyAddress:(YMAddressItem *)addressItem withType:(YMAddressAction)type
 {
     _currentItem = addressItem;
@@ -198,18 +191,20 @@
     switch (type) {
         case YMAddressActionDefault:
         {
-            [self getParameters];
+            NSMutableDictionary *parameters = [NSMutableDictionary new];
+            parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+            
             YMAddress *address = addressItem.address;
-            self.params[@"usraddr_id"] = address.addressId;
-            self.params[@"delivery_name"] = address.delivery_name;
-            self.params[@"delivery_addr"] = address.delivery_addr;
-            self.params[@"contact_no"] = address.contact_no;
-            self.params[@"status"] = @"0";//设置为默认
+            parameters[@"usraddr_id"] = address.addressId;
+            parameters[@"delivery_name"] = address.delivery_name;
+            parameters[@"delivery_addr"] = address.delivery_addr;
+            parameters[@"contact_no"] = address.contact_no;
+            parameters[@"status"] = @"0";//设置为默认
             
             YMCity *city = address.city;
-            [self.params addEntriesFromDictionary:[city keyValues]];
+            [parameters addEntriesFromDictionary:[city keyValues]];
             
-            [self startModifyAddress];
+            [self startModifyAddress:parameters];
         }
             break;
         case YMAddressActionEdit:
@@ -235,35 +230,36 @@
 {
     if (buttonIndex==1) {
         //删除地址
-        [self getParameters];
+        NSMutableDictionary *parameters = [NSMutableDictionary new];
+        parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+        
         YMAddress *address = _currentItem.address;
-        self.params[@"usraddr_id"] = address.addressId;
-        self.params[@"delivery_name"] = address.delivery_name;
-        self.params[@"delivery_addr"] = address.delivery_addr;
-        self.params[@"contact_no"] = address.contact_no;
-        self.params[@"status"] = @"2";//删除地址
+        parameters[@"usraddr_id"] = address.addressId;
+        parameters[@"delivery_name"] = address.delivery_name;
+        parameters[@"delivery_addr"] = address.delivery_addr;
+        parameters[@"contact_no"] = address.contact_no;
+        parameters[@"status"] = @"2";//删除地址
         
         YMCity *city = address.city;
-        [self.params addEntriesFromDictionary:[city keyValues]];
+        [parameters addEntriesFromDictionary:[city keyValues]];
         
-        [self startModifyAddress];
+        [self startModifyAddress:parameters];
     }
 }
 
 #pragma mark 网络请求
-- (BOOL)getParameters
-{
-    [super getParameters];
-    
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    return YES;
-}
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    
+//    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+//    return YES;
+//}
 
-- (void)startModifyAddress
+- (void)startModifyAddress:(NSDictionary *)parameters
 {
-    [self getParameters];
-    
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrModify"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrModify"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
@@ -305,9 +301,12 @@
 
 - (void)getAddrList
 {
-    [self getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrList"] parameters:self.params success:^(id responseObject) {
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+
+    
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrList"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

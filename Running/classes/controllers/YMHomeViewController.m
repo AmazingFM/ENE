@@ -216,23 +216,23 @@
 
 - (void)getHeaderData
 {
-    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    NSString *uuid = [YMDataManager shared].uuid;
-    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-    [YMDataManager shared].reqSeq++;
-    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    NSString *uuid = [YMDataManager shared].uuid;
+//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
+//    [YMDataManager shared].reqSeq++;
+//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    
+//    params[kYM_APPID] = uuid;
+//    params[kYM_REQSEQ] = reqSeq;
+//    params[kYM_TIMESTAMP] = currentDate;
     
-    params[kYM_APPID] = uuid;
-    params[kYM_REQSEQ] = reqSeq;
-    params[kYM_TIMESTAMP] = currentDate;
+//    if ([YMUserManager sharedInstance].user!=nil) {
+//        params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
+//    }
+    parameters[@"type_code"] = @"0005";
     
-    if ([YMUserManager sharedInstance].user!=nil) {
-        params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
-    }
-    params[@"type_code"] = @"0005";
-    
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GetAppParam"] parameters:params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GetAppParam"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
@@ -434,16 +434,16 @@
 
 - (void)getGoodsList
 {
-    if (![self getParameters]) {
-        return;
-    }
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_SPECID] = self.spec_id;
     
-    self.params[kYM_SPECID] = self.spec_id;
+    parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
+    parameters[kYM_PAGESIZE] = kPageSize;
     
-    self.params[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    self.params[kYM_PAGESIZE] = kPageSize;
-    
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:parameters success:^(id responseObject) {
         [self.myRefreshView endRefreshing];
         
         NSDictionary *respDict = responseObject;

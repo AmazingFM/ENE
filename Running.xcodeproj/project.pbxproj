@@ -85,6 +85,7 @@
 		3A082A961E5FC51100BD6747 /* icon-starfull.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A941E5FC51100BD6747 /* icon-starfull.png */; };
 		3A082A9A1E5FD19700BD6747 /* YMCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A991E5FD19700BD6747 /* YMCommentViewController.m */; };
 		3A082A9D1E5FD1EB00BD6747 /* YMImageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A9C1E5FD1EB00BD6747 /* YMImageLoadView.m */; };
+		3A082AA41E60765600BD6747 /* YMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082AA31E60765600BD6747 /* YMConfig.m */; };
 		3A14CF601E2DFE5300C72077 /* YMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF5F1E2DFE5300C72077 /* YMPackage.m */; };
 		3A14CF631E2DFE9000C72077 /* YMHttpPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF621E2DFE9000C72077 /* YMHttpPackage.m */; };
 		3A14CF671E2E178400C72077 /* YMVersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF661E2E178400C72077 /* YMVersionManager.m */; };
@@ -356,6 +357,8 @@
 		3A082A991E5FD19700BD6747 /* YMCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMCommentViewController.m; sourceTree = "<group>"; };
 		3A082A9B1E5FD1EB00BD6747 /* YMImageLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMImageLoadView.h; sourceTree = "<group>"; };
 		3A082A9C1E5FD1EB00BD6747 /* YMImageLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMImageLoadView.m; sourceTree = "<group>"; };
+		3A082AA21E60765600BD6747 /* YMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMConfig.h; sourceTree = "<group>"; };
+		3A082AA31E60765600BD6747 /* YMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMConfig.m; sourceTree = "<group>"; };
 		3A14CF5E1E2DFE5300C72077 /* YMPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMPackage.h; sourceTree = "<group>"; };
 		3A14CF5F1E2DFE5300C72077 /* YMPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMPackage.m; sourceTree = "<group>"; };
 		3A14CF611E2DFE9000C72077 /* YMHttpPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMHttpPackage.h; sourceTree = "<group>"; };
@@ -870,6 +873,8 @@
 				3A2B5D3C1D76F24A0036720E /* YMUtil.h */,
 				3A2B5D3D1D76F24A0036720E /* YMUtil.m */,
 				2CA1BE6B1D7A6C3100AFB6C9 /* YMCommon.h */,
+				3A082AA21E60765600BD6747 /* YMConfig.h */,
+				3A082AA31E60765600BD6747 /* YMConfig.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1490,6 +1495,7 @@
 				3A2B5DC21D77118E0036720E /* UIScrollView+ScalableCover.m in Sources */,
 				3A082A8A1E5ECD9A00BD6747 /* MXNavigationBarManager.m in Sources */,
 				3A2B5D4E1D76FB900036720E /* YMBaseNavigationController.m in Sources */,
+				3A082AA41E60765600BD6747 /* YMConfig.m in Sources */,
 				3AA541A71DA7AC26005AC671 /* UULineChart.m in Sources */,
 				3AA541A31DA7AC26005AC671 /* UUBarChart.m in Sources */,
 				2C32718A1D9588E5009D8CC1 /* YMSettingViewController.m in Sources */,

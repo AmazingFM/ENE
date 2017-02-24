@@ -33,23 +33,23 @@
 
 - (void)getVersionInfo
 {
-    NSMutableDictionary *params = [NSMutableDictionary new];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    NSString *uuid = [YMDataManager shared].uuid;
-    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-    [YMDataManager shared].reqSeq++;
-    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    NSString *uuid = [YMDataManager shared].uuid;
+//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
+//    [YMDataManager shared].reqSeq++;
+//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    
+//    params[kYM_APPID] = uuid;
+//    params[kYM_REQSEQ] = reqSeq;
+//    params[kYM_TIMESTAMP] = currentDate;
     
-    params[kYM_APPID] = uuid;
-    params[kYM_REQSEQ] = reqSeq;
-    params[kYM_TIMESTAMP] = currentDate;
+//    if ([YMUserManager sharedInstance].user!=nil) {
+//        parameters[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
+//    }
+    parameters[@"type_code"] = @"0004";
     
-    if ([YMUserManager sharedInstance].user!=nil) {
-        params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
-    }
-    params[@"type_code"] = @"0004";
-    
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GetAppParam"] parameters:params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GetAppParam"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

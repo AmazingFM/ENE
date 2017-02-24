@@ -49,12 +49,13 @@
     NSDictionary *userInfo = notice.userInfo;
     NSString *user_id = userInfo[@"user_id"];
     
-    [self getParameters];
+//    [self getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[kYM_USERID] = user_id;
-    self.params[@"status"] = @"0";
+    parameters[kYM_USERID] = user_id;
+    parameters[@"status"] = @"0";
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrList"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrList"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
@@ -86,13 +87,13 @@
 
 - (void)getCityList
 {
-    if (![self getParameters]) {
-        return;
-    }
-
-    self.params[@"level"]=@"1";
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"level"]=@"1";
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

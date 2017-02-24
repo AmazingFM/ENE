@@ -18,24 +18,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//        self.extendedLayoutIncludesOpaqueBars = NO;
-//        self.modalPresentationCapturesStatusBarAppearance = NO;
-        self.automaticallyAdjustsScrollViewInsets = YES;
-//
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
+    self.automaticallyAdjustsScrollViewInsets = YES;
 }
 
-- (NSMutableDictionary<NSString *, NSString *> *)params
-{
-    if (_params==nil) {
-        _params = [NSMutableDictionary new];
-    }
-    return _params;
-}
+//- (NSMutableDictionary<NSString *, NSString *> *)params
+//{
+//    if (_params==nil) {
+//        _params = [NSMutableDictionary new];
+//    }
+//    return _params;
+//}
 
 -(void)refresh{}
 
@@ -76,25 +68,25 @@
     [hud hideAnimated:YES afterDelay:1.5f];
 }
 
-- (BOOL)getParameters
-{
-    [self.params removeAllObjects];
-    
-    NSString *uuid = [YMDataManager shared].uuid;
-    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-    [YMDataManager shared].reqSeq++;
-    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
-    
-    self.params[kYM_APPID] = uuid;
-    self.params[kYM_REQSEQ] = reqSeq;
-    self.params[kYM_TIMESTAMP] = currentDate;
-    
-    if ([YMUserManager sharedInstance].user!=nil) {
-        self.params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
-    }
-    
-    return YES;
-}
+//- (BOOL)getParameters
+//{
+//    [self.params removeAllObjects];
+//    
+//    NSString *uuid = [YMDataManager shared].uuid;
+//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
+//    [YMDataManager shared].reqSeq++;
+//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    
+//    self.params[kYM_APPID] = uuid;
+//    self.params[kYM_REQSEQ] = reqSeq;
+//    self.params[kYM_TIMESTAMP] = currentDate;
+//    
+//    if ([YMUserManager sharedInstance].user!=nil) {
+//        self.params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
+//    }
+//    
+//    return YES;
+//}
 //
 //- (void)signParameters
 //{

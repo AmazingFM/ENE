@@ -128,23 +128,25 @@
 
 - (void)startGetProfit
 {
-    if (![self getParameters]) {
-        return;
-    }
+//    if (![self getParameters]) {
+//        return;
+//    }
     
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
     
     NSDate *today = [NSDate date];
     
     NSDate *beginDate = [NSDate dateWithTimeIntervalSinceNow:-7*24*3600];
     NSString *beginTime = [YMUtil stringFromDate:beginDate withFormat:@"yyyyMMdd"];
     
-    self.params[@"begin_date"] = beginTime;
-    self.params[@"end_date"] = [YMUtil stringFromDate:today withFormat:@"yyyyMMdd"];
+    parameters[@"begin_date"] = beginTime;
+    parameters[@"end_date"] = [YMUtil stringFromDate:today withFormat:@"yyyyMMdd"];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserProfit"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserProfit"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });

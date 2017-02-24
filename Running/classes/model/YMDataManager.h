@@ -13,8 +13,8 @@
 
 @interface YMDataManager : NSObject
 
-@property (nonatomic) NSString *uuid;
-@property (nonatomic) int reqSeq;
+//@property (nonatomic) NSString *uuid;
+//@property (nonatomic) int reqSeq;
 
 @property (nonatomic, retain) NSMutableArray<YMAddress *> *addressList;
 
@@ -25,8 +25,8 @@
 - (void)initWithCitylist:(NSArray<YMCity *> *)cities;
 - (void)initWithAddressList:(NSArray<YMAddress *> *)addressess;
 
-- (void)readSeqFromDefaults;
-- (void)writeSeqToDefaults;
-- (NSString *)reqSeqStr;
-- (NSString *)uuid;
+//- (void)readSeqFromDefaults;
+//- (void)writeSeqToDefaults;
+//- (NSString *)reqSeqStr;
+//- (NSString *)uuid;
 @end

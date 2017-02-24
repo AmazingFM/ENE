@@ -11,7 +11,7 @@
 #import "YMCallPasswordViewController.h"
 #import "YMStatisticViewController.h"
 
-#import "Config.h"
+#import "YMConfig.h"
 #import "YMUtil.h"
 
 #import "YMUser.h"
@@ -345,29 +345,37 @@
 }
 
 #pragma mark 网络请求
-- (BOOL)getParameters
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    NSString *username = _accountField.text;
+//    NSString *password = _passwordField.text;
+//    
+//    if (username.length==0 || password.length==0) {
+//        showAlert(@"用户名、密码不能为空");
+//        return NO;
+//    }
+//    parameters[kYM_USERNAME] = username;
+//    parameters[kYM_PASSWORD] = [YMUtil md5HexDigest:password];
+//    parameters[kYM_REMARKCODE]= @"9999";
+//    return YES;
+//}
+
+- (void)startLogin
 {
-    [super getParameters];
-    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     NSString *username = _accountField.text;
     NSString *password = _passwordField.text;
     
     if (username.length==0 || password.length==0) {
         showAlert(@"用户名、密码不能为空");
-        return NO;
+        return ;
     }
-    self.params[kYM_USERNAME] = username;
-    self.params[kYM_PASSWORD] = [YMUtil md5HexDigest:password];
-    self.params[kYM_REMARKCODE]= @"9999";
-    return YES;
-}
-
-- (void)startLogin
-{
-    if (![self getParameters]) {
-        return;
-    }
-    
+    parameters[kYM_USERNAME] = username;
+    parameters[kYM_PASSWORD] = [YMUtil md5HexDigest:password];
+    parameters[kYM_REMARKCODE]= @"9999";
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
         showDefaultAlert(@"提示",@"网络不给力，请检查网络设置");
@@ -379,18 +387,18 @@
     hud.label.font = kYMNormalFont;
     hud.label.textColor =  [UIColor grayColor]; //
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserLogin"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserLogin"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });
         NSDictionary *respDict = responseObject;
         
-        __weak NSDictionary *params = self.params;
+        __weak NSDictionary *params = parameters;
         
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
             if ([resp_id integerValue]==0) {
-                [Config saveOwnAccount:params[kYM_USERNAME] andPassword:params[kYM_PASSWORD] andRemarkCode:params[kYM_REMARKCODE]];
+                [YMConfig saveOwnAccount:params[kYM_USERNAME] andPassword:params[kYM_PASSWORD] andRemarkCode:params[kYM_REMARKCODE]];
                 
                 YMUser *model = [YMUser objectWithKeyValues:respDict[kYM_RESPDATA]];
                 [YMUserManager sharedInstance].user = model;

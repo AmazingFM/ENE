@@ -12,7 +12,7 @@
 
 #import "YMGlobal.h"
 #import "YMUserManager.h"
-#import "Config.h"
+#import "YMConfig.h"
 
 @interface YMStatisticViewController ()
 
@@ -65,7 +65,7 @@
 
 - (void)myAction:(UIButton *)sender
 {
-    [Config deleteOwnAccount];
+    [YMConfig deleteOwnAccount];
     
     [g_appDelegate setRootViewControllerWithLogin];
 

@@ -206,9 +206,26 @@
 }
 
 #pragma mark 网络请求
-- (BOOL)getParameters
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    
+//    NSMutableArray *paramsArr = [NSMutableArray array];
+//    for (YMShoppingCartItem *item in dataArr) {
+//        NSDictionary *dict = @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id integerValue]],@"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]]};
+//        [paramsArr addObject:dict];
+//    }
+//    
+//    NSString *str = [YMUtil stringFromJSON:paramsArr];
+//    parameters[kYM_GOODSARRAY] = str;
+//    
+//    return YES;
+//}
+
+- (void)startGetGoodsInfoList
 {
-    [super getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     NSMutableArray *paramsArr = [NSMutableArray array];
     for (YMShoppingCartItem *item in dataArr) {
@@ -217,20 +234,11 @@
     }
     
     NSString *str = [YMUtil stringFromJSON:paramsArr];
-    self.params[kYM_GOODSARRAY] = str;
-    
-    return YES;
-}
-
-- (void)startGetGoodsInfoList
-{
-    if (![self getParameters]) {
-        return;
-    }
+    parameters[kYM_GOODSARRAY] = str;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsArrayQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsArrayQuery"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });

@@ -338,11 +338,9 @@
 #pragma mark 网络请求
 - (void)requestOrdersState
 {
-    if (![self getParameters]) {
-        return;
-    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
@@ -350,7 +348,7 @@
         return;
     }
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserOrderStat"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserOrderStat"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         
         if (respDict) {

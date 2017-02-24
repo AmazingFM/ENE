@@ -17,6 +17,6 @@
 @property(nonatomic)int                     selectedIndex;
 @property(nonatomic)BOOL                    hideScrollBarMenu;
 @property(nonatomic)id<YMScrollMenuControllerDelegate> scrollMenuDelegate;
--(void)menuControllerSelectAtIndex:(int)index;
--(void)setMenuTitle:(NSString*)title atIndex:(int)index;
+-(void)menuControllerSelectAtIndex:(NSInteger)index;
+-(void)setMenuTitle:(NSString*)title atIndex:(NSInteger)index;
 @end

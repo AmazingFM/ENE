@@ -101,7 +101,7 @@
 
 - (UIView *)addSubmitView
 {
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, g_screenHeight-kYMNavigationBarHeight-20-44.f, g_screenWidth, 44.f)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, g_screenHeight-44.f, g_screenWidth, 44.f)];
     backView.backgroundColor = [UIColor whiteColor];
     
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-120, backView.frame.size.height)];
@@ -302,13 +302,12 @@
 #pragma mark 网络请求
 - (void)getSignedPay
 {
-    [self getParameters];
-    
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    self.params[@"order_id"] = self.order.orderId;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"order_id"] = self.order.orderId;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderAlipay"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderAlipay"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });

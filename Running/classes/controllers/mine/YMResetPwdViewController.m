@@ -11,7 +11,7 @@
 #import "YMUserManager.h"
 #import "YMDataManager.h"
 
-#import "Config.h"
+#import "YMConfig.h"
 
 @implementation YMResetPwdViewController
 
@@ -65,20 +65,22 @@
 
 - (BOOL)getParameters
 {
-    [self.params removeAllObjects];
+//    [self.params removeAllObjects];
     
-    NSString *uuid = [YMDataManager shared].uuid;
-    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-    [YMDataManager shared].reqSeq++;
-    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    NSString *uuid = [YMDataManager shared].uuid;
+//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
+//    [YMDataManager shared].reqSeq++;
+//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    
+//    self.params[kYM_APPID] = uuid;
+//    self.params[kYM_REQSEQ] = reqSeq;
+//    self.params[kYM_TIMESTAMP] = currentDate;
     
-    self.params[kYM_APPID] = uuid;
-    self.params[kYM_REQSEQ] = reqSeq;
-    self.params[kYM_TIMESTAMP] = currentDate;
-    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     if ([YMUserManager sharedInstance].user!=nil) {
-        self.params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
+        parameters[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
     }
+    
     
     NSMutableDictionary *keyValueDict = [NSMutableDictionary new];
     for (NSArray *arr in self.dataArr) {
@@ -101,20 +103,49 @@
         return NO;
     }
     
-    self.params[kYM_PASSWORD] = [YMUtil md5HexDigest:oldPass];
-    self.params[@"new_pass"] = [YMUtil md5HexDigest:newPass];
+    parameters[kYM_PASSWORD] = [YMUtil md5HexDigest:oldPass];
+    parameters[@"new_pass"] = [YMUtil md5HexDigest:newPass];
     
     return YES;
 }
 
 - (void)callPassword
 {
-    if (![self getParameters]) {
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    if ([YMUserManager sharedInstance].user!=nil) {
+        parameters[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
+    }
+
+
+    NSMutableDictionary *keyValueDict = [NSMutableDictionary new];
+    for (NSArray *arr in self.dataArr) {
+        for (YMBaseCellItem *item in arr) {
+            keyValueDict[item.key] = (NSString *)item.value;
+        }
+    }
+
+    NSString *oldPass = keyValueDict[kYM_PASSWORD];
+    NSString *newPass = keyValueDict[@"new_pass"];
+    NSString *newPassConfirm = keyValueDict[@"codeconfirm"];
+
+    if (oldPass.length==0) {
+        [self showTextHUDView:@"原密码不能为空"];
         return;
     }
-    
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    
+
+    if (![newPass isEqualToString:newPassConfirm]) {
+        [self showTextHUDView:@"密码不一致"];
+        return;
+    }
+
+    parameters[kYM_PASSWORD] = [YMUtil md5HexDigest:oldPass];
+    parameters[@"new_pass"] = [YMUtil md5HexDigest:newPass];
+
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
         showDefaultAlert(@"提示",@"网络不给力，请检查网络设置");
@@ -123,7 +154,7 @@
     
     [indicator startAnimating];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserModify"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserModify"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [indicator stopAnimating];
         });
@@ -131,7 +162,7 @@
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
             if ([resp_id integerValue]==0) {
-                [Config changePassword:[YMUserManager sharedInstance].user.user_name andPassword:self.params[@"new_pass"]];
+                [YMConfig changePassword:[YMUserManager sharedInstance].user.user_name andPassword:parameters[@"new_pass"]];
                 [self showTextHUDView:@"密码修改成功"];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             } else {

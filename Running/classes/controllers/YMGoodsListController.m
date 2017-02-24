@@ -343,16 +343,18 @@
 
 - (void)startRequest
 {
-    if (![self getParameters]) {
-        return;
-    }
+//    if (![self getParameters]) {
+//        return;
+//    }
     
-    self.params[kYM_SPECID] = self.spec_id;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    self.params[kYM_PAGESIZE] = @"30";
+    parameters[kYM_SPECID] = self.spec_id;
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:self.params success:^(id responseObject) {
+    parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
+    parameters[kYM_PAGESIZE] = @"30";
+    
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:parameters success:^(id responseObject) {
         [self.myRefreshView endRefreshing];
         
         NSDictionary *respDict = responseObject;

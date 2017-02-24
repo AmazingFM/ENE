@@ -392,9 +392,60 @@
 
 #pragma mark 网络请求
 
-- (BOOL)getParameters
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    
+//    NSMutableDictionary *keyValueDict = [NSMutableDictionary new];
+//    for (NSArray *arr in dataArr) {
+//        for (YMBaseCellItem *item in arr) {
+//            keyValueDict[item.key] = (NSString *)item.value;
+//        }
+//    }
+//    
+//    NSString *userName = keyValueDict[kYM_USERNAME];
+//    NSString *userPass = keyValueDict[kYM_PASSWORD];
+//    NSString *userPassConfirm = keyValueDict[@"codeconfirm"];
+//    NSString *remarkCode = keyValueDict[kYM_REMARKCODE];
+//    NSString *verifyCode = keyValueDict[@"verifycode"];
+//    
+//    if (!_hasRead) {
+//        showAlert(@"请阅读并接受相关服务条款");
+//        return NO;
+//    }
+//    if (userName.length==0 ||
+//        userPass.length==0 ||
+//        remarkCode.length==0) {
+//        showAlert(@"用户名、密码、推荐码不能为空");
+//        return NO;
+//    }
+//    
+//    if (![userPass isEqualToString:userPassConfirm]) {
+//        showAlert(@"密码不一致");
+//        return NO;
+//    }
+//    
+//    if (![verifyCode isEqualToString:_verifyCode]) {
+//        showAlert(@"验证码不正确，请重新获取");
+//        return NO;
+//    }
+//    
+//    parameters[kYM_USERNAME] = userName;
+//    parameters[kYM_PASSWORD] = [YMUtil md5HexDigest:userPass];//123456
+//    parameters[kYM_REMARKCODE] = remarkCode;
+//    
+//    return YES;
+//}
+
+- (void)startRegister
 {
-    [super getParameters];
+    
+    //    [g_appDelegate setRootViewControllerWithMain];
+    //    return;
+    //http://139.196.237.165/ene/AppServ/index.php?a=UserLogin&app_id=1&req_seq=2&time_stamp=20160907110800&sign=47839274&user_name=13777777777&user_pass=8765&remark_code=9999
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     NSMutableDictionary *keyValueDict = [NSMutableDictionary new];
     for (NSArray *arr in dataArr) {
@@ -411,42 +462,28 @@
     
     if (!_hasRead) {
         showAlert(@"请阅读并接受相关服务条款");
-        return NO;
+        return ;
     }
     if (userName.length==0 ||
         userPass.length==0 ||
         remarkCode.length==0) {
         showAlert(@"用户名、密码、推荐码不能为空");
-        return NO;
+        return ;
     }
     
     if (![userPass isEqualToString:userPassConfirm]) {
         showAlert(@"密码不一致");
-        return NO;
+        return ;
     }
     
     if (![verifyCode isEqualToString:_verifyCode]) {
         showAlert(@"验证码不正确，请重新获取");
-        return NO;
+        return ;
     }
     
-    self.params[kYM_USERNAME] = userName;
-    self.params[kYM_PASSWORD] = [YMUtil md5HexDigest:userPass];//123456
-    self.params[kYM_REMARKCODE] = remarkCode;
-    
-    return YES;
-}
-
-- (void)startRegister
-{
-    
-    //    [g_appDelegate setRootViewControllerWithMain];
-    //    return;
-    //http://139.196.237.165/ene/AppServ/index.php?a=UserLogin&app_id=1&req_seq=2&time_stamp=20160907110800&sign=47839274&user_name=13777777777&user_pass=8765&remark_code=9999
-    
-    if (![self getParameters]) {
-        return;
-    }
+    parameters[kYM_USERNAME] = userName;
+    parameters[kYM_PASSWORD] = [YMUtil md5HexDigest:userPass];//123456
+    parameters[kYM_REMARKCODE] = remarkCode;
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
     if (!networkStatus) {
@@ -456,7 +493,7 @@
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=Register"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=Register"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });
@@ -500,19 +537,19 @@
         return;
     }
     
-    NSMutableDictionary *paramDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
-    NSString *uuid = [YMDataManager shared].uuid;
-    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-    [YMDataManager shared].reqSeq++;
-    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    NSString *uuid = [YMDataManager shared].uuid;
+//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
+//    [YMDataManager shared].reqSeq++;
+//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    
+//    paramDict[kYM_APPID] = uuid;
+//    paramDict[kYM_REQSEQ] = reqSeq;
+//    paramDict[kYM_TIMESTAMP] = currentDate;
+    parameters[@"mobile"] = userName;
     
-    paramDict[kYM_APPID] = uuid;
-    paramDict[kYM_REQSEQ] = reqSeq;
-    paramDict[kYM_TIMESTAMP] = currentDate;
-    paramDict[@"mobile"] = userName;
-    
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=SmsSend"] parameters:paramDict success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=SmsSend"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

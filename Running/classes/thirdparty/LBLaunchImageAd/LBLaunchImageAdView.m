@@ -3,7 +3,7 @@
 #import "UIView+Util.h"
 #import "YMPageControl.h"
 
-#import "Config.h"
+#import "YMConfig.h"
 #import "YMGlobal.h"
 #import "YMCommon.h"
 #import "YMUtil.h"
@@ -196,7 +196,7 @@
     [self addSubview:self.aDImgView];
     
     //判断是否登陆
-    NSArray *accountAndPassword = [Config getOwnAccountAndPassword];
+    NSArray *accountAndPassword = [YMConfig getOwnAccountAndPassword];
     if (accountAndPassword) {
         [self backgroundLogin:accountAndPassword];
     } else {
@@ -240,27 +240,27 @@
 #pragma mark -登录验证
 - (void)backgroundLogin:(NSArray *)accountPassword
 {
-    NSMutableDictionary *paramDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
-    NSString *uuid = [YMDataManager shared].uuid;
-    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-    
-    [YMDataManager shared].reqSeq++;
-    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
-    
-    paramDict[kYM_APPID] = uuid;
-    paramDict[kYM_REQSEQ] = reqSeq;
-    paramDict[kYM_TIMESTAMP] = currentDate;
+//    NSString *uuid = [YMDataManager shared].uuid;
+//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
+//    
+//    [YMDataManager shared].reqSeq++;
+//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
+//    
+//    paramDict[kYM_APPID] = uuid;
+//    paramDict[kYM_REQSEQ] = reqSeq;
+//    paramDict[kYM_TIMESTAMP] = currentDate;
     
     NSString *username = accountPassword[0];
     NSString *password = accountPassword[1];
     NSString *remarkCode = accountPassword[2];
     
-    paramDict[kYM_USERNAME] = username;
-    paramDict[kYM_PASSWORD] = password;
-    paramDict[kYM_REMARKCODE] = remarkCode;
+    parameters[kYM_USERNAME] = username;
+    parameters[kYM_PASSWORD] = password;
+    parameters[kYM_REMARKCODE] = remarkCode;
 
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserLogin"] parameters:paramDict success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserLogin"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         
         if (respDict) {

@@ -930,10 +930,25 @@
     [self.view endEditing:YES];
 }
 #pragma mark 网络请求
-- (BOOL)getParameters
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    NSMutableArray *paramsArr = [NSMutableArray array];
+//    for (YMShoppingCartItem *item in dataArr) {
+//        NSDictionary *dict = @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id integerValue]],@"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]]};
+//        [paramsArr addObject:dict];
+//    }
+//    
+//    NSString *str = [YMUtil stringFromJSON:paramsArr];
+//    parameters[kYM_GOODSARRAY] = str;//@"[\n  {\n    'goods_id' : 100001,\n    'sub_gid' : 1002\n  },\n  {\n    'goods_id' : 100001,\n    'sub_gid': 1001\n  }\n]";//str;
+//    
+//    return YES;
+//}
+
+- (void)startGetGoodsInfoList
 {
-    [super getParameters];
-    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     NSMutableArray *paramsArr = [NSMutableArray array];
     for (YMShoppingCartItem *item in dataArr) {
         NSDictionary *dict = @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id integerValue]],@"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]]};
@@ -941,20 +956,11 @@
     }
     
     NSString *str = [YMUtil stringFromJSON:paramsArr];
-    self.params[kYM_GOODSARRAY] = str;//@"[\n  {\n    'goods_id' : 100001,\n    'sub_gid' : 1002\n  },\n  {\n    'goods_id' : 100001,\n    'sub_gid': 1001\n  }\n]";//str;
-    
-    return YES;
-}
-
-- (void)startGetGoodsInfoList
-{
-    if (![self getParameters]) {
-        return;
-    }
+    parameters[kYM_GOODSARRAY] = str;//@"[\n  {\n    'goods_id' : 100001,\n    'sub_gid' : 1002\n  },\n  {\n    'goods_id' : 100001,\n    'sub_gid': 1001\n  }\n]";//str;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsArrayQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsArrayQuery"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });

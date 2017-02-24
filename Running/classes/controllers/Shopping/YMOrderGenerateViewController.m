@@ -60,11 +60,11 @@
     self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
     
     // Do any additional setup after loading the view.
-    _addressView = [[YMAddressView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth,kYMAddressViewHeight)];
+    _addressView = [[YMAddressView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight,g_screenWidth,kYMAddressViewHeight)];
     _addressView.delegate = self;
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _mainTableView.frame = CGRectMake(0, kYMAddressViewHeight, g_screenWidth, g_screenHeight-kYMNavigationBarHeight-20-44-kYMAddressViewHeight);
+    _mainTableView.frame = CGRectMake(0, kYMTopBarHeight+kYMAddressViewHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-44-kYMAddressViewHeight);
     _mainTableView.backgroundColor = [UIColor clearColor];
     _mainTableView.showsVerticalScrollIndicator = NO;
     _mainTableView.showsHorizontalScrollIndicator = NO;
@@ -86,9 +86,9 @@
     _submitView = [self addSubmitView];
     [self.view addSubview:_submitView];
     
-    [self finishBarView];
-    
-    [self loadNotificationCell];
+//    [self finishBarView];
+//    
+//    [self loadNotificationCell];
     
     [self getDefaultAddress];
 }
@@ -185,7 +185,7 @@
 
 - (UIView *)addSubmitView
 {
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, g_screenHeight-kYMNavigationBarHeight-20-44.f, g_screenWidth, 44.f)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, g_screenHeight-44.f, g_screenWidth, 44.f)];
     backView.backgroundColor = [UIColor whiteColor];
     
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-120, backView.frame.size.height)];
@@ -291,7 +291,7 @@
 {
     YMShoppingCartItem *item = self.itemlist[indexPath.row];
     
-    int count = [item.count integerValue];
+    NSInteger count = [item.count integerValue];
     
     if (type==0) {
         count++;
@@ -299,7 +299,7 @@
         count--;
     }
     
-    item.count = [NSString stringWithFormat:@"%d", count];
+    item.count = [NSString stringWithFormat:@"%ld", count];
     
     [self updatePrice];
 }
@@ -328,49 +328,79 @@
 
 
 #pragma mark 网络请求
-- (BOOL)getParameters
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    
+//    parameters[@"user_id"] = [YMUserManager sharedInstance].user.user_id;
+//    parameters[@"amt"] = [self calcTotalPrice];
+//    
+//    if (_defaultAddress==nil) {
+//        showDefaultAlert(@"提示", @"请选择地址");
+//        return NO;
+//    }
+//    parameters[@"delivery_name"] = _defaultAddress.delivery_name;
+//    parameters[@"contact_no"] = _defaultAddress.contact_no;
+//    parameters[@"delivery_addr"] = _defaultAddress.delivery_addr;
+//    
+//    YMCity *city = _defaultAddress.city;
+//    [parameters addEntriesFromDictionary:[city keyValues]];
+//    
+//    NSMutableArray *paramsArr = [NSMutableArray array];
+//    for (YMShoppingCartItem *item in self.itemlist) {
+//        NSDictionary *dict =
+//                @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id  integerValue]],
+//                  @"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]],
+//                  @"price":item.goods.price,
+//                  @"qty":item.count,
+//                  @"amt":[YMUtil decimalMutiply:item.count with:item.goods.price]};
+//        [paramsArr addObject:dict];
+//    }
+//    
+//    NSString *str = [YMUtil stringFromJSON:paramsArr];
+//    parameters[@"order_detail_arr"] = str;
+//    return YES;
+//}
+
+- (void)submitOrder
 {
-    [super getParameters];
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[@"user_id"] = [YMUserManager sharedInstance].user.user_id;
-    self.params[@"amt"] = [self calcTotalPrice];
+    parameters[@"user_id"] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"amt"] = [self calcTotalPrice];
     
     if (_defaultAddress==nil) {
         showDefaultAlert(@"提示", @"请选择地址");
-        return NO;
+        return;
     }
-    self.params[@"delivery_name"] = _defaultAddress.delivery_name;
-    self.params[@"contact_no"] = _defaultAddress.contact_no;
-    self.params[@"delivery_addr"] = _defaultAddress.delivery_addr;
+    parameters[@"delivery_name"] = _defaultAddress.delivery_name;
+    parameters[@"contact_no"] = _defaultAddress.contact_no;
+    parameters[@"delivery_addr"] = _defaultAddress.delivery_addr;
     
     YMCity *city = _defaultAddress.city;
-    [self.params addEntriesFromDictionary:[city keyValues]];
+    [parameters addEntriesFromDictionary:[city keyValues]];
     
     NSMutableArray *paramsArr = [NSMutableArray array];
     for (YMShoppingCartItem *item in self.itemlist) {
         NSDictionary *dict =
-                @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id  integerValue]],
-                  @"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]],
-                  @"price":item.goods.price,
-                  @"qty":item.count,
-                  @"amt":[YMUtil decimalMutiply:item.count with:item.goods.price]};
+        @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id  integerValue]],
+          @"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]],
+          @"price":item.goods.price,
+          @"qty":item.count,
+          @"amt":[YMUtil decimalMutiply:item.count with:item.goods.price]};
         [paramsArr addObject:dict];
     }
     
     NSString *str = [YMUtil stringFromJSON:paramsArr];
-    self.params[@"order_detail_arr"] = str;
-    return YES;
-}
-
-- (void)submitOrder
-{
-    if (![self getParameters]) {
-        return;
-    }
+    parameters[@"order_detail_arr"] = str;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderAdd"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderAdd"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });
@@ -413,12 +443,14 @@
 
 - (void)getDefaultAddress
 {
-    [self.params removeAllObjects];
-    [super getParameters];
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    self.params[@"status"] = @"0";
+//    [self.params removeAllObjects];
+//    [super getParameters];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrList"] parameters:self.params success:^(id responseObject) {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"status"] = @"0";
+    
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserAddrList"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

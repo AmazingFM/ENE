@@ -135,11 +135,12 @@
 #pragma mark 网络请求
 - (void)getProvinceList
 {
-    [self getParameters];
+//    [self getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[@"level"]=cityLevel;
+    parameters[@"level"]=cityLevel;
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
@@ -164,12 +165,12 @@
 }
 - (void)getCityList:(NSString *)cityCode
 {
-    [self getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[@"level"] = @"2";
-    self.params[@"province_code"] = cityCode;
+    parameters[@"level"] = @"2";
+    parameters[@"province_code"] = cityCode;
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
@@ -196,12 +197,12 @@
 
 - (void)getTownList:(NSString *)townCode
 {
-    [self getParameters];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
 
-    self.params[@"level"] = @"3";
-    self.params[@"city_code"] = townCode;
+    parameters[@"level"] = @"3";
+    parameters[@"city_code"] = townCode;
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=CityQuery"] parameters:parameters success:^(id responseObject) {
         NSDictionary *respDict = responseObject;
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];

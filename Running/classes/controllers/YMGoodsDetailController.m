@@ -78,7 +78,7 @@
 }
 @end
 
-@interface YMGoodsDetailController() <UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, CAAnimationDelegate, YMScrollMenuControllerDelegate>
+@interface YMGoodsDetailController() <UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, CAAnimationDelegate, YMScrollMenuControllerDelegate, UIWebViewDelegate>
 {
     UITableView *_mainTable;
     CALayer     *layer;
@@ -88,6 +88,10 @@
     UIButton *navCollectButton;
     
     CGFloat badgeOffsetX;
+    
+    UIWebView  *webview;
+    
+    CGFloat webViewHeight;
 }
 
 @property (nonatomic, retain) YMGoodsDetailItem *goodsItem;
@@ -103,7 +107,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.hidesBottomBarWhenPushed=YES;
-}
+        
+        webViewHeight = 400;
+    }
     return self;  
 }
 
@@ -298,7 +304,7 @@
     if (indexPath.row==0) {
         return self.goodsItem.rowHeight;
     } else if(indexPath.row==1) {
-        return 400;
+        return webViewHeight;
     }
     return 100;
 }
@@ -509,55 +515,45 @@
         
     } else if (indexPath.row==1) {
         cell.backgroundColor = [UIColor whiteColor];
-        UIWebView  *webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth,400)];
-        webview.backgroundColor = [UIColor whiteColor];
         
-//        NSString * jsStr = [NSString stringWithFormat:@"<html> \n"
-//                            "<head> \n"
-//                            "<style type=\"text/css\"> \n"
-//                            "body {font-size: %f; font-family: \"%@\"; color: %@; text-align: %@;}\n"
-//                            "h1 {font-size: %f; font-family: \"%@\"; color: %@; text-align: %@;}\n"
-//                            "h2 {font-size: %f; font-family: \"%@\"; color: %@; text-align: %@;}\n"
-//                            "</style> \n"
-//                            "</head> \n"
-//                            "<body bgcolor=\"%@\"> \n"
-//                            "<h1>%@ \n"
-//                            "<h2>%@ \n"
-//                            "</h2> \n"
-//                            "</h1> \n"
-//                            "%@ \n"
-//                            "</body> \n"
-//                            "</html>", fontSize, @"", self.webBodyColor, @"left",
-//                            (float)fontSize +1, @"", self.webMainTitleColor, @"center",
-//                            (float)fontSize-2, @"", self.webSubTitleColor, @"center",self.webBackgroundColor,self.newsTitle,[NSString stringWithFormat:@"［%@］ %@", self.newsSource, self.newsDate],self.newsContent];
+        webview = [cell viewWithTag:1000];
+        if (webview==nil) {
+            webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth,webViewHeight)];
+            webview.backgroundColor = [UIColor whiteColor];
+            webview.delegate = self;
+            webview.tag=1000;
+            
+            NSString * jsStr = self.goodsItem.goods.goods_desc;
+            [webview loadHTMLString:jsStr baseURL:nil];
+            
+             [cell addSubview:webview];
+        }
         
-        NSString * jsStr = self.goodsItem.goods.goods_desc;
-        [webview loadHTMLString:jsStr baseURL:nil];
-        [cell addSubview:webview];
+        webview.frame = CGRectMake(0, 0, g_screenWidth,webViewHeight);
     }
     
     return cell;
 }
 
 #pragma mark 网络请求
-- (BOOL)getParameters
-{
-    [super getParameters];
-    
-    self.params[kYM_GOODSID] = self.goods_id;
-    self.params[kYM_SUBGID] = self.goods_subid;
-    return YES;
-}
+//- (BOOL)getParameters
+//{
+////    [super getParameters];
+//    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    parameters[kYM_GOODSID] = self.goods_id;
+//    parameters[kYM_SUBGID] = self.goods_subid;
+//    return YES;
+//}
 
 - (void)startGetGoodsInfo
 {
-    if (![self getParameters]) {
-        return;
-    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_GOODSID] = self.goods_id;
+    parameters[kYM_SUBGID] = self.goods_subid;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsInfo"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsInfo"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });
@@ -669,6 +665,20 @@
         UIView *cartBtnView = [self.view viewWithTag:112];
         [cartBtnView.layer addAnimation:shakeAnimation forKey:nil];
     }
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+//    CGFloat offsetHeight = [[webview stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+//    CGFloat scrollHeight = [[webview stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+//    
+//    webViewHeight= scrollHeight;
+//    
+//    [_mainTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//    
+//    NSLog(@"The height of offsetHeight is %f", offsetHeight);
+//    NSLog(@"The height of scrollHeight is %f", scrollHeight);
+
 }
 
 @end

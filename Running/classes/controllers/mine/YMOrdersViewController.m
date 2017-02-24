@@ -236,11 +236,11 @@
     [_loadingView stopAnimating];
 }
 
--(void)menuControllerWillSelectIndex:(int)index{
+-(void)menuControllerWillSelectIndex:(NSInteger)index{
     
 }
 
--(void)menuControllerSelectAtIndex:(int)index{
+-(void)menuControllerSelectAtIndex:(NSInteger)index{
     if(self.selectedIndex!=index){
         self.selectedIndex=index;
         
@@ -548,15 +548,17 @@
 #pragma mark 网络请求
 - (void)requestOrders
 {
-    if (![self getParameters]) {
-        return;
-    }
+//    if (![self getParameters]) {
+//        return;
+//    }
     
-    self.params[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    self.params[kYM_ORDERSTATUS] = self.selectedIndex==0?@"":[NSString stringWithFormat:@"%d", (self.selectedIndex-1)];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    self.params[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    self.params[kYM_PAGESIZE] = @"20";
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[kYM_ORDERSTATUS] = self.selectedIndex==0?@"":[NSString stringWithFormat:@"%d", (self.selectedIndex-1)];
+    
+    parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
+    parameters[kYM_PAGESIZE] = @"20";
 
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
@@ -567,7 +569,7 @@
     
     [self startLoading];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderList"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderList"] parameters:parameters success:^(id responseObject) {
         [self endLoading];
         
         NSDictionary *respDict = responseObject;
@@ -673,16 +675,17 @@
 
 - (void)cancleOrder:(YMOrder *)order
 {
-    if (![self getParameters]) {
-        return;
-    }
-    
-    self.params[@"order_id"] = order.orderId;
-    self.params[@"status"] = @"7"; //取消订单
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"order_id"] = order.orderId;
+    parameters[@"status"] = @"7"; //取消订单
     
     [self startLoading];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderModify"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderModify"] parameters:parameters success:^(id responseObject) {
         [self endLoading];
         
         NSDictionary *respDict = responseObject;
@@ -705,16 +708,17 @@
 
 - (void)deleteOrder:(YMOrder *)order
 {
-    if (![self getParameters]) {
-        return;
-    }
-    
-    self.params[@"order_id"] = order.orderId;
-    self.params[@"status"] = @"99"; //取消订单
+//    if (![self getParameters]) {
+//        return;
+//    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"order_id"] = order.orderId;
+    parameters[@"status"] = @"99"; //删除订单
     
     [self startLoading];
     
-    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderStatusModify"] parameters:self.params success:^(id responseObject) {
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderStatusModify"] parameters:parameters success:^(id responseObject) {
         [self endLoading];
         
         NSDictionary *respDict = responseObject;

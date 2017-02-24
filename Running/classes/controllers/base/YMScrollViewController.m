@@ -63,11 +63,11 @@
     }
 }
 
--(void)menuControllerWillSelectIndex:(int)index{
+-(void)menuControllerWillSelectIndex:(NSInteger)index{
     
 }
 
--(void)menuControllerSelectAtIndex:(int)index{
+-(void)menuControllerSelectAtIndex:(NSInteger)index{
     if(self.selectedIndex==0 && self.selectedIndex!=index){
 //        [[NSNotificationCenter defaultCenter] postNotificationName:kHTHideIndexMinuteNotifier object:nil];
     }

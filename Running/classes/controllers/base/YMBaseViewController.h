@@ -19,13 +19,13 @@
 #import "MBProgressHUD.h"
 
 @interface YMBaseViewController : UIViewController
-@property (nonatomic, retain) NSMutableDictionary<NSString *, NSString *> *params;
+//@property (nonatomic, retain) NSMutableDictionary<NSString *, NSString *> *params;
 
 - (void)refresh;
 - (void)setRefresh:(BOOL)flag;
 - (void)showCustomHUDView:(NSString *)title;
 - (void)showTextHUDView:(NSString *)title;
-- (BOOL)getParameters;
+//- (BOOL)getParameters;
 - (void)back;
 //- (void)signParameters;
 @end
