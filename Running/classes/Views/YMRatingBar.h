@@ -18,3 +18,7 @@
 
 @property (nonatomic, weak) id<YMRatingBarDelegate> delegate;
 @end
+
+@interface YMSimpleRatingBar : UIView
+- (instancetype)initWithFrame:(CGRect)frame  andStarSize:(CGSize)size withValue:(int)score;
+@end

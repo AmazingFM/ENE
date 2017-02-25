@@ -71,7 +71,7 @@
     self.goodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(offsetx, offsety, goodsImageHeight, goodsImageHeight)];
     self.goodImageView.contentMode = UIViewContentModeScaleToFill;
     self.goodImageView.userInteractionEnabled = NO;
-    self.goodImageView.backgroundColor = [UIColor greenColor];
+    self.goodImageView.backgroundColor = [UIColor grayColor];
     [self.goodImageView sd_setImageWithURL:[NSURL URLWithString:goods.goods_image1] placeholderImage:[UIImage imageNamed:@"default"]];
     
     self.ratingBar = [[YMRatingBar alloc] initWithFrame:CGRectMake(offsetx+goodsImageHeight+kYMBorderMargin, offsety, g_screenWidth-2*offsetx-goodsImageHeight-kYMBorderMargin, goodsImageHeight)];

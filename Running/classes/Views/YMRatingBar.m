@@ -15,17 +15,8 @@
     CGFloat minY;
     CGFloat maxY;
 }
-
-@property (weak, nonatomic)  UIImageView *firstStar;
-@property (weak, nonatomic)  UIImageView *secondStar;
-@property (weak, nonatomic)  UIImageView *thirdStar;
-@property (weak, nonatomic)  UIImageView *forthStar;
-@property (weak, nonatomic)  UIImageView *fifthStar;
-
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, assign) NSInteger score;
-
-
 @end
 
 #define kStartImageCount 5
@@ -123,4 +114,49 @@
         [self.delegate ratingBarValue:self.score];
     }
 }
+@end
+
+@interface YMSimpleRatingBar()
+{
+    CGSize  starSize;
+    CGFloat padding;
+    int index;
+}
+@end
+
+@implementation YMSimpleRatingBar
+
+- (instancetype)initWithFrame:(CGRect)frame  andStarSize:(CGSize)size withValue:(int)score
+{
+    if ((self=[super initWithFrame:frame])) {
+        starSize = size;
+        padding = starSize.width*2/3;
+        index = score;
+        [self setupUI];
+    }
+    return self;
+}
+
+- (void)setupUI
+{
+    CGFloat offsetx = 10;
+    
+    for (int i=0; i<kStartImageCount; i++) {
+        UIImageView *star = [[UIImageView alloc] initWithFrame:CGRectMake(offsetx, (self.height-starSize.height)/2, starSize.width, starSize.height)];
+        
+        if (i<index) {
+            star.image = [UIImage imageNamed:@"icon-starfull"];
+        } else {
+            star.image = [UIImage imageNamed:@"icon-starempty"];
+        }
+        
+        star.frame = CGRectMake(offsetx, (self.height-starSize.height)/2, starSize.width, starSize.height);
+        star.contentMode = UIViewContentModeScaleAspectFit;
+        star.tag = kStarImageBaseTag+i;
+        
+        [self addSubview:star];
+        offsetx += starSize.width+padding;
+    }
+}
+
 @end
