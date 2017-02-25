@@ -84,6 +84,7 @@
     
     __block CGRect pageFrame = _scrollView.bounds;
     pageFrame.origin.x = 0;
+    pageFrame.origin.y = 0;
     
     [items enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         YMImageButton *btn = [self buttonWithIndex:(int)idx inView:_scrollView];
