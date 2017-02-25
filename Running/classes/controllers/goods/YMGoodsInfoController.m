@@ -15,7 +15,6 @@
 {
     UIWebView  *webview;
     UIScrollView *bigScroll;
-    
     CGFloat webViewHeight;
 }
 
@@ -28,9 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     webViewHeight = 700;
-
     [self setupView];
-    
     [self startGetGoodsInfo];
 }
 

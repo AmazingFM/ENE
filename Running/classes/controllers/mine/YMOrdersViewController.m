@@ -346,13 +346,12 @@
         case YMOrderTypeForReceive:
             [title addObjectsFromArray:@[@"确认收货"]];
             break;
+        case YMOrderTypeAccept:
         case YMOrderTypeComment:
         case YMOrderTypeTimeout:
         case YMOrderTypeCancel:
             [title addObjectsFromArray:@[@"删除订单"]];
             break;
-        case YMOrderTypeAccept:
-            [title addObjectsFromArray:@[@"去评价", @"删除订单"]];
         default:
             break;
     }
@@ -525,7 +524,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex!=3) {
+    if (self.selectedIndex!=4) {
         return;
     }
     YMOrder *order =  self.itemArr[indexPath.section].order;

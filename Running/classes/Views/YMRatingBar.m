@@ -56,7 +56,7 @@
     [self addSubview:self.label];
     
     for (int i=0; i<kStartImageCount; i++) {
-        UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-starempty"]];
+        UIImageView *star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-starfull"]];
         star.frame = CGRectMake(offsetx, self.height*3/4-kStartImageWidth/2, kStartImageWidth, kStartImageWidth);
         star.contentMode = UIViewContentModeScaleAspectFit;
         star.tag = kStarImageBaseTag+i;
@@ -65,7 +65,7 @@
         offsetx += kStartImageWidth+kStartImagePadding;
     }
     
-    self.score = 0;
+    self.score = 5;
     minX = 10-kStartImagePadding/2;
     maxX = minX+(kStartImageWidth+kStartImagePadding)*5;
     minY = self.height*3/4-kStartImageWidth/2-10;

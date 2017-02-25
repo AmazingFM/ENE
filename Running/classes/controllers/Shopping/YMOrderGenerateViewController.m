@@ -33,6 +33,8 @@
     float rowHeight;
     
     YMAddress *_defaultAddress;
+    
+    BOOL isGoing;
 }
 
 @property (nonatomic, retain) UIToolbar *toolbar;
@@ -48,6 +50,8 @@
     if (self) {
         rowHeight = 100.f;
         totalPrice = @"99999.00";
+        
+        isGoing = NO;
     }
     return self;
 }
@@ -365,9 +369,10 @@
 
 - (void)submitOrder
 {
-//    if (![self getParameters]) {
-//        return;
-//    }
+    if (isGoing) {
+        return;
+    }
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     parameters[@"user_id"] = [YMUserManager sharedInstance].user.user_id;
@@ -400,7 +405,11 @@
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
+    isGoing = YES;//标志
+    
     [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderAdd"] parameters:parameters success:^(id responseObject) {
+        isGoing = NO;//标志
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
         });
@@ -434,6 +443,8 @@
             }
         }
     } failure:^(NSError *error) {
+        isGoing = NO;//标志
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
             showDefaultAlert(@"提示",@"网络不给力，请检查网络设置");

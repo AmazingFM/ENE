@@ -405,7 +405,6 @@
     self.view.backgroundColor = rgba(242, 242, 242, 1);
 
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMTabbarHeight-44) style:UITableViewStylePlain];
-//    _mainTableView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight-kYMNavigationBarHeight-kYMTabbarHeight-20-44);
     _mainTableView.backgroundColor = rgba(242, 242, 242, 1);
     _mainTableView.showsVerticalScrollIndicator = NO;
     _mainTableView.showsHorizontalScrollIndicator = NO;

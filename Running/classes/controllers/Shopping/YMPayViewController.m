@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     payChannel = -1;
     
     self.navigationItem.title = @"确认订单";

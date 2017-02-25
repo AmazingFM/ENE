@@ -10,6 +10,7 @@
 
 @protocol YMScrollMenuControllerDelegate <NSObject>
 
+@optional
 -(void)menuControllerWillSelectIndex:(NSInteger)index;
 -(void)menuControllerSelectAtIndex:(NSInteger)index;
 

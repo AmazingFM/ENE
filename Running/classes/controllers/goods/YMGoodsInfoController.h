@@ -26,10 +26,8 @@
 
 @interface YMGoodsInfoController : YMBaseViewController
 
-
 @property (nonatomic, copy) NSString *goods_id;
 @property (nonatomic, copy) NSString *goods_subid;
 @property (nonatomic, weak) id<YMGoodsInfoDelegate> delegate;
-
 
 @end
