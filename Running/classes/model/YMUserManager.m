@@ -42,7 +42,7 @@
     _user.token = user.token;
     _user.user_type = user.user_type;
     _user.user_name = user.user_name;
-    
+    _user.remark_code = user.remark_code;
     [self loadData];
 }
 

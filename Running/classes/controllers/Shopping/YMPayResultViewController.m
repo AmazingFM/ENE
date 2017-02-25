@@ -40,7 +40,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth,g_screenHeight/4)];
+    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight,g_screenWidth,g_screenHeight/4)];
     resultView.backgroundColor = [UIColor clearColor];
     
     CGSize size = [YMUtil sizeWithFont:@"支付成功" withFont:kYMBigFont];

@@ -36,7 +36,7 @@
     
 //    [self addTitleBar:CGRectMake(0, 0, g_screenWidth, 40.f)];
     [self addInfoBoard:CGRectMake(0, 0.f, g_screenWidth, 150.f)];
-    [self addBenifitChart:CGRectMake(0, 160, g_screenWidth,  g_screenHeight-64-44-10-160)];
+    [self addBenifitChart:CGRectMake(0, 160, g_screenWidth,  g_screenHeight-kYMTopBarHeight-44-10-160)];
 }
 
 - (void)viewWillAppear:(BOOL)animated

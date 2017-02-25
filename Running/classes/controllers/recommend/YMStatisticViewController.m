@@ -40,7 +40,7 @@
 //    [self addNaviBarItems];
     
     [self addBottomView];
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, g_screenHeight-64-44-10)];
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-44-10)];
     [self.view addSubview:_contentView];
     
     [self addSubControllers];
@@ -94,7 +94,7 @@
 
 - (void)addBottomView
 {
-    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,g_screenHeight-44-64, g_screenWidth, 44)];
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,g_screenHeight-44, g_screenWidth, 44)];
     _bottomView.backgroundColor = [UIColor whiteColor];
     
     NSArray *titles = @[@"客户列表", @"结算信息"];

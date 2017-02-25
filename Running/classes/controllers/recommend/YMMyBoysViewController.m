@@ -61,9 +61,9 @@
     [quitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [quitBtn addTarget:self action:@selector(loginOut:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *nameStr = [NSString stringWithFormat:@"你好，%@", [YMUserManager sharedInstance].user.nick_name];
+    NSString *nameStr = [NSString stringWithFormat:@"欢迎您，%@", [YMUserManager sharedInstance].user.nick_name];
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:nameStr];
-    NSRange range1 = [nameStr rangeOfString:@"你好，"];
+    NSRange range1 = [nameStr rangeOfString:@"欢迎您，"];
     NSRange range2 = NSMakeRange(range1.length, nameStr.length-range1.length);
     [attributedStr addAttribute:NSFontAttributeName value:kYMSmallFont range:range1];
     [attributedStr addAttribute:NSFontAttributeName value:kYMBigFont range:range2];
@@ -76,8 +76,8 @@
     nameLabel.textAlignment = NSTextAlignmentCenter;
     
     NSString *levelInfo = @"省级代理";
-    NSString *remarkCode = @"132433";
-    NSString *userInfo = [NSString stringWithFormat:@"%@，推荐吗：%@", levelInfo, remarkCode];
+    NSString *remarkCode = [YMUserManager sharedInstance].user.remark_code;
+    NSString *userInfo = [NSString stringWithFormat:@"%@，推荐码：%@", levelInfo, remarkCode];
     
     
     CGSize size = [YMUtil sizeWithFont:userInfo withFont:kYMVerySmallFont];
@@ -98,7 +98,7 @@
     [_headView addSubview:levelLabel];
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _mainTableView.frame = CGRectMake(0, g_screenWidth*2/5, g_screenWidth, g_screenHeight*3/5-44);
+    _mainTableView.frame = CGRectMake(0, CGRectGetMaxY(_headView.frame), g_screenWidth, self.view.bounds.size.height-CGRectGetMaxY(_headView.frame));
     _mainTableView.backgroundColor = [UIColor clearColor];
     _mainTableView.showsVerticalScrollIndicator = NO;
     _mainTableView.showsHorizontalScrollIndicator = NO;
@@ -126,6 +126,11 @@
     [_mainTableView.mj_header beginRefreshing];
 }
 
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    _mainTableView.frame = CGRectMake(0, CGRectGetMaxY(_headView.frame), g_screenWidth, self.view.bounds.size.height-CGRectGetMaxY(_headView.frame));
+}
 - (void)loginOut:(UIButton *)sender
 {
     [YMConfig deleteOwnAccount];
