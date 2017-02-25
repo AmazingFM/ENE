@@ -7,16 +7,18 @@
 //
 
 #import "YMImageLoadView.h"
+#import "YMCommon.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#define imageH 75 // 图片高度
-#define imageW 75 // 图片宽度
-#define kMaxColumn 3 // 每行显示数量
+
+#define imageH 60 // 图片高度
+#define imageW 60 // 图片宽度
+#define kMaxColumn 5 // 每行显示数量
 #define deleImageWH 22 // 删除按钮的宽高
 #define kAdeleImage @"close.png" // 删除按钮图片
-#define kAddImage @"me" // 添加按钮图片
+#define kAddImage @"icon-addpic" // 添加按钮图片
 
-#define HorizontalPadding 10
+#define HorizontalPadding 5
 #define ImageLoadTag 1000
 
 @interface YMImageLoadView() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -25,19 +27,68 @@
 }
 
 @end
-
 @implementation YMImageLoadView
 
-- (instancetype)initWithFrame:(CGRect)frame withMaxCount:(int)maxCount
+- (instancetype)initWithFrame:(CGRect)frame withMaxCount:(int)nCount
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.maxCount = maxCount;
+        self.maxCount = nCount;
         
         UIButton *btn = [self createButtonWithImage:kAddImage andSeletor:@selector(addNew:)];
         [self addSubview:btn];
     }
     return self;
+}
+
+// 添加新的控件
+- (void)addNew:(UIButton *)btn
+{
+    // 标识为添加一个新的图片
+    if (![self deleClose:btn]) {
+        editTag = -1;
+        //        [self callImagePicker];
+        [self openMenu];
+    }
+}
+
+// 修改旧的控件
+- (void)changeOld:(UIButton *)btn
+{
+    // 标识为修改(tag为修改标识)
+    if (![self deleClose:btn]) {
+        editTag = btn.tag;
+        //        [self callImagePicker];
+        [self openMenu];
+    }
+}
+
+// 删除"删除按钮"
+- (BOOL)deleClose:(UIButton *)btn
+{
+    if (btn.subviews.count == 2) {
+        [[btn.subviews lastObject] removeFromSuperview];
+        [self stop:btn];
+        return YES;
+    }
+    return NO;
+}
+
+// 调用图片选择器
+- (void)callImagePicker
+{
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+        picker.delegate = self;
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = YES;
+        picker.sourceType = sourceType;
+        [self.window.rootViewController presentViewController:picker animated:YES completion:nil];
+    } else
+    {
+        NSLog(@"模拟器无法打开照相机");
+    }
 }
 
 // 根据图片名称或者图片创建一个新的显示控件
@@ -52,6 +103,8 @@
         addImage = imageNameOrImage;
     }
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    addBtn.layer.borderWidth = 0.6f;
+    addBtn.layer.borderColor = rgba(238, 238, 238, 1).CGColor;
     [addBtn setImage:addImage forState:UIControlStateNormal];
     [addBtn addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     addBtn.tag = self.subviews.count;
@@ -131,15 +184,15 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    int count = self.subviews.count;
+    NSInteger count = self.subviews.count;
     CGFloat btnW = imageW;
     CGFloat btnH = imageH;
     int maxColumn = kMaxColumn > self.frame.size.width / imageW ? self.frame.size.width / imageW : kMaxColumn;
-    CGFloat marginX = (self.frame.size.width - maxColumn * btnW) / (maxColumn + 1);
-    CGFloat marginY = marginX;
+    CGFloat marginX = (self.frame.size.width - maxColumn * btnW) / (maxColumn - 1);
+    CGFloat marginY = 0;
     for (int i = 0; i < count; i++) {
         UIButton *btn = self.subviews[i];
-        CGFloat btnX = (i % maxColumn) * (marginX + btnW) + marginX;
+        CGFloat btnX = (i % maxColumn) * (marginX + btnW);
         CGFloat btnY = (i / maxColumn) * (marginY + btnH) + marginY;
         btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
     }
@@ -232,5 +285,4 @@
     // 退出图片选择控制器
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-
 @end

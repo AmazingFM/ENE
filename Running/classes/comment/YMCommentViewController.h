@@ -7,7 +7,10 @@
 //
 
 #import "YMBaseViewController.h"
+#import "YMGoods.h"
 
 @interface YMCommentViewController : YMBaseViewController
+
+@property (nonatomic, retain) YMGoods *goods;
 
 @end

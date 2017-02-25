@@ -20,7 +20,7 @@
 @property(nonatomic,assign)NSInteger selectedIndex;
 -(void)setMenuItems:(NSArray*)items;
 -(void)setMenuFont:(float)fontSize;
--(void)setTitle:(NSString*)title atIndex:(int)index;
--(void)setVisibleSelectedIndex:(int)selectedIndex;
--(void)setOffset:(int)index;
+-(void)setTitle:(NSString*)title atIndex:(NSInteger)index;
+-(void)setVisibleSelectedIndex:(NSInteger)selectedIndex;
+-(void)setOffset:(NSInteger)index;
 @end

@@ -64,8 +64,13 @@
         btn.layer.cornerRadius=5.0f;
     }
     
+    titleWidth = 0;
     NSString *title = [items objectAtIndex:0];
-    titleWidth = [YMUtil sizeWithFont:title withFont:[UIFont boldSystemFontOfSize:14]].width;
+    for (int i=0; i<items.count; i++) {
+        float width = [YMUtil sizeWithFont:items[i] withFont:[UIFont boldSystemFontOfSize:14]].width;
+        titleWidth = (titleWidth>width)?:width;
+    }
+    
     _highlightView.frame=CGRectMake(perWidth*_selectedIndex+(perWidth-titleWidth)/2,self.frame.size.height-2,titleWidth,2);
     
     //    _selectedIndex=0;
@@ -75,7 +80,7 @@
     [self addSubview:_scrollView];
 }
 
--(void)setVisibleSelectedIndex:(int)selectedIndex{
+-(void)setVisibleSelectedIndex:(NSInteger)selectedIndex{
     UIButton* selectedBtn=(UIButton*)[_scrollView viewWithTag:kLABarMenuItemTag+_selectedIndex];
     [selectedBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     _selectedIndex=selectedIndex;
@@ -99,17 +104,18 @@
     }
 }
 
--(void)setTitle:(NSString*)title atIndex:(int)index{
+-(void)setTitle:(NSString*)title atIndex:(NSInteger)index{
     UIButton* btn=(UIButton*)[_scrollView viewWithTag:kLABarMenuItemTag+index];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitle:title forState:UIControlStateHighlighted];
 }
 
--(void)setOffset:(int)index{
-    float itemWidth=g_screenWidth/_menuMaxCount;
+-(void)setOffset:(NSInteger)index{
+    float itemWidth=self.bounds.size.width/_menuMaxCount;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.25];
+    
     _highlightView.frame=CGRectMake(itemWidth*_selectedIndex+(itemWidth-titleWidth)/2,self.frame.size.height-2,titleWidth,2);
     [UIView commitAnimations];
 }

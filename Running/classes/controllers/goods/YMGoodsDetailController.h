@@ -8,16 +8,7 @@
 
 #import "YMBaseViewController.h"
 
-#import "YMGoods.h"
-
-@interface YMGoodsDetailItem : NSObject
-
-@property (nonatomic, retain) YMGoods *goods;
-@property (nonatomic) int numOfRows;
-@property (nonatomic) float rowHeight;
-
-@end
-
+//商品页面，包括商品基本信息、评价页面
 @interface YMGoodsDetailController : YMBaseViewController
 
 @property (nonatomic, copy) NSString *goods_id;

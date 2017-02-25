@@ -8,6 +8,7 @@
 
 #import "YMOrdersViewController.h"
 #import "YMPayViewController.h"
+#import "YMCommentViewController.h"
 
 #import "YMUtil.h"
 #import "YMBaseItem.h"
@@ -86,7 +87,7 @@
     
     goodImage.frame = CGRectMake(offsetx+kYMPadding, offsety+kYMPadding, size.height-2*kYMPadding, size.height-2*kYMPadding);
     goodImage.backgroundColor = [UIColor yellowColor];
-    [goodImage setImage:[UIImage imageNamed:@"default"]];
+    [goodImage sd_setImageWithURL:[NSURL URLWithString:_contentItem.goods.goods_image1] placeholderImage:[UIImage imageNamed:@"default"]];
     
     offsetx = CGRectGetMaxX(goodImage.frame);
     
@@ -311,7 +312,24 @@
     return view;
 }
 
-- (UIView *)footerView:(int)section
+- (CGFloat)heightForFootView:(NSInteger)section
+{
+    float sectionfooterHeight = 0.0f;
+    YMOrderItem *item = self.itemArr[section];
+    YMOrderType status = item.order.status;
+
+    switch (status) {
+        case YMOrderTypeForSend:
+            sectionfooterHeight = 10.0f;
+            break;
+        default:
+            sectionfooterHeight = 40.0f;
+            break;
+    }
+    return sectionfooterHeight;
+}
+
+- (UIView *)footerView:(NSInteger)section
 {
     float sectionfooterHeight = 40.f;
     
@@ -328,17 +346,25 @@
         case YMOrderTypeForReceive:
             [title addObjectsFromArray:@[@"确认收货"]];
             break;
-        case YMOrderTypeAccept:
         case YMOrderTypeComment:
         case YMOrderTypeTimeout:
         case YMOrderTypeCancel:
             [title addObjectsFromArray:@[@"删除订单"]];
             break;
+        case YMOrderTypeAccept:
+            [title addObjectsFromArray:@[@"去评价", @"删除订单"]];
         default:
             break;
     }
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, sectionfooterHeight)];
+    CGFloat footerheight = [self heightForFootView:section];
+    if (footerheight==10.f) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, footerheight)];
+        footerView.backgroundColor = [UIColor whiteColor];
+        return footerView;
+    }
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, footerheight)];
     footerView.backgroundColor = [UIColor whiteColor];
     
     CGSize buttonSize = [YMUtil sizeWithFont:@"更改地址" withFont:kYMNormalFont];
@@ -356,7 +382,7 @@
             [button setTitle:title[i] forState:UIControlStateNormal];
             button.titleLabel.font = kYMNormalFont;
             UIColor *textColor;
-            if ([title[i] isEqualToString:@"去付款"]) {
+            if ([title[i] isEqualToString:@"去付款"] ||[title[i] isEqualToString:@"去评价"]) {
                 textColor = [UIColor whiteColor];
                 button.backgroundColor = [UIColor redColor];
             } else {
@@ -392,6 +418,8 @@
         [self cancleOrder:item.order];
     } else if([sender.titleLabel.text isEqualToString:@"删除订单"]) {
         [self deleteOrder:item.order];
+    } else if([sender.titleLabel.text isEqualToString:@"确认收货"]) {
+        [self confirmOrder:item.order];
     }
 }
 
@@ -416,7 +444,7 @@
     NSMutableArray<YMOrderContent *> *goodsItems = self.itemArr[indexPath.section].order.goodsItems;
     
     if (indexPath.row==goodsItems.count+2) {
-        return 40.f;
+        return [self heightForFootView:indexPath.section];
     } else if(indexPath.row==goodsItems.count||
               indexPath.row==goodsItems.count+1) {
         return kYMOrderTableDefaultRowHeight;
@@ -476,7 +504,7 @@
             for (UIView *sub in cell.subviews) {
                 [sub removeFromSuperview];
             }
-            [cell addSubview:[self footerView:(int)indexPath.section]];
+            [cell addSubview:[self footerView:indexPath.section]];
         }
     }
     
@@ -493,6 +521,19 @@
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsMake(0, kYMPadding, 0, kYMPadding)];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.selectedIndex!=3) {
+        return;
+    }
+    YMOrder *order =  self.itemArr[indexPath.section].order;
+    NSMutableArray<YMOrderContent *> *goodsItems = order.goodsItems;
+    
+    YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
+    commentVC.goods = goodsItems[indexPath.row].goods;
+    [self.navigationController pushViewController:commentVC animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -619,7 +660,6 @@
                                 for (NSDictionary *dict1 in goodsArr) {
                                     YMOrderContent *detailContent = [[YMOrderContent alloc] init];
                                     detailContent.count = [dict1[@"qty"] intValue];
-                                    
                                     YMGoods *goods = [YMGoods objectWithKeyValues:dict1];
                                     detailContent.goods = goods;
                                     
@@ -708,13 +748,10 @@
 
 - (void)deleteOrder:(YMOrder *)order
 {
-//    if (![self getParameters]) {
-//        return;
-//    }
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
     parameters[@"order_id"] = order.orderId;
-    parameters[@"status"] = @"99"; //删除订单
+    parameters[@"status"] = @"99"; //订单状态， 3-已收货，99-删除订单
     
     [self startLoading];
     
@@ -728,6 +765,36 @@
             if ([resp_id integerValue]==0) {
                 //重新刷新订单
                 [self showTextHUDView:@"成功删除订单"];
+                [self refresh];
+            } else {
+                NSString *resp_desc = respDict[kYM_RESPDESC];
+                showDefaultAlert(resp_id, resp_desc);
+            }
+        }
+    } failure:^(NSError *error) {
+        [self endLoading];
+    }];
+}
+
+- (void)confirmOrder:(YMOrder *)order
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"order_id"] = order.orderId;
+    parameters[@"status"] = @"3"; //订单状态， 3-已收货，99-删除订单
+    
+    [self startLoading];
+    
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=OrderStatusModify"] parameters:parameters success:^(id responseObject) {
+        [self endLoading];
+        
+        NSDictionary *respDict = responseObject;
+        
+        if (respDict) {
+            NSString *resp_id = respDict[kYM_RESPID];
+            if ([resp_id integerValue]==0) {
+                //重新刷新订单
+                [self showTextHUDView:@"已经确认收货"];
                 [self refresh];
             } else {
                 NSString *resp_desc = respDict[kYM_RESPDESC];
