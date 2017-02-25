@@ -11,6 +11,6 @@
 
 @interface YMCommentViewController : YMBaseViewController
 
-@property (nonatomic, retain) YMGoods *goods;
+@property (nonatomic, retain) NSDictionary *commentDict;
 
 @end

@@ -22,6 +22,8 @@
 #define kYMOrderDetailFont [UIFont systemFontOfSize:13]
 #define kYMOrderPriceFont [UIFont systemFontOfSize:15]
 
+#define kCommentIndex 4
+
 @implementation YMOrderItem
 @end
 
@@ -73,6 +75,13 @@
     return self;
 }
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    [super setBackgroundColor:backgroundColor];
+    UIView *header = [self viewWithTag:100];
+    header.backgroundColor = backgroundColor;
+}
+
 - (void)setItem:(YMOrderContent *)item
 {
     _contentItem = item;
@@ -104,9 +113,13 @@
     _priceLabel.frame = CGRectMake(offsetx+kYMPadding, size.height-kYMPadding-priceSize.height, priceSize.width, priceSize.height);
     _priceLabel.text =[NSString stringWithFormat:@"￥%@", _contentItem.goods.price];
     
-    CGSize countSize =[YMUtil sizeWithFont:[NSString stringWithFormat:@"x%d", _contentItem.count] withFont:kYMOrderTitleFont];
-    _countLabel.frame = CGRectMake(size.width-countSize.width-kYMPadding, size.height-kYMPadding-countSize.height, countSize.width, countSize.height);
-    _countLabel.text =[NSString stringWithFormat:@"x%d", _contentItem.count];
+    if (_contentItem.count==0) {
+        _countLabel.hidden = YES;
+    } else {
+        CGSize countSize =[YMUtil sizeWithFont:[NSString stringWithFormat:@"x%d", _contentItem.count] withFont:kYMOrderTitleFont];
+        _countLabel.frame = CGRectMake(size.width-countSize.width-kYMPadding, size.height-kYMPadding-countSize.height, countSize.width, countSize.height);
+        _countLabel.text =[NSString stringWithFormat:@"x%d", _contentItem.count];
+    }
 }
 
 @end
@@ -127,6 +140,8 @@
 @property(nonatomic,retain)NSDictionary*         statusTitles;
 @property(nonatomic,retain)NSMutableArray<YMOrderItem *>*  itemArr;
 
+@property(nonatomic,retain)NSMutableArray*  commentList;
+
 @end
 
 @implementation YMOrdersViewController
@@ -135,7 +150,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.titles = @[@"全部", @"待付款", @"待发货", @"待收货", @"已收货"];
+    self.titles = @[@"全部", @"待付款", @"待发货", @"待收货", @"待评价"];
     self.statusTitles = @{@"0":@"待支付", @"1":@"已支付", @"2":@"已发货", @"3":@"已收货", @"4":@"已评价", @"7":@"已取消", @"9":@"超时"};
     self.navigationItem.title = self.titles[self.selectedIndex];
     self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
@@ -237,10 +252,6 @@
     [_loadingView stopAnimating];
 }
 
--(void)menuControllerWillSelectIndex:(NSInteger)index{
-    
-}
-
 -(void)menuControllerSelectAtIndex:(NSInteger)index{
     if(self.selectedIndex!=index){
         self.selectedIndex=index;
@@ -264,52 +275,81 @@
     return _itemArr;
 }
 
+- (NSMutableArray *)commentList
+{
+    if (_commentList==nil) {
+        _commentList = [NSMutableArray array];
+    }
+    return _commentList;
+}
+
 #pragma mark- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return kYMSectionHeaderHeight;
+    if (self.selectedIndex==kCommentIndex) {
+        return 10;
+    } else {
+        return kYMSectionHeaderHeight;
+    }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (self.selectedIndex==kCommentIndex) {
+        return CGFLOAT_MIN;
+    } else {
+        return 0;
+    }
+}
+
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    YMOrderItem *item = self.itemArr[section];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, kYMSectionHeaderHeight)];
-    view.backgroundColor = [UIColor clearColor];
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 10.f, g_screenWidth, kYMSectionHeaderHeight-10.f)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kYMPadding, 0, headerView.width-2*kYMPadding-50, headerView.height*3/5)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.font = [UIFont systemFontOfSize:13];
-    titleLabel.textColor = [UIColor grayColor];
-    titleLabel.text = [NSString stringWithFormat:@"订单号:%@", item.order.orderId];
-    
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kYMPadding, CGRectGetMaxY(titleLabel.frame), headerView.width-2*kYMPadding-50, headerView.height*2/5)];
-    timeLabel.backgroundColor = [UIColor clearColor];
-    timeLabel.textAlignment = NSTextAlignmentLeft;
-    timeLabel.font = [UIFont systemFontOfSize:10];
-    timeLabel.textColor = [UIColor grayColor];
-    
-    NSString *timeStr = [YMUtil dateStringTransform:item.order.timestamp fromFormat:@"yyyyMMddHHmmss" toFormat:@"yyyy-MM-dd HH:mm:ss"];
-    timeLabel.text = [NSString stringWithFormat:@"下单时间:%@", timeStr];
-    
-    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerView.width-15-50, 0, 50, headerView.height)];
-    statusLabel.backgroundColor = [UIColor clearColor];
-    statusLabel.textAlignment = NSTextAlignmentRight;
-    statusLabel.font = kYMNormalFont;
-    statusLabel.textColor = [UIColor redColor];
-    statusLabel.text = self.statusTitles[[NSString stringWithFormat:@"%d", item.order.status]];
-    
-    [headerView addSubview:titleLabel];
-    [headerView addSubview:timeLabel];
-    
-    [headerView addSubview:statusLabel];
-    
-    [view addSubview:headerView];
-    return view;
+    if (self.selectedIndex==kCommentIndex) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, 10)];
+        view.backgroundColor = [UIColor clearColor];
+        return view;
+    } else {
+        YMOrderItem *item = self.itemArr[section];
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, g_screenWidth, kYMSectionHeaderHeight)];
+        view.backgroundColor = [UIColor clearColor];
+        
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 10.f, g_screenWidth, kYMSectionHeaderHeight-10.f)];
+        headerView.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kYMPadding, 0, headerView.width-2*kYMPadding-50, headerView.height*3/5)];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textAlignment = NSTextAlignmentLeft;
+        titleLabel.font = [UIFont systemFontOfSize:13];
+        titleLabel.textColor = [UIColor grayColor];
+        titleLabel.text = [NSString stringWithFormat:@"订单号:%@", item.order.orderId];
+        
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kYMPadding, CGRectGetMaxY(titleLabel.frame), headerView.width-2*kYMPadding-50, headerView.height*2/5)];
+        timeLabel.backgroundColor = [UIColor clearColor];
+        timeLabel.textAlignment = NSTextAlignmentLeft;
+        timeLabel.font = [UIFont systemFontOfSize:10];
+        timeLabel.textColor = [UIColor grayColor];
+        
+        NSString *timeStr = [YMUtil dateStringTransform:item.order.timestamp fromFormat:@"yyyyMMddHHmmss" toFormat:@"yyyy-MM-dd HH:mm:ss"];
+        timeLabel.text = [NSString stringWithFormat:@"下单时间:%@", timeStr];
+        
+        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerView.width-15-50, 0, 50, headerView.height)];
+        statusLabel.backgroundColor = [UIColor clearColor];
+        statusLabel.textAlignment = NSTextAlignmentRight;
+        statusLabel.font = kYMNormalFont;
+        statusLabel.textColor = [UIColor redColor];
+        statusLabel.text = self.statusTitles[[NSString stringWithFormat:@"%d", item.order.status]];
+        
+        [headerView addSubview:titleLabel];
+        [headerView addSubview:timeLabel];
+        
+        [headerView addSubview:statusLabel];
+        
+        [view addSubview:headerView];
+        return view;
+    }
 }
 
 - (CGFloat)heightForFootView:(NSInteger)section
@@ -424,91 +464,124 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.itemArr.count;
+    if (self.selectedIndex==kCommentIndex) {
+        return self.commentList.count;
+    } else {
+        return self.itemArr.count;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    YMOrderItem *item = self.itemArr[section];
-    NSMutableArray<YMOrderContent *> *goodsItems = item.order.goodsItems;
-    
-    if (goodsItems.count>0) {
-        return goodsItems.count+3;
+    if (self.selectedIndex==kCommentIndex) {
+        return 1;
+    } else {
+        YMOrderItem *item = self.itemArr[section];
+        NSMutableArray<YMOrderContent *> *goodsItems = item.order.goodsItems;
+        
+        if (goodsItems.count>0) {
+            return goodsItems.count+3;
+        }
+        return 0;
     }
-    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray<YMOrderContent *> *goodsItems = self.itemArr[indexPath.section].order.goodsItems;
-    
-    if (indexPath.row==goodsItems.count+2) {
-        return [self heightForFootView:indexPath.section];
-    } else if(indexPath.row==goodsItems.count||
-              indexPath.row==goodsItems.count+1) {
-        return kYMOrderTableDefaultRowHeight;
-    } else {
+    if (self.selectedIndex==kCommentIndex) {
         return kYMOrderTableGoodsRowHeight;
+    } else {
+        NSMutableArray<YMOrderContent *> *goodsItems = self.itemArr[indexPath.section].order.goodsItems;
+        
+        if (indexPath.row==goodsItems.count+2) {
+            return [self heightForFootView:indexPath.section];
+        } else if(indexPath.row==goodsItems.count||
+                  indexPath.row==goodsItems.count+1) {
+            return kYMOrderTableDefaultRowHeight;
+        } else {
+            return kYMOrderTableGoodsRowHeight;
+        }
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YMOrder *order =  self.itemArr[indexPath.section].order;
-    NSMutableArray<YMOrderContent *> *goodsItems = order.goodsItems;
-    
-    NSString *cellIdentifier = nil;
-    
-    if (indexPath.row==goodsItems.count+2) {
-        cellIdentifier = @"footerCellId";
-    } else if (indexPath.row>=goodsItems.count) {
-        cellIdentifier = @"defaultCellId";
-    } else if (indexPath.row<goodsItems.count){
-        cellIdentifier = @"goodsCellId";
-    }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell==nil) {
-        if ([cellIdentifier containsString:@"goods"]) {
+    if (self.selectedIndex==kCommentIndex) {
+        NSDictionary *commentDict = self.commentList[indexPath.section];
+        YMGoods *goods = commentDict[@"goods"];
+        
+        NSString *cellIdentifier = @"goodsCellId";
+        YMGoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell==nil) {
             cell = [[YMGoodsCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         }
-        else
-        {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        
+        YMOrderContent *detailContent = [[YMOrderContent alloc] init];
+        detailContent.count = 0;
+        detailContent.goods = goods;
+
+        [cell setItem:detailContent];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+    } else {
+        YMOrder *order =  self.itemArr[indexPath.section].order;
+        NSMutableArray<YMOrderContent *> *goodsItems = order.goodsItems;
+        
+        NSString *cellIdentifier = nil;
+        
+        if (indexPath.row==goodsItems.count+2) {
+            cellIdentifier = @"footerCellId";
+        } else if (indexPath.row>=goodsItems.count) {
+            cellIdentifier = @"defaultCellId";
+        } else if (indexPath.row<goodsItems.count){
+            cellIdentifier = @"goodsCellId";
         }
-    }
-    
-    if ([cell isKindOfClass:[YMGoodsCell class]]){
-        YMGoodsCell *goodCell = (YMGoodsCell *)cell;
-        [goodCell setItem:goodsItems[indexPath.row]];
-    } else if ([cell isKindOfClass:[UITableViewCell class]]) {
-        if ((indexPath.row-goodsItems.count)==0) {
-            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
-            priceLabel.font = kYMOrderDetailFont;
-            priceLabel.attributedText = [self priceString:order];
-            priceLabel.textAlignment = NSTextAlignmentRight;
-            cell.accessoryView = priceLabel;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }  else if ((indexPath.row-goodsItems.count)==1) {
-            UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
-            YMAddress *address = order.address;
-            addressLabel.text = [NSString stringWithFormat:@"收货信息 %@(%@，%@%@%@%@)", address.delivery_name, address.contact_no, address.city.province, address.city.city, address.city.town, address.delivery_addr];//@"收货信息";
-            addressLabel.font = kYMOrderDetailFont;
-            addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-            addressLabel.numberOfLines = 2;
-            addressLabel.textAlignment = NSTextAlignmentRight;
-            cell.accessoryView = addressLabel;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        } else if ((indexPath.row-goodsItems.count)==2) {
-            for (UIView *sub in cell.subviews) {
-                [sub removeFromSuperview];
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell==nil) {
+            if ([cellIdentifier containsString:@"goods"]) {
+                cell = [[YMGoodsCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
             }
-            [cell addSubview:[self footerView:indexPath.section]];
+            else
+            {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+            }
         }
+        
+        if ([cell isKindOfClass:[YMGoodsCell class]]){
+            YMGoodsCell *goodCell = (YMGoodsCell *)cell;
+            [goodCell setItem:goodsItems[indexPath.row]];
+        } else if ([cell isKindOfClass:[UITableViewCell class]]) {
+            if ((indexPath.row-goodsItems.count)==0) {
+                UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
+                priceLabel.font = kYMOrderDetailFont;
+                priceLabel.attributedText = [self priceString:order];
+                priceLabel.textAlignment = NSTextAlignmentRight;
+                cell.accessoryView = priceLabel;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }  else if ((indexPath.row-goodsItems.count)==1) {
+                UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
+                YMAddress *address = order.address;
+                addressLabel.text = [NSString stringWithFormat:@"收货信息 %@(%@，%@%@%@%@)", address.delivery_name, address.contact_no, address.city.province, address.city.city, address.city.town, address.delivery_addr];//@"收货信息";
+                addressLabel.font = kYMOrderDetailFont;
+                addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+                addressLabel.numberOfLines = 2;
+                addressLabel.textAlignment = NSTextAlignmentRight;
+                cell.accessoryView = addressLabel;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            } else if ((indexPath.row-goodsItems.count)==2) {
+                for (UIView *sub in cell.subviews) {
+                    [sub removeFromSuperview];
+                }
+                [cell addSubview:[self footerView:indexPath.section]];
+            }
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -524,15 +597,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex!=4) {
-        return;
+    if (self.selectedIndex==kCommentIndex) {
+        NSDictionary *commentDict = self.commentList[indexPath.section];
+        YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
+        commentVC.commentDict = commentDict;
+        [self.navigationController pushViewController:commentVC animated:YES];
     }
-    YMOrder *order =  self.itemArr[indexPath.section].order;
-    NSMutableArray<YMOrderContent *> *goodsItems = order.goodsItems;
-    
-    YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
-    commentVC.goods = goodsItems[indexPath.row].goods;
-    [self.navigationController pushViewController:commentVC animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -632,8 +702,9 @@
                         self.lastPage = YES;
                     }
                     
-                    
                     NSMutableArray *ordersList = [NSMutableArray array];
+                    NSMutableArray *tmpCommentList = [NSMutableArray array];
+                    
                     if ([resp_data[@"order_list"] isKindOfClass:[NSArray class]]) {
                         for (NSDictionary *dict in resp_data[@"order_list"]) {
                             YMOrder *order = [[YMOrder alloc] init];
@@ -663,6 +734,15 @@
                                     detailContent.goods = goods;
                                     
                                     [order.goodsItems addObject:detailContent];
+                                    
+                                    if (self.selectedIndex==4) {
+                                        NSMutableDictionary *orderDict = [NSMutableDictionary new];
+                                        [orderDict setObject:order.orderId forKey:@"order_id"];
+                                        [orderDict setObject:order.user_id forKey:@"user_id"];
+                                        [orderDict setObject:goods forKey:@"goods"];
+                                        
+                                        [tmpCommentList addObject:orderDict];
+                                    }
                                 }
                             }
                             
@@ -681,13 +761,18 @@
                     //..下拉刷新
                     if (self.myRefreshView == _tableView.mj_header) {
                         [self.itemArr removeAllObjects];
+                        [self.commentList removeAllObjects];
+                        
                         [self.itemArr addObjectsFromArray:arrayM];
+                        [self.commentList addObjectsFromArray:tmpCommentList];
+                        
                         _tableView.mj_footer.hidden = self.lastPage;
                         [_tableView reloadData];
                         [self.myRefreshView endRefreshing];
                         
                     } else if (self.myRefreshView == _tableView.mj_footer) {
                         [self.itemArr addObjectsFromArray:arrayM];
+                        [self.commentList addObjectsFromArray:tmpCommentList];
                         [_tableView reloadData];
                         [self.myRefreshView endRefreshing];
                         if (self.lastPage) {

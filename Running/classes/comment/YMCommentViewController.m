@@ -23,6 +23,8 @@
     NSInteger commentScore;
     
     BOOL isGoing;
+    
+    YMGoods *goods;
 }
 
 @property (nonatomic, retain) UIImageView *goodImageView;
@@ -52,6 +54,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    goods = self.commentDict[@"goods"];
+    self.navigationItem.title = @"评价";
+    
     // Do any additional setup after loading the view.
     self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
     self.view.backgroundColor = rgba(238, 238, 238, 1);
@@ -67,7 +72,7 @@
     self.goodImageView.contentMode = UIViewContentModeScaleToFill;
     self.goodImageView.userInteractionEnabled = NO;
     self.goodImageView.backgroundColor = [UIColor greenColor];
-    [self.goodImageView sd_setImageWithURL:[NSURL URLWithString:self.goods.goods_image1] placeholderImage:[UIImage imageNamed:@"default"]];
+    [self.goodImageView sd_setImageWithURL:[NSURL URLWithString:goods.goods_image1] placeholderImage:[UIImage imageNamed:@"default"]];
     
     self.ratingBar = [[YMRatingBar alloc] initWithFrame:CGRectMake(offsetx+goodsImageHeight+kYMBorderMargin, offsety, g_screenWidth-2*offsetx-goodsImageHeight-kYMBorderMargin, goodsImageHeight)];
     self.ratingBar.delegate = self;
@@ -79,6 +84,8 @@
     self.textView.layer.borderColor = rgba(238, 238, 238, 1).CGColor;
     self.textView.layer.borderWidth = 0.6f;
     self.textView.placeholder = @"写下购买体会和使用感受来供他人参考吧~";
+    self.textView.keyboardType = UIKeyboardTypeDefault;
+    self.textView.returnKeyType = UIReturnKeyDone;
     
     CGRect textViewFrame = self.textView.frame;
     self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(textViewFrame)-100-5, CGRectGetMaxY(textViewFrame)-30, 100, 30)];
@@ -155,6 +162,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark UITextViewDelegate
+
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     NSString  *nsTextContent = textView.text;
@@ -169,11 +178,16 @@
     }
     
     //不让显示负数
-    self.countLabel.text = [NSString stringWithFormat:@"%ld/%d",MIN(MAX_LIMIT_NUMS,existTextNum),MAX_LIMIT_NUMS];
+    self.countLabel.text = [NSString stringWithFormat:@"%d/%d",MIN(MAX_LIMIT_NUMS,existTextNum),MAX_LIMIT_NUMS];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
     NSString *comcatstr = [textView.text stringByReplacingCharactersInRange:range withString:text];
     
     NSInteger caninputlen = MAX_LIMIT_NUMS - comcatstr.length;

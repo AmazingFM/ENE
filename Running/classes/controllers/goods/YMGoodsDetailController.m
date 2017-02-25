@@ -130,7 +130,38 @@
     
     [self addChildViewControllers];
     
+    [self addSwapGesture];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBadgeValue:) name:kYMNoticeShoppingCartIdentifier object:nil];
+}
+
+- (void)addSwapGesture
+{
+    UISwipeGestureRecognizer *swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    //设置轻扫的方向
+    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight; //默认向右
+    [self.view addGestureRecognizer:swipeGestureRight];
+    
+    //添加轻扫手势
+    UISwipeGestureRecognizer *swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    //设置轻扫的方向
+    swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft; //默认向右
+    [self.view addGestureRecognizer:swipeGestureLeft];
+}
+
+- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
+{
+    UISwipeGestureRecognizerDirection direction = recognizer.direction;
+    
+    if (direction==UISwipeGestureRecognizerDirectionRight) {
+        if (self.selectedIndex==1) {
+            [self menuControllerSelectAtIndex:0];
+        }
+    } else if (direction==UISwipeGestureRecognizerDirectionLeft) {
+        if (self.selectedIndex==0) {
+            [self menuControllerSelectAtIndex:1];
+        }
+    }
 }
 
 - (void)addChildViewControllers
