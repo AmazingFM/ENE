@@ -223,10 +223,8 @@
 - (void)refresh
 {
     self.myRefreshView = _tableView.mj_header;
-    
-    if (self.lastPage) {
-        [_tableView.mj_footer resetNoMoreData];
-    }
+    [_tableView.mj_footer resetNoMoreData];
+
     self.lastPage = NO;
     self.pageNum = 1;
     [self requestOrders];
@@ -258,7 +256,8 @@
         
         self.navigationItem.title = self.titles[self.selectedIndex];
         
-        [self requestOrders];
+        [self refresh];
+        
         if(_barMenuView) {
            [_barMenuView setVisibleSelectedIndex:index];
             [_barMenuView setOffset:index];
@@ -765,11 +764,13 @@
                         
                         [self.itemArr addObjectsFromArray:arrayM];
                         [self.commentList addObjectsFromArray:tmpCommentList];
-                        
-                        _tableView.mj_footer.hidden = self.lastPage;
                         [_tableView reloadData];
                         [self.myRefreshView endRefreshing];
                         
+                        _tableView.mj_footer.hidden = self.lastPage;
+                        if (self.lastPage) {
+                            [_tableView.mj_footer endRefreshingWithNoMoreData];
+                        }
                     } else if (self.myRefreshView == _tableView.mj_footer) {
                         [self.itemArr addObjectsFromArray:arrayM];
                         [self.commentList addObjectsFromArray:tmpCommentList];
@@ -783,16 +784,19 @@
                     _noItemImg.hidden = YES;
                     _noItemDesc.hidden = YES;
                 } else {
+                    [self.myRefreshView endRefreshing];
                     _tableView.hidden = YES;
                     _noItemImg.hidden = NO;
                     _noItemDesc.hidden = NO;
                 }
             } else {
+                [self.myRefreshView endRefreshing];
                 NSString *resp_desc = respDict[kYM_RESPDESC];
                 showDefaultAlert(resp_id, resp_desc);
             }
         }
     } failure:^(NSError *error) {
+        [self.myRefreshView endRefreshing];
         [self endLoading];
     }];
 }
