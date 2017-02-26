@@ -20,6 +20,7 @@
 #define kTimeLabelWidth         100
 #define kMaxImageCount          5
 #define kImageWidth             60
+#define kCommentCellPadding     5
 
 #define kCommentCellImageTag    2000
 #define kCommentCellIdentifier  @"kCommentCellIdentifier"
@@ -86,13 +87,13 @@
         self.headImageView.image = [UIImage imageNamed:@"default"];
 //        [self.headImageView sd_setImageWithURL:[] placeholderImage:[UIImage imageNamed:@"default"]];
 
-        self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(kYMBorderMargin+kYMTableViewDefaultRowHeight/2+kYMBorderMargin, 0, userNameTextWidth, kYMTableViewDefaultRowHeight)];
+        self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(kCommentCellPadding+kYMTableViewDefaultRowHeight/2+kYMBorderMargin, 0, userNameTextWidth, kYMTableViewDefaultRowHeight)];
         self.userNameLabel.backgroundColor = [UIColor clearColor];
         self.userNameLabel.textAlignment = NSTextAlignmentLeft;
         self.userNameLabel.font = kYMNormalFont;
         self.userNameLabel.textColor = [UIColor blackColor];
         
-        self.ratingBar = [[YMSimpleRatingBar alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userNameLabel.frame)+kYMBorderMargin, 0, 200, kYMTableViewDefaultRowHeight) andStarSize:CGSizeMake(kYMTableViewDefaultRowHeight/3, kYMTableViewDefaultRowHeight/3)];
+        self.ratingBar = [[YMSimpleRatingBar alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.userNameLabel.frame), 0, 200, kYMTableViewDefaultRowHeight) andStarSize:CGSizeMake(kYMTableViewDefaultRowHeight/3, kYMTableViewDefaultRowHeight/3)];
         
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(g_screenWidth-kYMBorderMargin-kTimeLabelWidth, 0, kTimeLabelWidth, kYMTableViewDefaultRowHeight)];
         self.timeLabel.backgroundColor = [UIColor clearColor];
@@ -148,7 +149,7 @@
     self.userNameLabel.text = commentItem.user_name;
     
     rect = self.ratingBar.frame;
-    rect.origin.x = CGRectGetMaxX(self.userNameLabel.frame)+kYMBorderMargin;
+    rect.origin.x = CGRectGetMaxX(self.userNameLabel.frame);
     self.ratingBar.frame = rect;
     [self.ratingBar setImageWithIndex:[commentItem.evaluate_level intValue]-1];
     
