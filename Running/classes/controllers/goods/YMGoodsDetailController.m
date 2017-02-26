@@ -28,7 +28,7 @@
     
     CGFloat badgeOffsetX;
     
-    UIView *bottomBar ;
+//    UIView *bottomBar ;
 }
 
 @property (nonatomic, retain) YMGoods *goods;
@@ -59,13 +59,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0,g_screenHeight-44.f,g_screenWidth,44.f)];
-    bottomBar.backgroundColor = [UIColor whiteColor];
+//    bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0,g_screenHeight-44.f,g_screenWidth,44.f)];
+//    bottomBar.backgroundColor = [UIColor whiteColor];
     
     NSArray *barImageArr = @[@"detail_home", @"detail_collect", @"detail_cart"];
     NSArray *barSelectImageArr = @[@"detail_home", @"detail_collect_select", @"detail_cart"];
     NSArray *barTitleArr = @[@"首页", @"收藏", @"购物车"];
-    _addCartButton = [[UIButton alloc] initWithFrame:CGRectMake(g_screenWidth*3/5,0,g_screenWidth*2/5,44.f)];
+    _addCartButton = [[UIButton alloc] initWithFrame:CGRectMake(g_screenWidth*3/5,g_screenHeight-44.f,g_screenWidth*2/5,44.f)];
     _addCartButton.tag = kYMGoodsDetailTag+2;
     [_addCartButton addTarget:self action:@selector(addToCart) forControlEvents:UIControlEventTouchUpInside];
     [_addCartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
@@ -76,7 +76,7 @@
     float perWidth = g_screenWidth/5;
     
     for (int i=0; i<barTitleArr.count; i++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*perWidth,0,perWidth,44.f)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*perWidth,g_screenHeight-44.f,perWidth,44.f)];
         [btn setImage:[UIImage imageNamed:barImageArr[i]] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:barSelectImageArr[i]] forState:UIControlStateSelected];
         
@@ -108,10 +108,10 @@
         }
         
         [btn addTarget:self action:@selector(barButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [bottomBar addSubview:btn];
+        [self.view addSubview:btn];
     }
     
-    [bottomBar addSubview:_addCartButton];
+    [self.view addSubview:_addCartButton];
     
     self.path = [UIBezierPath bezierPath];
     [_path moveToPoint:_addCartButton.center];
@@ -135,9 +135,6 @@
     }
     
     [self addChildViewControllers];
-    
-    [self.view addSubview:bottomBar];
-    
     [self addSwapGesture];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBadgeValue:) name:kYMNoticeShoppingCartIdentifier object:nil];
@@ -180,14 +177,15 @@
     goodsInfoVC.goods_subid = self.goods_subid;
     goodsInfoVC.delegate = self;
     [self addChildViewController:goodsInfoVC];
-    [self.view addSubview:goodsInfoVC.view];
-    
+
     YMGoodsCommentController *goodsCommentVC = [[YMGoodsCommentController alloc] init];
     [self addChildViewController:goodsCommentVC];
     
     [self.childViewControllers enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.view.frame = viewFrame;
     }];
+    
+    [self.view addSubview:goodsInfoVC.view];
 }
 
 - (void)switchController:(NSInteger)index
@@ -203,8 +201,6 @@
             }
             self.selectedIndex = index;
         }];
-        
-        [self.view bringSubviewToFront:bottomBar];
     }
 }
 

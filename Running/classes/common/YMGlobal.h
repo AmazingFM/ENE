@@ -39,7 +39,7 @@ UIBarButtonItem* createBarItemIcon(NSString* iconName ,id target, SEL selector);
 UIBarButtonItem* createBarItemTitle(NSString* title ,id target, SEL selector);
 #define kYMTableViewDefaultRowHeight 44.f
 
-#define YM_PAGE_SIZE 20
+#define YM_PAGE_SIZE @"20"
 #define YM_APPID @"2"
 
 #define kYM_APPID @"app_id"

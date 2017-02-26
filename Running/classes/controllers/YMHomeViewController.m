@@ -26,7 +26,6 @@
 #import "YMBaseItem.h"
 
 #define kPageScrollViewHeight 200
-#define kPageSize @"20"
 
 @protocol YMHomeCollectionHeaderDelegate <NSObject>
 
@@ -122,7 +121,8 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 
-    [self refresh];
+//    [self refresh];
+    [_collectionView.mj_header beginRefreshing];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -170,7 +170,7 @@
         [_collectionView registerClass:[YMHomeCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"homeCollectionViewHeader"];
         
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
-        _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+        _collectionView.mj_footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     }
     return _collectionView;
 }
@@ -217,19 +217,6 @@
 - (void)getHeaderData
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    
-//    NSString *uuid = [YMDataManager shared].uuid;
-//    NSString *currentDate = [YMUtil stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmss"];
-//    [YMDataManager shared].reqSeq++;
-//    NSString *reqSeq = [YMDataManager shared].reqSeqStr;
-//    
-//    params[kYM_APPID] = uuid;
-//    params[kYM_REQSEQ] = reqSeq;
-//    params[kYM_TIMESTAMP] = currentDate;
-    
-//    if ([YMUserManager sharedInstance].user!=nil) {
-//        params[kYM_TOKEN] = [YMUserManager sharedInstance].user.token;
-//    }
     parameters[@"type_code"] = @"0005";
     
     [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GetAppParam"] parameters:parameters success:^(id responseObject) {
@@ -434,14 +421,11 @@
 
 - (void)getGoodsList
 {
-//    if (![self getParameters]) {
-//        return;
-//    }
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[kYM_SPECID] = self.spec_id;
     
     parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    parameters[kYM_PAGESIZE] = kPageSize;
+    parameters[kYM_PAGESIZE] = YM_PAGE_SIZE;
     
     [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsList"] parameters:parameters success:^(id responseObject) {
         [self.myRefreshView endRefreshing];

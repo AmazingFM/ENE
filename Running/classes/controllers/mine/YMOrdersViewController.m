@@ -212,7 +212,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self refresh];
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)back
@@ -256,7 +256,7 @@
         
         self.navigationItem.title = self.titles[self.selectedIndex];
         
-        [self refresh];
+        [_tableView.mj_header beginRefreshing];
         
         if(_barMenuView) {
            [_barMenuView setVisibleSelectedIndex:index];
@@ -657,17 +657,13 @@
 #pragma mark 网络请求
 - (void)requestOrders
 {
-//    if (![self getParameters]) {
-//        return;
-//    }
-    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
-    parameters[kYM_ORDERSTATUS] = self.selectedIndex==0?@"":[NSString stringWithFormat:@"%d", (self.selectedIndex-1)];
+    parameters[kYM_ORDERSTATUS] = self.selectedIndex==0?@"":[NSString stringWithFormat:@"%ld", (self.selectedIndex-1)];
     
     parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
-    parameters[kYM_PAGESIZE] = @"20";
+    parameters[kYM_PAGESIZE] = YM_PAGE_SIZE;
 
     
     BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];

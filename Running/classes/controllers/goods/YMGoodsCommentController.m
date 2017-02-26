@@ -209,7 +209,7 @@
     
     [self test];
     
-    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, g_screenHeight-kYMTopBarHeight) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, g_screenHeight-kYMTopBarHeight-44.f) style:UITableViewStylePlain];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -218,9 +218,9 @@
     [_tableView registerClass:[YMCommentCell class] forCellReuseIdentifier:kCommentCellIdentifier];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     
-    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    _tableView.mj_footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
-    UIView *headview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
+    UIView *headview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     headview.backgroundColor = [UIColor redColor];
     _tableView.tableHeaderView = headview;
     
@@ -235,6 +235,8 @@
     }
     
     [self.view addSubview:_tableView];
+    
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (NSMutableArray<YMCommentCellItem *> *)commentCellItems
@@ -248,10 +250,8 @@
 - (void)refresh
 {
     self.myRefreshView = _tableView.mj_header;
-    
-    if (self.lastPage) {
-        [_tableView.mj_footer resetNoMoreData];
-    }
+
+    [_tableView.mj_footer resetNoMoreData];
     self.lastPage = NO;
     self.pageNum = 1;
     [self requestComments];
@@ -272,6 +272,12 @@
 {
     [self.myRefreshView endRefreshing];
 }
+
+//- (void)viewWillLayoutSubviews
+//{
+//    [super viewWillLayoutSubviews];
+//    _tableView.frame = CGRectMake(0,0,g_screenWidth, g_screenHeight-kYMTopBarHeight-44.f);
+//}
 
 #pragma mark UITableViewDelegate, UITableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -295,7 +301,7 @@
 
 //for Test
 - (void)test {
-    for (int i =0; i<10; i++) {
+    for (int i =0; i<5; i++) {
         YMCommentItem *commentItem = [[YMCommentItem alloc] init];
         YMCommentCellItem *cellItem = [[YMCommentCellItem alloc] init];
         cellItem.commentItem = commentItem;
