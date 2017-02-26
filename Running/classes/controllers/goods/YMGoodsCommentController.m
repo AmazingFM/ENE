@@ -220,8 +220,8 @@
     
     _tableView.mj_footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
-    UIView *headview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
-    headview.backgroundColor = [UIColor redColor];
+    UIView *headview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+    headview.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = headview;
     
     _tableView.tableFooterView = [[UIView alloc] init];
@@ -272,12 +272,6 @@
 {
     [self.myRefreshView endRefreshing];
 }
-
-//- (void)viewWillLayoutSubviews
-//{
-//    [super viewWillLayoutSubviews];
-//    _tableView.frame = CGRectMake(0,0,g_screenWidth, g_screenHeight-kYMTopBarHeight-44.f);
-//}
 
 #pragma mark UITableViewDelegate, UITableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
