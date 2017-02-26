@@ -20,5 +20,6 @@
 @end
 
 @interface YMSimpleRatingBar : UIView
-- (instancetype)initWithFrame:(CGRect)frame  andStarSize:(CGSize)size withValue:(int)score;
+- (instancetype)initWithFrame:(CGRect)frame  andStarSize:(CGSize)size;
+- (void)setImageWithIndex:(NSInteger)index;
 @end

@@ -71,7 +71,10 @@ NSString *kKeyChainUUIDAccessGroup = @"com.running";
     CGSize size = CGSizeMake(width, MAXFLOAT);
     
     if ([text respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
-        NSDictionary *tdic = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+
+        NSDictionary *tdic = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, paragraphStyle, NSParagraphStyleAttributeName,nil];
         size = [text boundingRectWithSize:size
                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                attributes:tdic

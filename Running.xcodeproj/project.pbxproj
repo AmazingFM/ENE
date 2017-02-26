@@ -145,6 +145,7 @@
 		3A91CCDE1E61867500EBEF58 /* YMGoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCDD1E61867500EBEF58 /* YMGoodsDetailController.m */; };
 		3A91CCE11E6187E700EBEF58 /* YMGoodsInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCE01E6187E700EBEF58 /* YMGoodsInfoController.m */; };
 		3A91CCE41E61886B00EBEF58 /* YMGoodsCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCE31E61886B00EBEF58 /* YMGoodsCommentController.m */; };
+		3A91CCE71E626B5D00EBEF58 /* YMCommentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCE61E626B5D00EBEF58 /* YMCommentItem.m */; };
 		3A9FACE11D98BF7900731A8E /* big_cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9FACE01D98BF7900731A8E /* big_cart@2x.png */; };
 		3AA5413B1DA5E251005AC671 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541011DA5E251005AC671 /* Checkmark.png */; };
 		3AA5413C1DA5E251005AC671 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541021DA5E251005AC671 /* Checkmark@2x.png */; };
@@ -463,6 +464,8 @@
 		3A91CCE01E6187E700EBEF58 /* YMGoodsInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMGoodsInfoController.m; sourceTree = "<group>"; };
 		3A91CCE21E61886B00EBEF58 /* YMGoodsCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMGoodsCommentController.h; sourceTree = "<group>"; };
 		3A91CCE31E61886B00EBEF58 /* YMGoodsCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMGoodsCommentController.m; sourceTree = "<group>"; };
+		3A91CCE51E626B5D00EBEF58 /* YMCommentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMCommentItem.h; sourceTree = "<group>"; };
+		3A91CCE61E626B5D00EBEF58 /* YMCommentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMCommentItem.m; sourceTree = "<group>"; };
 		3A9FACE01D98BF7900731A8E /* big_cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "big_cart@2x.png"; sourceTree = "<group>"; };
 		3AA541011DA5E251005AC671 /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkmark.png; sourceTree = "<group>"; };
 		3AA541021DA5E251005AC671 /* Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@2x.png"; sourceTree = "<group>"; };
@@ -671,6 +674,8 @@
 				2CC05CCA1D9C04B100209F75 /* YMCity.m */,
 				3AA541771DA66851005AC671 /* YMCategory.h */,
 				3AA541781DA66851005AC671 /* YMCategory.m */,
+				3A91CCE51E626B5D00EBEF58 /* YMCommentItem.h */,
+				3A91CCE61E626B5D00EBEF58 /* YMCommentItem.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1518,6 +1523,7 @@
 			files = (
 				3AA541B61DA9FBEF005AC671 /* YMResetPwdViewController.m in Sources */,
 				2C621BEB1D84540300068F76 /* YMShoppingCartViewController.m in Sources */,
+				3A91CCE71E626B5D00EBEF58 /* YMCommentItem.m in Sources */,
 				2C3BFAF51D9D636F00365424 /* YMNewAddressViewController.m in Sources */,
 				3A2B5DC21D77118E0036720E /* UIScrollView+ScalableCover.m in Sources */,
 				3A082A8A1E5ECD9A00BD6747 /* MXNavigationBarManager.m in Sources */,

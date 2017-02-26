@@ -27,6 +27,7 @@
 
 #define kYMBigFont [UIFont systemFontOfSize:17]
 #define kYMNormalFont [UIFont systemFontOfSize:15]
+#define kYMSecondNormalFont [UIFont systemFontOfSize:14]
 #define kYMdetailFont [UIFont systemFontOfSize:13]
 #define kYMSmallFont [UIFont systemFontOfSize:13]
 #define kYMVerySmallFont [UIFont systemFontOfSize:12]

@@ -37,7 +37,7 @@
 
 @interface YMOrdersViewController : YMBaseViewController
 
-@property(nonatomic)int selectedIndex;
+@property(nonatomic)NSInteger selectedIndex;
 @property (nonatomic) int pageNum;
 @property (nonatomic) BOOL lastPage;
 @property (nonatomic, retain) MJRefreshComponent *myRefreshView;
