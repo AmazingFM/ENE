@@ -215,7 +215,7 @@
     
     if (sysVersion<8.0) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"上传活动图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册中获取",@"打开照相机", nil];
-        [actionSheet showInView:self.window];
+        [actionSheet showInView:self.window.rootViewController.view];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上传活动图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
