@@ -21,7 +21,7 @@
 #define HorizontalPadding 5
 #define ImageLoadTag 1000
 
-@interface YMImageLoadView() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface YMImageLoadView() <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 {
     NSInteger editTag;
 }
@@ -199,32 +199,49 @@
 }
 
 #pragma mark take photo methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0) {
+        [self localPhoto];
+    } else if (buttonIndex==1) {
+        [self takePhoto];
+    }
+}
+
+#pragma mark take photo methods
 - (void)openMenu
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上传活动图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    float sysVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
     
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"取消");
-    }];
-    [alertController addAction:action];
-    
-    [alertController addAction:({
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"从手机相册中获取" style:UIAlertActionStyleDestructive  handler:^(UIAlertAction *action) {
-            NSLog(@"从手机相册中获取");
-            [self localPhoto];
+    if (sysVersion<8.0) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"上传活动图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册中获取",@"打开照相机", nil];
+        [actionSheet showInView:self.window];
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上传活动图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            NSLog(@"取消");
         }];
-        action;
-    })];
-    
-    [alertController addAction:({
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"打开照相机" style:UIAlertActionStyleDestructive  handler:^(UIAlertAction *action) {
-            NSLog(@"打开照相机");
-            [self takePhoto];
-        }];
-        action;
-    })];
-    
-    [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        [alertController addAction:action];
+        
+        [alertController addAction:({
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"从手机相册中获取" style:UIAlertActionStyleDestructive  handler:^(UIAlertAction *action) {
+                NSLog(@"从手机相册中获取");
+                [self localPhoto];
+            }];
+            action;
+        })];
+        
+        [alertController addAction:({
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"打开照相机" style:UIAlertActionStyleDestructive  handler:^(UIAlertAction *action) {
+                NSLog(@"打开照相机");
+                [self takePhoto];
+            }];
+            action;
+        })];
+        
+        [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 //开始拍照
@@ -233,13 +250,14 @@
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+        picker.sourceType = sourceType;
         picker.delegate = self;
         //设置拍照后的图片可被编辑
         picker.showsCameraControls = YES;
         picker.cameraDevice = UIImagePickerControllerCameraDeviceRear;
         picker.mediaTypes = @[(NSString *)kUTTypeImage];
         picker.allowsEditing = YES;
-        picker.sourceType = sourceType;
+        
         [self.window.rootViewController presentViewController:picker animated:YES completion:nil];
     } else
     {
