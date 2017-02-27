@@ -121,7 +121,6 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 
-//    [self refresh];
     [_collectionView.mj_header beginRefreshing];
 }
 
