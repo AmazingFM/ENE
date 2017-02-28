@@ -35,7 +35,7 @@
         _textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _textField.autocorrectionType = UITextAutocorrectionTypeDefault;
         _textField.returnKeyType=UIReturnKeyDone;
-        _textField.keyboardType=UIKeyboardTypeNamePhonePad;
+        _textField.keyboardType=UIKeyboardTypeDefault;
         _textField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
         [_textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
         [_textField addTarget:self action:@selector(textFieldDone:) forControlEvents:UIControlEventEditingDidEndOnExit];

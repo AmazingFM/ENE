@@ -78,7 +78,7 @@
     item1.title = @"姓名";
     item1.key = @"delivery_name";
     item1.actionLen = 20;
-    item1.fieldType = YMFieldTypeCharater;
+    item1.fieldType = YMFieldTypeUnlimited;
     item1.value = self.userAddr?self.userAddr.delivery_name:@"";
     
     YMFieldCellItem *item2=[[YMFieldCellItem alloc] init];
@@ -100,7 +100,7 @@
     item4.title = @"详细地址";
     item4.key = @"delivery_addr";
     item4.actionLen = 50;
-    item4.fieldType = YMFieldTypeCharater;
+    item4.fieldType = YMFieldTypeUnlimited;
     item4.value = self.userAddr?self.userAddr.delivery_addr:@"";
     
     NSArray *section1 = @[item1, item2, item3, item4];
