@@ -1778,7 +1778,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yeoman.ene;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1ac53d58-fade-46ac-99ff-5235e42e86a8";
+				PROVISIONING_PROFILE = "233d8a26-78eb-4908-bd92-cdd048564a47";
 				PROVISIONING_PROFILE_SPECIFIER = YMWildPro_Adhoc;
 			};
 			name = Release;
