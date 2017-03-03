@@ -37,7 +37,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
     
-    _titles = @[@[@"推送消息设置", @"清除本地缓存"], @[@"修改密码", @"关于"]];
+    //@[@[@"推送消息设置", @"清除本地缓存"], @[@"修改密码", @"关于"]]
+    _titles = @[@[@"修改密码", @"关于"]];
     
     float tableHeight = 4*kYMTableViewDefaultRowHeight+20.f;
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight, g_screenWidth,tableHeight)];
@@ -65,7 +66,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.2];
+//    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.2];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

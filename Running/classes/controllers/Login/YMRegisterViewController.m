@@ -202,7 +202,7 @@
                 btn = [UIButton buttonWithType:UIButtonTypeCustom];
                 btn.tag = 1100;
                 btn.frame = CGRectMake(0,0,g_screenWidth-2*kYMBorderMargin,44);
-                btn.backgroundColor = rgba(221, 221, 221, 1);
+                btn.backgroundColor = rgba(255, 204, 2, 1.0);//rgba(221, 221, 221, 1)-灰色
                 [btn setTitle:item.title forState:UIControlStateNormal];
                 btn.titleLabel.font = kYMBigFont;
                 [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];

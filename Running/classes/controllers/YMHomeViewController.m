@@ -144,7 +144,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    self.collectionView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight);
+    self.collectionView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight-kYMTabbarHeight);
 }
 
 - (UICollectionView *)collectionView

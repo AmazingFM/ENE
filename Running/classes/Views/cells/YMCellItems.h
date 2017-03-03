@@ -13,11 +13,12 @@
 #import "YMAddress.h"
 
 typedef enum {
-    YMFieldTypeUnlimited,        //不限制
-    YMFieldTypeAmount,           //金额/价格，限数字和小数点
-    YMFieldTypeNumber,           //数字,数量，限数字
-    YMFieldTypeCharater,         //数字和字母
-    YMFieldTypePassword          //密码
+    YMFieldTypeUnlimited,       //不限制
+    YMFieldTypeAmount,          //金额/价格，限数字和小数点
+    YMFieldTypeNumber,          //数字,数量，限数字
+    YMFieldTypeCharacterEn,     //数字,大小写
+    YMFieldTypeCharater,        //大小写、汉字、数字
+    YMFieldTypePassword,        //密码
 }YMFieldType;
 
 @interface YMBaseCellItem :NSObject

@@ -103,6 +103,37 @@
 
 -(void)textFieldChanged:(UITextField*)textField{
     YMFieldCellItem* fieldItem=(YMFieldCellItem*)self.item;
+    if (fieldItem.fieldType==YMFieldTypeCharater) { //输入中文字符的情况
+        NSString *toBeString = textField.text;
+        NSString *lastString;
+        if(toBeString.length>0)
+            lastString=[toBeString substringFromIndex:toBeString.length-1];
+        
+        if (![self isInputRuleAndNumber:toBeString]) {
+            textField.text = lastString;
+            return;
+        }
+        
+        //控制字符串长度
+        NSString *lang = [[textField textInputMode] primaryLanguage];
+        if([lang isEqualToString:@"zh-Hans"]) {
+            UITextRange *selectedRange = [textField markedTextRange];
+            UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+            if(!position) {
+                NSString *getStr = [self getSubString:toBeString];
+                if(getStr && getStr.length > 0) {
+                    textField.text = getStr;
+                }
+            }
+        } else{
+            NSString *getStr = [self getSubString:toBeString];
+            if(getStr && getStr.length > 0) {
+                textField.text= getStr;
+            }
+        }
+
+    }
+    
     fieldItem.fieldText=textField.text;
     fieldItem.value = textField.text;
     if(self.delegate&&[self.delegate respondsToSelector:@selector(viewValueChanged:withIndexPath:)]){
@@ -116,11 +147,14 @@
     if(c==0||c=='\n'){
         return YES;
     }
+    
     YMFieldCellItem* fieldItem=(YMFieldCellItem*)self.item;
-    int actionLen=fieldItem.actionLen;
-    if(actionLen>0){
-        if([textField.text length]+[textEntered length]>actionLen){
-            return NO;
+    if (fieldItem.fieldType!=YMFieldTypeCharater) { //不输入中文字符的情况
+        int actionLen=fieldItem.actionLen;
+        if(actionLen>0){
+            if([textField.text length]+[textEntered length]>actionLen){
+                return NO;
+            }
         }
     }
     
@@ -129,15 +163,16 @@
         BOOL isMatch=NO;
         if(fieldItem.fieldType==YMFieldTypeNumber){
             cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
-        }else if(fieldItem.fieldType==YMFieldTypeCharater){
+        }else if(fieldItem.fieldType==YMFieldTypeCharacterEn){
             cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet];
         }else if(fieldItem.fieldType==YMFieldTypePassword){
             cs=[[NSCharacterSet characterSetWithCharactersInString:@"!#%&*0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet];
         }
-        NSString *filtered = [[textEntered componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        NSString *firstFiltered = [[textEntered componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+        NSString *filtered = [firstFiltered stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];//删除空格
         BOOL basicTest = [textEntered isEqualToString:filtered];
-        //数字校验
         
+        //数字校验
         if(isMatch){
             NSString *temp;
             //        NSString *regex=@"^\\d*(\\d+)?$";
@@ -153,6 +188,41 @@
     }
     
     return YES;
+}
+
+/****
+ *小写a-z
+ *大写A-Z
+ *汉字\u4E00-\u9FA5
+ *数字\u0030-\u0039
+ *
+ */
+- (BOOL)isInputRuleAndNumber:(NSString *)str
+{
+    NSString *pattern = @"[a-zA-Z\u4E00-\u9FA5\\u0030-\\u0039]";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:str];
+    return isMatch;
+}
+
+-(NSString *)getSubString:(NSString*)string
+{
+    YMFieldCellItem* fieldItem=(YMFieldCellItem*)self.item;
+    int kMaxLength=fieldItem.actionLen;
+
+    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* data = [string dataUsingEncoding:encoding];
+    NSInteger length = [data length];
+    if (length > kMaxLength) {
+        NSData *data1 = [data subdataWithRange:NSMakeRange(0, kMaxLength)];
+        NSString *content = [[NSString alloc] initWithData:data1 encoding:encoding];
+        if (!content || content.length == 0) {
+            data1 = [data subdataWithRange:NSMakeRange(0, kMaxLength - 1)];
+            content = [[NSString alloc] initWithData:data1 encoding:encoding];
+        }
+        return content;
+    }
+    return nil;
 }
 
 @end

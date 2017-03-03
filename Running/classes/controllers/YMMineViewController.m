@@ -18,6 +18,7 @@
 #import "YMUtil.h"
 
 #define kPersonalBarHeight 50
+#define kCutomerTel @"021-23560070"
 
 @interface YMMineViewController () <UITableViewDelegate, UITableViewDataSource, YMToolbarDelegate, UIAlertViewDelegate>
 {
@@ -28,6 +29,7 @@
     NSArray *_titleArr;
     
     UIImageView *_headView;
+    UIImageView *headImgView;
     YMToolbarView *_barView;
     UITableView *_mainTableView;
     
@@ -103,6 +105,13 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
+    NSString *headImgStr = [YMUserManager sharedInstance].user.user_icon;;
+    if (headImgStr&&headImgStr.length>0) {
+        NSData *_decodedImgData = [[NSData alloc] initWithBase64EncodedString:headImgStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        headImgView.image = [UIImage imageWithData:_decodedImgData];
+    } else {
+        headImgView.image = [UIImage imageNamed:@"defaultMe.png"];
+    }
     [self requestOrdersState];
 }
 
@@ -171,19 +180,11 @@
     UITapGestureRecognizer *singleTap1=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     [headButtonView addGestureRecognizer:singleTap1];
 
-    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerW, headerH)];
+    headImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerW, headerH)];
     headImgView.center = CGPointMake(headerViewWidth/2, headerViewWidth/2);
     headImgView.contentMode = UIViewContentModeScaleToFill;
     headImgView.userInteractionEnabled = YES;
     [headButtonView addSubview:headImgView];
-
-    NSString *headImgStr = [YMUserManager sharedInstance].user.user_icon;;
-    if (headImgStr&&headImgStr.length>0) {
-        NSData *_decodedImgData = [[NSData alloc] initWithBase64EncodedString:headImgStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        headImgView.image = [UIImage imageWithData:_decodedImgData];
-    } else {
-        headImgView.image = [UIImage imageNamed:@"defaultMe.png"];
-    }
 
     headImgView.layer.masksToBounds = YES;
     [headImgView.layer setCornerRadius:headerW/2]; //设置矩形四个圆角半径
@@ -278,7 +279,7 @@
     
     cell.detailTextLabel.font = kYMNormalFont;
     if (indexPath.section==3) {
-        cell.detailTextLabel.text = @"10000";
+        cell.detailTextLabel.text = kCutomerTel;
     } else {
         cell.detailTextLabel.text = nil;
     }
@@ -306,7 +307,7 @@
         }
             break;
         case 3:
-            [self showAlertView:@"是否准备拨打10000"];
+            [self showAlertView:[NSString stringWithFormat:@"是否准备拨打%@", kCutomerTel]];
             break;
         default:
             break;
@@ -322,7 +323,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex==1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", @"10000"]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", kCutomerTel]]];
     }
 }
 #pragma mark UIGestureRecognizerDelegate
