@@ -588,6 +588,11 @@
             NSString *resp_id = respDict[kYM_RESPID];
             if ([resp_id integerValue]==0) {
                 YMUser *model = [YMUser objectWithKeyValues:respDict[kYM_RESPDATA]];
+                [YMUserManager sharedInstance].user.user_icon = model.user_icon;
+                [YMUserManager sharedInstance].user.true_name = model.true_name;
+                [YMUserManager sharedInstance].user.nick_name = model.nick_name;
+                [YMUserManager sharedInstance].user.birthday  = model.birthday;
+                [YMUserManager sharedInstance].user.sexual    = model.sexual;
                 
                 for (YMBaseCellItem *item in itemlist) {
                     if ([item.key isEqualToString:@"submit"]||[item.key isEqualToString:@"readme"]) {
