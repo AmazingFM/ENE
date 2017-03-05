@@ -7,7 +7,7 @@
 //
 
 #import "YMGoodsDetailController.h"
-
+#import "YMShoppingCartViewController.h"
 #import "YMGoodsInfoController.h"
 #import "YMGoodsCommentController.h"
 
@@ -118,7 +118,7 @@
     [_path addQuadCurveToPoint:CGPointMake(perWidth*2.5, _addCartButton.center.y) controlPoint:CGPointMake(perWidth*3, _addCartButton.centerY-200)];
     
     self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
-    self.navigationItem.rightBarButtonItem = createBarItemIcon(@"icon-service",self, @selector(service));
+//    self.navigationItem.rightBarButtonItem = createBarItemIcon(@"icon-service",self, @selector(service));
     
     _barMenuView=[[YMScrollBarMenuView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth/3,kYMScrollBarMenuHeight)];
     _barMenuView.backgroundColor=[UIColor clearColor];
@@ -179,6 +179,8 @@
     [self addChildViewController:goodsInfoVC];
 
     YMGoodsCommentController *goodsCommentVC = [[YMGoodsCommentController alloc] init];
+    goodsCommentVC.goods_id = self.goods_id;
+    goodsCommentVC.goods_subid = self.goods_subid;
     [self addChildViewController:goodsCommentVC];
     
     [self.childViewControllers enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -252,10 +254,15 @@
             [self addToCollect:sender];
         }
             break;
-        case 2:
-            [g_mainMenu setMenuSelectedAtIndex:1];
-            [self.navigationController popViewControllerAnimated:YES];
+        case 2://购物车
+        {
+//            [g_mainMenu setMenuSelectedAtIndex:1];
+//            [self.navigationController popViewControllerAnimated:YES];
             
+            YMShoppingCartViewController *cartVC = [[YMShoppingCartViewController alloc] init];
+            cartVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:cartVC animated:YES];
+        }
             break;
         default:
             break;

@@ -37,9 +37,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem = createBarItemIcon(@"nav_back",self, @selector(back));
+    UIView *nothing = [[UIView alloc] init];
+    [self.view addSubview:nothing];
     
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _mainTableView.frame = CGRectMake(0, 0, g_screenWidth, g_screenHeight-kYMNavigationBarHeight-20-49.f);
+    _mainTableView.frame = CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-49.f);
     _mainTableView.backgroundColor = [UIColor clearColor];
     _mainTableView.showsVerticalScrollIndicator = NO;
     _mainTableView.showsHorizontalScrollIndicator = NO;

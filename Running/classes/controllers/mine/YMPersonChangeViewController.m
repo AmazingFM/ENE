@@ -588,12 +588,6 @@
             NSString *resp_id = respDict[kYM_RESPID];
             if ([resp_id integerValue]==0) {
                 YMUser *model = [YMUser objectWithKeyValues:respDict[kYM_RESPDATA]];
-                [YMUserManager sharedInstance].user.user_icon = model.user_icon;
-                [YMUserManager sharedInstance].user.true_name = model.true_name;
-                [YMUserManager sharedInstance].user.nick_name = model.nick_name;
-                [YMUserManager sharedInstance].user.birthday  = model.birthday;
-                [YMUserManager sharedInstance].user.sexual    = model.sexual;
-                
                 for (YMBaseCellItem *item in itemlist) {
                     if ([item.key isEqualToString:@"submit"]||[item.key isEqualToString:@"readme"]) {
                         continue;
@@ -640,6 +634,8 @@
         [parameters setObject:item.value forKey:item.key];
     }
     
+    
+    
     [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=UserModify"] parameters:parameters success:^(id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [indicator stopAnimating];
@@ -648,6 +644,11 @@
         if (respDict) {
             NSString *resp_id = respDict[kYM_RESPID];
             if ([resp_id integerValue]==0) {
+                [YMUserManager sharedInstance].user.user_icon = parameters[@"user_icon"];
+                [YMUserManager sharedInstance].user.true_name = parameters[@"true_name"];
+                [YMUserManager sharedInstance].user.nick_name = parameters[@"nick_name"];
+                [YMUserManager sharedInstance].user.birthday  = parameters[@"birthday"];
+                [YMUserManager sharedInstance].user.sexual    = parameters[@"sexual"];
                 [self showTextHUDView:@"个人资料更新成功"];
             } else {
                 NSString *resp_desc = respDict[kYM_RESPDESC];

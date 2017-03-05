@@ -189,19 +189,19 @@
         [_tableView setLayoutMargins:UIEdgeInsetsMake(0, kYMPadding, 0, kYMPadding)];
     }
 
-    _noItemDesc = [[UILabel alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, 50)];
-    _noItemDesc.center = self.view.center;
+    CGPoint center = self.view.center;
+    _noItemDesc = [[UILabel alloc] initWithFrame:CGRectMake(0,center.y,g_screenWidth, 50)];
     _noItemDesc.text = @"暂无此类订单，快去选购商品吧!";
     _noItemDesc.textAlignment = NSTextAlignmentCenter;
     _noItemDesc.textColor = rgba(183, 183, 183, 1);
     _noItemDesc.font = kYMBigFont;
     
     _noItemImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"big_order"]];
-    _noItemImg.frame = CGRectMake(0, 0, g_screenWidth/4, g_screenWidth/4);
-    _noItemImg.center = CGPointMake(_noItemDesc.centerX, _noItemDesc.centerY-50);
+    CGFloat imgWidth = g_screenWidth/4;
+    _noItemImg.frame = CGRectMake(center.x-imgWidth/2, center.y-imgWidth, g_screenWidth/4, g_screenWidth/4);
     _noItemImg.hidden = YES;
     _noItemDesc.hidden = YES;
-    
+        
     [self.view addSubview:_noItemDesc];
     [self.view addSubview:_noItemImg];
 

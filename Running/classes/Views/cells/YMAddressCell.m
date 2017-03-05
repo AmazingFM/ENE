@@ -42,6 +42,8 @@
         _nameLabel.backgroundColor = [UIColor clearColor];
         _nameLabel.textColor = [UIColor blackColor];
         _nameLabel.textAlignment = NSTextAlignmentLeft;
+        _nameLabel.minimumScaleFactor = 0.8;
+        _nameLabel.adjustsFontSizeToFitWidth = YES;
         
         _telenumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _telenumLabel.font = kYMBigFont;
@@ -113,7 +115,7 @@
     float offsety = 0;
     CGSize tmpSize = [YMUtil sizeWithFont:_addressItem.address.delivery_name withFont:kYMBigFont];
     _nameLabel.frame = CGRectMake(kYMBorderMargin, 0, 100, tmpSize.height+10);
-    _telenumLabel.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame), 0, 150, tmpSize.height+10);
+    _telenumLabel.frame = CGRectMake(CGRectGetMaxX(_nameLabel.frame)+10, 0, 150, tmpSize.height+10);
     _nameLabel.text = _addressItem.address.delivery_name;
     _telenumLabel.text = _addressItem.address.contact_no;
     

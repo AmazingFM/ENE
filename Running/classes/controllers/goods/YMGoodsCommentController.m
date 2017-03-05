@@ -12,8 +12,9 @@
 #import "MJRefresh.h"
 #import "MJExtension.h"
 #import "MJRefreshComponent.h"
-
+#import "YMBaseItem.h"
 #import "YMCommentItem.h"
+#import "YMUserManager.h"
 
 #import "YMUtil.h"
 
@@ -193,6 +194,9 @@
 @interface YMGoodsCommentController () <UITableViewDelegate, UITableViewDataSource>
 {
     UITableView* _tableView;
+    
+    UIImageView *_noItemImg;
+    UILabel *_noItemDesc;
 }
 @property (nonatomic) int pageNum;
 @property (nonatomic) BOOL lastPage;
@@ -208,7 +212,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = rgba(238, 238, 238, 1);
     
-    [self test];
+//    [self test];
     
     _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, g_screenHeight-kYMTopBarHeight-44.f) style:UITableViewStylePlain];
     _tableView.delegate=self;
@@ -235,6 +239,22 @@
         [_tableView setLayoutMargins:UIEdgeInsetsMake(0, kYMPadding, 0, kYMPadding)];
     }
     
+    CGPoint center = self.view.center;
+    _noItemDesc = [[UILabel alloc] initWithFrame:CGRectMake(0,center.y,g_screenWidth, 50)];
+    _noItemDesc.text = @"该商品暂无评论!";
+    _noItemDesc.textAlignment = NSTextAlignmentCenter;
+    _noItemDesc.textColor = rgba(183, 183, 183, 1);
+    _noItemDesc.font = kYMBigFont;
+    
+    _noItemImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"big_order"]];
+    CGFloat imgWidth = g_screenWidth/4;
+    _noItemImg.frame = CGRectMake(center.x-imgWidth/2, center.y-imgWidth, g_screenWidth/4, g_screenWidth/4);
+    _noItemImg.hidden = YES;
+    _noItemDesc.hidden = YES;
+    
+    [self.view addSubview:_noItemDesc];
+    [self.view addSubview:_noItemImg];
+
     [self.view addSubview:_tableView];
     
     [_tableView.mj_header beginRefreshing];
@@ -271,7 +291,102 @@
 
 - (void)requestComments
 {
-    [self.myRefreshView endRefreshing];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
+    parameters[@"goods_id"] = self.goods_id;
+    parameters[@"sub_gid"] = self.goods_subid;
+    parameters[kYM_PAGENO] = [NSString stringWithFormat:@"%d", self.pageNum];
+    parameters[kYM_PAGESIZE] = YM_PAGE_SIZE;
+    
+    
+    BOOL networkStatus = [PPNetworkHelper currentNetworkStatus];
+    if (!networkStatus) {
+        showDefaultAlert(@"提示",@"网络不给力，请检查网络设置");
+        return;
+    }
+    
+    [PPNetworkHelper POST:[NSString stringWithFormat:@"%@?%@", kYMServerBaseURL, @"a=GoodsEvaluateList"] parameters:parameters success:^(id responseObject) {
+        NSDictionary *respDict = responseObject;
+        
+        if (respDict) {
+            NSString *resp_id = respDict[kYM_RESPID];
+            if ([resp_id integerValue]==0) {
+                NSDictionary *resp_data = respDict[kYM_RESPDATA];
+                
+                if (resp_data) {
+                    NSMutableDictionary *pageNav = resp_data[@"page_nav"];
+                    
+                    PageItem *pageItem = [[PageItem alloc] init];
+                    pageItem.current_page = [pageNav[@"current_page"] intValue];
+                    pageItem.page_size = [pageNav[@"page_size"] intValue];
+                    pageItem.total_num = [pageNav[@"total_num"] intValue];
+                    pageItem.total_page = [pageNav[@"total_page"] intValue];
+                    
+                    if (pageItem.current_page==pageItem.total_page) {
+                        self.lastPage = YES;
+                    }
+                    
+                    NSMutableArray *commentlist = [NSMutableArray array];
+                    
+                    if ([resp_data[@"order_list"] isKindOfClass:[NSArray class]]) {
+                        for (NSDictionary *dict in resp_data[@"order_list"]) {
+                            YMCommentItem *order = [[YMCommentItem alloc] init];
+                            
+//                            order.user_id = dict[@"user_id"];
+//                            order.orderId = dict[@"order_id"];
+//                            order.timestamp = dict[@"add_time"];
+//                            order.totalPrice = dict[@"amt"];
+//                            order.status = [dict[@"status"] intValue];
+                            
+                            [commentlist addObject:order];
+                        }
+                    }
+                    
+                    NSMutableArray *arrayM = [NSMutableArray array];
+                    for (int i=0; i<commentlist.count; i++)
+                    {
+                        YMCommentCellItem *commentCellItem = [[YMCommentCellItem alloc] init];
+                        commentCellItem.commentItem = commentlist[i];
+                        [arrayM addObject:commentCellItem];
+                    }
+                    
+                    //..下拉刷新
+                    if (self.myRefreshView == _tableView.mj_header) {
+                        [self.commentCellItems removeAllObjects];
+                        [self.commentCellItems addObjectsFromArray:arrayM];
+                        [_tableView reloadData];
+                        [self.myRefreshView endRefreshing];
+                        
+                        _tableView.mj_footer.hidden = self.lastPage;
+                        if (self.lastPage) {
+                            [_tableView.mj_footer endRefreshingWithNoMoreData];
+                        }
+                    } else if (self.myRefreshView == _tableView.mj_footer) {
+                        [self.commentCellItems addObjectsFromArray:arrayM];
+                        [_tableView reloadData];
+                        [self.myRefreshView endRefreshing];
+                        if (self.lastPage) {
+                            [_tableView.mj_footer endRefreshingWithNoMoreData];
+                        }
+                    }
+                    _tableView.hidden = NO;
+                    _noItemImg.hidden = YES;
+                    _noItemDesc.hidden = YES;
+                } else {
+                    [self.myRefreshView endRefreshing];
+                    _tableView.hidden = YES;
+                    _noItemImg.hidden = NO;
+                    _noItemDesc.hidden = NO;
+                }
+            } else {
+                [self.myRefreshView endRefreshing];
+                NSString *resp_desc = respDict[kYM_RESPDESC];
+                showDefaultAlert(resp_id, resp_desc);
+            }
+        }
+    } failure:^(NSError *error) {
+        [self.myRefreshView endRefreshing];
+    }];
 }
 
 #pragma mark UITableViewDelegate, UITableViewDatasource

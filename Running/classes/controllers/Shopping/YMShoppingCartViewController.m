@@ -403,8 +403,14 @@
     [super viewDidLoad];
     self.navigationItem.title=@"购物车";
     self.view.backgroundColor = rgba(242, 242, 242, 1);
-
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMTabbarHeight-44) style:UITableViewStylePlain];
+    
+    CGRect tableFrame;
+    if (self.hidesBottomBarWhenPushed) {
+        tableFrame = CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-44);
+    } else {
+        tableFrame = CGRectMake(0, kYMTopBarHeight, g_screenWidth, g_screenHeight-kYMTopBarHeight-kYMTabbarHeight-44);
+    }
+    _mainTableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
     _mainTableView.backgroundColor = rgba(242, 242, 242, 1);
     _mainTableView.showsVerticalScrollIndicator = NO;
     _mainTableView.showsHorizontalScrollIndicator = NO;
@@ -421,16 +427,18 @@
         [_mainTableView setLayoutMargins:UIEdgeInsetsZero];
     }
     
-    _noItemDesc = [[UILabel alloc] initWithFrame:CGRectMake(0,0,g_screenWidth, 50)];
-    _noItemDesc.center = self.view.center;
+    CGPoint center = self.view.center;
+    _noItemDesc = [[UILabel alloc] initWithFrame:CGRectMake(0,center.y,g_screenWidth, 50)];
+//    _noItemDesc.center = self.view.center;
     _noItemDesc.text = @"暂无商品，快点去选购点吧!";
     _noItemDesc.textAlignment = NSTextAlignmentCenter;
     _noItemDesc.textColor = rgba(183, 183, 183, 1);
     _noItemDesc.font = kYMBigFont;
     
     _noItemImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"big_cart"]];
-    _noItemImg.frame = CGRectMake(0, 0, g_screenWidth/4, g_screenWidth/4);
-    _noItemImg.center = CGPointMake(_noItemDesc.centerX, _noItemDesc.centerY-50);
+    CGFloat imgWidth = g_screenWidth/4;
+    _noItemImg.frame = CGRectMake(center.x-imgWidth/2, center.y-imgWidth, g_screenWidth/4, g_screenWidth/4);
+//    _noItemImg.center = CGPointMake(_noItemDesc.centerX, _noItemDesc.centerY-50);
     _noItemImg.hidden = YES;
     _noItemDesc.hidden = YES;
 
@@ -929,22 +937,6 @@
     [self.view endEditing:YES];
 }
 #pragma mark 网络请求
-//- (BOOL)getParameters
-//{
-////    [super getParameters];
-//    NSMutableDictionary *parameters = [NSMutableDictionary new];
-//    NSMutableArray *paramsArr = [NSMutableArray array];
-//    for (YMShoppingCartItem *item in dataArr) {
-//        NSDictionary *dict = @{@"goods_id":[NSNumber numberWithInteger:[item.goods.goods_id integerValue]],@"sub_gid":[NSNumber numberWithInteger:[item.goods.sub_gid integerValue]]};
-//        [paramsArr addObject:dict];
-//    }
-//    
-//    NSString *str = [YMUtil stringFromJSON:paramsArr];
-//    parameters[kYM_GOODSARRAY] = str;//@"[\n  {\n    'goods_id' : 100001,\n    'sub_gid' : 1002\n  },\n  {\n    'goods_id' : 100001,\n    'sub_gid': 1001\n  }\n]";//str;
-//    
-//    return YES;
-//}
-
 - (void)startGetGoodsInfoList
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];

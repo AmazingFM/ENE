@@ -40,7 +40,7 @@
     //@[@[@"推送消息设置", @"清除本地缓存"], @[@"修改密码", @"关于"]]
     _titles = @[@[@"修改密码", @"关于"]];
     
-    float tableHeight = 4*kYMTableViewDefaultRowHeight+20.f;
+    float tableHeight = 2*kYMTableViewDefaultRowHeight+20.f;
     _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,kYMTopBarHeight, g_screenWidth,tableHeight)];
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
@@ -233,19 +233,28 @@
                 cell.accessoryView = nil;
                 break;
             case 1:
-                if(_calcLocalWaitingView==nil){
-                    _calcLocalWaitingView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-                }
-                cell.accessoryView=_calcLocalWaitingView;
-                if(_localBufferSizeTitle==nil||_localBufferSizeTitle.length<2){
-                    [_calcLocalWaitingView startAnimating];
-                    cell.detailTextLabel.text=@" ";
-                    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-                }else {
-                    cell.detailTextLabel.text=_localBufferSizeTitle;
-                    cell.accessoryView=nil;
-                }
+            {
+                NSDictionary* infoDict =[[NSBundle mainBundle] infoDictionary];
+                NSString* version=[infoDict objectForKey:@"CFBundleShortVersionString"];
+                cell.detailTextLabel.text=version;
+                cell.accessoryView=nil;
+            }
                 break;
+
+//            case 1:
+//                if(_calcLocalWaitingView==nil){
+//                    _calcLocalWaitingView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//                }
+//                cell.accessoryView=_calcLocalWaitingView;
+//                if(_localBufferSizeTitle==nil||_localBufferSizeTitle.length<2){
+//                    [_calcLocalWaitingView startAnimating];
+//                    cell.detailTextLabel.text=@" ";
+//                    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//                }else {
+//                    cell.detailTextLabel.text=_localBufferSizeTitle;
+//                    cell.accessoryView=nil;
+//                }
+//                break;
             default:
                 break;
         }

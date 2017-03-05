@@ -50,6 +50,10 @@
 - (void)setItem:(YMFieldCellItem *)item
 {
     [super setItem:item];
+    if (item.fieldType==YMFieldTypeNumber) {
+        _textField.keyboardType=UIKeyboardTypeNumberPad;
+    }
+
     if (item.secureTextEntry) {
         _textField.secureTextEntry = YES;
     }

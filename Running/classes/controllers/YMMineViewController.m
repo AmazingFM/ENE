@@ -30,6 +30,7 @@
     
     UIImageView *_headView;
     UIImageView *headImgView;
+    UILabel *nameLabel;
     YMToolbarView *_barView;
     UITableView *_mainTableView;
     
@@ -110,13 +111,13 @@
     } else {
         headImgView.image = [UIImage imageNamed:@"defaultMe.png"];
     }
+    nameLabel.text = [YMUserManager sharedInstance].user.nick_name;
     [self requestOrdersState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    self.automaticallyAdjustsScrollViewInsets = YES;
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
 }
@@ -137,12 +138,13 @@
     [rightView addGestureRecognizer:singleTap];
 
     CGSize size = [YMUtil sizeWithFont:@"柯景腾新的二季" withFont:[UIFont systemFontOfSize:20]];
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerW/2+15, 10, rightView.frame.size.width-headerW/2-15-45,size.height)];
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerW/2+15, 10, rightView.frame.size.width-headerW/2-15-45,size.height)];
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.text = [YMUserManager sharedInstance].user.nick_name;
     nameLabel.textColor = [UIColor whiteColor];
     nameLabel.font = kYMBigFont;
     nameLabel.adjustsFontSizeToFitWidth = YES;
+    nameLabel.minimumScaleFactor = 0.8;
     nameLabel.textAlignment = NSTextAlignmentLeft;
     
     size = [YMUtil sizeWithFont:@"普通会员" withFont:kYMVerySmallFont];

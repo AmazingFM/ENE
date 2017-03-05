@@ -13,5 +13,7 @@
 @end
 
 @interface YMGoodsCommentController : YMBaseViewController
+@property (nonatomic, copy) NSString *goods_id;
+@property (nonatomic, copy) NSString *goods_subid;
 
 @end
