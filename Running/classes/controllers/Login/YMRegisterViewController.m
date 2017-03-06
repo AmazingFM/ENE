@@ -95,7 +95,7 @@
     item5.title = @"推荐码";
     item5.key = kYM_REMARKCODE;
     item5.actionLen = 10;
-    item5.fieldType = YMFieldTypeCharater;
+    item5.fieldType = YMFieldTypeCharacterEn;
     
     
     NSArray *section2 = @[item5];

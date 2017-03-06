@@ -113,12 +113,10 @@
         if(toBeString.length>0)
             lastString=[toBeString substringFromIndex:toBeString.length-1];
         
-        if (![self isInputRuleAndNumber:toBeString]) {
-            textField.text = lastString;
+        if (![self isInputRuleAndNumber:toBeString]&&[self hasEmoji:lastString]) {
+            textField.text = [self disable_emoji:toBeString];
             return;
         }
-        
-        //控制字符串长度
         NSString *lang = [[textField textInputMode] primaryLanguage];
         if([lang isEqualToString:@"zh-Hans"]) {
             UITextRange *selectedRange = [textField markedTextRange];
@@ -132,10 +130,9 @@
         } else{
             NSString *getStr = [self getSubString:toBeString];
             if(getStr && getStr.length > 0) {
-                textField.text= getStr;
-            }
+                textField.text= getStr;  
+            }  
         }
-
     }
     
     fieldItem.fieldText=textField.text;
@@ -147,50 +144,59 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)textEntered{
-    unichar c = [textEntered characterAtIndex:[textEntered length]-1];
-    if(c==0||c=='\n'){
-        return YES;
-    }
-    
     YMFieldCellItem* fieldItem=(YMFieldCellItem*)self.item;
-    if (fieldItem.fieldType!=YMFieldTypeCharater) { //不输入中文字符的情况
+    
+    if (fieldItem.fieldType==YMFieldTypeCharater) {
+        if ([self isInputRuleAndNumber:textEntered] || [textEntered isEqualToString:@""])
+        {
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
+    } else {
+        unichar c = [textEntered characterAtIndex:[textEntered length]-1];
+        if(c==0||c=='\n'){
+            return YES;
+        }
+        
         int actionLen=fieldItem.actionLen;
         if(actionLen>0){
             if([textField.text length]+[textEntered length]>actionLen){
                 return NO;
             }
         }
-    }
-    
-    if(fieldItem.fieldType!=YMFieldTypeUnlimited){
-        NSCharacterSet *cs  = nil;
-        BOOL isMatch=NO;
-        if(fieldItem.fieldType==YMFieldTypeNumber){
-            cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
-        }else if(fieldItem.fieldType==YMFieldTypeCharacterEn){
-            cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet];
-        }else if(fieldItem.fieldType==YMFieldTypePassword){
-            cs=[[NSCharacterSet characterSetWithCharactersInString:@"!#%&*0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet];
-        }
-        NSString *firstFiltered = [[textEntered componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-        NSString *filtered = [firstFiltered stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];//删除空格
-        BOOL basicTest = [textEntered isEqualToString:filtered];
         
-        //数字校验
-        if(isMatch){
-            NSString *temp;
-            //        NSString *regex=@"^\\d*(\\d+)?$";
-            NSString *regex=@"^\\d*(\\d+\\.\\d*)?$";
-            temp = [textField.text stringByReplacingCharactersInRange:range withString:textEntered];
-            NSPredicate *filter=[NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-            isMatch=[filter evaluateWithObject:temp];
+        if(fieldItem.fieldType!=YMFieldTypeUnlimited){
+            NSCharacterSet *cs  = nil;
+            BOOL isMatch=NO;
+            if(fieldItem.fieldType==YMFieldTypeNumber){
+                cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+            }else if(fieldItem.fieldType==YMFieldTypeCharacterEn){
+                cs=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet];
+            }else if(fieldItem.fieldType==YMFieldTypePassword){
+                cs=[[NSCharacterSet characterSetWithCharactersInString:@"!#%&*0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet];
+            }
+            NSString *firstFiltered = [[textEntered componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+            NSString *filtered = [firstFiltered stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];//删除空格
+            BOOL basicTest = [textEntered isEqualToString:filtered];
+            
             //数字校验
-            return (basicTest && isMatch);
-        }else {
-            return basicTest;
+            if(isMatch){
+                NSString *temp;
+                //        NSString *regex=@"^\\d*(\\d+)?$";
+                NSString *regex=@"^\\d*(\\d+\\.\\d*)?$";
+                temp = [textField.text stringByReplacingCharactersInRange:range withString:textEntered];
+                NSPredicate *filter=[NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+                isMatch=[filter evaluateWithObject:temp];
+                //数字校验
+                return (basicTest && isMatch);
+            }else {
+                return basicTest;
+            }
         }
     }
-    
     return YES;
 }
 
@@ -201,12 +207,33 @@
  *数字\u0030-\u0039
  *
  */
+//- (BOOL)isInputRuleAndNumber:(NSString *)str
+//{
+//    NSString *pattern = @"[a-zA-Z\u4E00-\u9FA5\\u0030-\\u0039]";
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+//    BOOL isMatch = [pred evaluateWithObject:str];
+//    return isMatch;
+//}
+
+/**
+ * 字母、数字、中文
+ */
 - (BOOL)isInputRuleAndNumber:(NSString *)str
 {
-    NSString *pattern = @"[a-zA-Z\u4E00-\u9FA5\\u0030-\\u0039]";
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
-    BOOL isMatch = [pred evaluateWithObject:str];
-    return isMatch;
+    NSString *other = @"➋➌➍➎➏➐➑➒";
+    unsigned long len=str.length;
+    for(int i=0;i<len;i++)
+    {
+        unichar a=[str characterAtIndex:i];
+        if(!((isalpha(a))
+             ||(isalnum(a))
+             ||((a=='_') || (a == '-'))
+             ||((a >= 0x4e00 && a <= 0x9fa6))
+             ||([other rangeOfString:str].location != NSNotFound)
+             ))
+            return NO;
+    }
+    return YES;
 }
 
 -(NSString *)getSubString:(NSString*)string
@@ -227,6 +254,25 @@
         return content;
     }
     return nil;
+}
+
+/**
+ *  过滤字符串中的emoji
+ */
+- (BOOL)hasEmoji:(NSString*)str{
+    NSString *pattern = @"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:str];
+    return isMatch;
+}
+
+- (NSString *)disable_emoji:(NSString *)text{
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]"options:NSRegularExpressionCaseInsensitive error:nil];
+    NSString *modifiedString = [regex stringByReplacingMatchesInString:text
+                                                               options:0
+                                                                 range:NSMakeRange(0, [text length])
+                                                          withTemplate:@""];
+    return modifiedString;
 }
 
 @end

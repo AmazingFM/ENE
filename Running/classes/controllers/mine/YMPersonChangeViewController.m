@@ -81,7 +81,7 @@
     item2.title = @"姓名";
     item2.key = @"true_name";
     item2.actionLen = 20;
-    item2.fieldType = YMFieldTypeUnlimited;
+    item2.fieldType = YMFieldTypeCharater;
     item2.anchor = NSTextAlignmentRight;
     item2.showClear = NO;
     
@@ -89,7 +89,7 @@
     item3.title = @"昵称";
     item3.key = @"nick_name";
     item3.actionLen = 40;
-    item3.fieldType = YMFieldTypeUnlimited;
+    item3.fieldType = YMFieldTypeCharater;
     item3.anchor = NSTextAlignmentRight;
     item3.showClear = NO;
     

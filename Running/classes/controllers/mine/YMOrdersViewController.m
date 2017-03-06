@@ -596,12 +596,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex==kCommentIndex) {
-        NSDictionary *commentDict = self.commentList[indexPath.section];
-        YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
-        commentVC.commentDict = commentDict;
-        [self.navigationController pushViewController:commentVC animated:YES];
-    }
+//    if (self.selectedIndex==kCommentIndex) {
+//        NSDictionary *commentDict = self.commentList[indexPath.section];
+//        YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
+//        commentVC.commentDict = commentDict;
+//        [self.navigationController pushViewController:commentVC animated:YES];
+//    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

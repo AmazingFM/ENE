@@ -78,7 +78,7 @@
     item1.title = @"姓名";
     item1.key = @"delivery_name";
     item1.actionLen = 20;
-    item1.fieldType = YMFieldTypeUnlimited;
+    item1.fieldType = YMFieldTypeCharater;
     item1.value = self.userAddr?self.userAddr.delivery_name:@"";
     
     YMFieldCellItem *item2=[[YMFieldCellItem alloc] init];
