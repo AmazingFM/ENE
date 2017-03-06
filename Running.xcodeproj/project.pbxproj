@@ -235,6 +235,235 @@
 		3AF51EF11D938F9A00829EE5 /* YMScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EF01D938F9A00829EE5 /* YMScrollViewController.m */; };
 		3AF51EF41D93B6C000829EE5 /* YMOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EF31D93B6C000829EE5 /* YMOrder.m */; };
 		3AFC74621D991A2E009B792F /* YMCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC74611D991A2E009B792F /* YMCollectViewController.m */; };
+		8574D0CB1E6DD00400A92AA6 /* YMResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541B51DA9FBEF005AC671 /* YMResetPwdViewController.m */; };
+		8574D0CC1E6DD00400A92AA6 /* YMShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C621BEA1D84540300068F76 /* YMShoppingCartViewController.m */; };
+		8574D0CD1E6DD00400A92AA6 /* YMCommentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCE61E626B5D00EBEF58 /* YMCommentItem.m */; };
+		8574D0CE1E6DD00400A92AA6 /* YMNewAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BFAF41D9D636F00365424 /* YMNewAddressViewController.m */; };
+		8574D0CF1E6DD00400A92AA6 /* UIScrollView+ScalableCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5DAD1D77118E0036720E /* UIScrollView+ScalableCover.m */; };
+		8574D0D01E6DD00400A92AA6 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A891E5ECD9A00BD6747 /* MXNavigationBarManager.m */; };
+		8574D0D11E6DD00400A92AA6 /* YMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D4D1D76FB900036720E /* YMBaseNavigationController.m */; };
+		8574D0D21E6DD00400A92AA6 /* YMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082AA31E60765600BD6747 /* YMConfig.m */; };
+		8574D0D31E6DD00400A92AA6 /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541A11DA7AC26005AC671 /* UULineChart.m */; };
+		8574D0D41E6DD00400A92AA6 /* YMGoodsInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCE01E6187E700EBEF58 /* YMGoodsInfoController.m */; };
+		8574D0D51E6DD00400A92AA6 /* UUBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541991DA7AC26005AC671 /* UUBarChart.m */; };
+		8574D0D61E6DD00400A92AA6 /* YMSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271891D9588E5009D8CC1 /* YMSettingViewController.m */; };
+		8574D0D71E6DD00400A92AA6 /* YMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271B41D974353009D8CC1 /* YMSearchViewController.m */; };
+		8574D0D81E6DD00400A92AA6 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A03369E1D7EB0C400877D59 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8574D0D91E6DD00400A92AA6 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5DA51D77118E0036720E /* UIColor+Util.m */; };
+		8574D0DA1E6DD00400A92AA6 /* NSString+pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D9B1D77118E0036720E /* NSString+pinyin.m */; };
+		8574D0DB1E6DD00400A92AA6 /* YMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D461D76F9F80036720E /* YMMainViewController.m */; };
+		8574D0DC1E6DD00400A92AA6 /* UUChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5419F1DA7AC26005AC671 /* UUChartLabel.m */; };
+		8574D0DD1E6DD00400A92AA6 /* YMCollectionTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADF078A1E5D830300263E48 /* YMCollectionTestController.m */; };
+		8574D0DE1E6DD00400A92AA6 /* YMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7F624B1DC23A7E0076E3E2 /* YMPageControl.m */; };
+		8574D0DF1E6DD00400A92AA6 /* YMScrollBarMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A8E1E5F213A00BD6747 /* YMScrollBarMenuView.m */; };
+		8574D0E01E6DD00400A92AA6 /* YMRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D401D76F5180036720E /* YMRootViewController.m */; };
+		8574D0E11E6DD00400A92AA6 /* YMAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B2D691DA154E8004A149B /* YMAddressCell.m */; };
+		8574D0E21E6DD00400A92AA6 /* YMGoodsCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCE31E61886B00EBEF58 /* YMGoodsCommentController.m */; };
+		8574D0E31E6DD00400A92AA6 /* YMOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EED1D938EE600829EE5 /* YMOrdersViewController.m */; };
+		8574D0E41E6DD00400A92AA6 /* YMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC05CC51D9970A500209F75 /* YMButton.m */; };
+		8574D0E51E6DD00400A92AA6 /* YMMyBenefitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541821DA6911B005AC671 /* YMMyBenefitViewController.m */; };
+		8574D0E61E6DD00400A92AA6 /* YMGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7232291D8A9CE30084397B /* YMGoodsListController.m */; };
+		8574D0E71E6DD00400A92AA6 /* YMCallPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC05CC21D99427100209F75 /* YMCallPasswordViewController.m */; };
+		8574D0E81E6DD00400A92AA6 /* YMImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1BE7A1D7ABDCB00AFB6C9 /* YMImageButton.m */; };
+		8574D0E91E6DD00400A92AA6 /* YMMyBoy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541881DA721E6005AC671 /* YMMyBoy.m */; };
+		8574D0EA1E6DD00400A92AA6 /* YMGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D371D76EF6D0036720E /* YMGlobal.m */; };
+		8574D0EB1E6DD00400A92AA6 /* NSDateFormatter+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3F31D77F8D400468831 /* NSDateFormatter+Singleton.m */; };
+		8574D0EC1E6DD00400A92AA6 /* UUBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541971DA7AC26005AC671 /* UUBar.m */; };
+		8574D0ED1E6DD00400A92AA6 /* YMCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D561D7703F90036720E /* YMCategoryViewController.m */; };
+		8574D0EE1E6DD00400A92AA6 /* YMAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7232401D8AEB690084397B /* YMAddressView.m */; };
+		8574D0EF1E6DD00400A92AA6 /* YMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A025F8B1D7D195A0002E6C6 /* YMLoginViewController.m */; };
+		8574D0F01E6DD00400A92AA6 /* YMRoundCornerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0336A81D800BCF00877D59 /* YMRoundCornerCell.m */; };
+		8574D0F11E6DD00400A92AA6 /* YMCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC74611D991A2E009B792F /* YMCollectViewController.m */; };
+		8574D0F21E6DD00400A92AA6 /* UUChartConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5419D1DA7AC26005AC671 /* UUChartConst.m */; };
+		8574D0F31E6DD00400A92AA6 /* YMPersonChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC05CD31D9C153800209F75 /* YMPersonChangeViewController.m */; };
+		8574D0F41E6DD00400A92AA6 /* YMDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271901D960C29009D8CC1 /* YMDataManager.m */; };
+		8574D0F51E6DD00400A92AA6 /* YMOrderGenerateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1CE3911D893451000EDB20 /* YMOrderGenerateViewController.m */; };
+		8574D0F61E6DD00400A92AA6 /* NSTextAttachment+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D9F1D77118E0036720E /* NSTextAttachment+Util.m */; };
+		8574D0F71E6DD00400A92AA6 /* YMCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC05CCA1D9C04B100209F75 /* YMCity.m */; };
+		8574D0F81E6DD00400A92AA6 /* YMVersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF661E2E178400C72077 /* YMVersionManager.m */; };
+		8574D0F91E6DD00400A92AA6 /* YMGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C621BE71D8453B800068F76 /* YMGoodsViewController.m */; };
+		8574D0FA1E6DD00400A92AA6 /* YMFirstGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D431D76F56B0036720E /* YMFirstGuideViewController.m */; };
+		8574D0FB1E6DD00400A92AA6 /* YMCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5750FE1D803EB60032285A /* YMCell.m */; };
+		8574D0FC1E6DD00400A92AA6 /* YMUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C621BE01D8431C100068F76 /* YMUserManager.m */; };
+		8574D0FD1E6DD00400A92AA6 /* YMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B2D741DA1666D004A149B /* YMLabel.m */; };
+		8574D0FE1E6DD00400A92AA6 /* UIImage+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3F51D77F8D400468831 /* UIImage+Util.m */; };
+		8574D0FF1E6DD00400A92AA6 /* YMPageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1BE771D7AB67D00AFB6C9 /* YMPageScrollView.m */; };
+		8574D1001E6DD00400A92AA6 /* YMCitySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B2D661DA0CA46004A149B /* YMCitySelectViewController.m */; };
+		8574D1011E6DD00400A92AA6 /* YMShowNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541931DA79424005AC671 /* YMShowNoticeController.m */; };
+		8574D1021E6DD00400A92AA6 /* YMAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C72323D1D8AEA840084397B /* YMAddress.m */; };
+		8574D1031E6DD00400A92AA6 /* YMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCD71E61546200EBEF58 /* YMTextView.m */; };
+		8574D1041E6DD00400A92AA6 /* YMCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A991E5FD19700BD6747 /* YMCommentViewController.m */; };
+		8574D1051E6DD00400A92AA6 /* YMDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271B71D9761AE009D8CC1 /* YMDefaultViewController.m */; };
+		8574D1061E6DD00400A92AA6 /* YMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D531D77038A0036720E /* YMHomeViewController.m */; };
+		8574D1071E6DD00400A92AA6 /* YMRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0107B1D7DDB9F0033232B /* YMRegisterViewController.m */; };
+		8574D1081E6DD00400A92AA6 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5DA31D77118E0036720E /* UIButton+Badge.m */; };
+		8574D1091E6DD00400A92AA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D191D76E5750036720E /* AppDelegate.m */; };
+		8574D10A1E6DD00400A92AA6 /* YMOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EF31D93B6C000829EE5 /* YMOrder.m */; };
+		8574D10B1E6DD00400A92AA6 /* YMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541781DA66851005AC671 /* YMCategory.m */; };
+		8574D10C1E6DD00400A92AA6 /* YMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D4A1D76FB4D0036720E /* YMBaseViewController.m */; };
+		8574D10D1E6DD00400A92AA6 /* YMChangeCountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1CE3941D8942D5000EDB20 /* YMChangeCountView.m */; };
+		8574D10E1E6DD00400A92AA6 /* YMDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EE31D9278A200829EE5 /* YMDataBase.m */; };
+		8574D10F1E6DD00400A92AA6 /* YMGoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CCDD1E61867500EBEF58 /* YMGoodsDetailController.m */; };
+		8574D1101E6DD00400A92AA6 /* PPNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6038A51DB8A1AE004EA3A7 /* PPNetworkCache.m */; };
+		8574D1111E6DD00400A92AA6 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3F11D77F8D400468831 /* NSDate+Util.m */; };
+		8574D1121E6DD00400A92AA6 /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5DA11D77118E0036720E /* UIBarButtonItem+Badge.m */; };
+		8574D1131E6DD00400A92AA6 /* UIImageView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3F71D77F8D400468831 /* UIImageView+Util.m */; };
+		8574D1141E6DD00400A92AA6 /* YMSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7232261D8A96920084397B /* YMSegment.m */; };
+		8574D1151E6DD00400A92AA6 /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541A91DA886F0005AC671 /* UITabBar+badge.m */; };
+		8574D1161E6DD00400A92AA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D161D76E5750036720E /* main.m */; };
+		8574D1171E6DD00400A92AA6 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC41C711D7D56E10060CB59 /* Config.m */; };
+		8574D1181E6DD00400A92AA6 /* YMAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EEA1D938E8E00829EE5 /* YMAddressViewController.m */; };
+		8574D1191E6DD00400A92AA6 /* YMRatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A911E5FBF3400BD6747 /* YMRatingBar.m */; };
+		8574D11A1E6DD00400A92AA6 /* YMHttpPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF621E2DFE9000C72077 /* YMHttpPackage.m */; };
+		8574D11B1E6DD00400A92AA6 /* YMBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C32716D1D917CCD009D8CC1 /* YMBaseItem.m */; };
+		8574D11C1E6DD00400A92AA6 /* LBLaunchImageAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271C91D97BC64009D8CC1 /* LBLaunchImageAdView.m */; };
+		8574D11D1E6DD00400A92AA6 /* YMMyBoysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5417F1DA690E3005AC671 /* YMMyBoysViewController.m */; };
+		8574D11E1E6DD00400A92AA6 /* YMCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1BE631D7A40FC00AFB6C9 /* YMCategoryModel.m */; };
+		8574D11F1E6DD00400A92AA6 /* YMGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C621BED1D84581600068F76 /* YMGoods.m */; };
+		8574D1201E6DD00400A92AA6 /* YMPayResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541BB1DAD1EE2005AC671 /* YMPayResultViewController.m */; };
+		8574D1211E6DD00400A92AA6 /* YMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C621BDD1D842E2200068F76 /* YMUser.m */; };
+		8574D1221E6DD00400A92AA6 /* YMLocalResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D3A1D76F1410036720E /* YMLocalResource.m */; };
+		8574D1231E6DD00400A92AA6 /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D9D1D77118E0036720E /* NSString+Util.m */; };
+		8574D1241E6DD00400A92AA6 /* YMUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D3D1D76F24A0036720E /* YMUtil.m */; };
+		8574D1251E6DD00400A92AA6 /* YMHttpNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0336AF1D811FEF00877D59 /* YMHttpNetwork.m */; };
+		8574D1261E6DD00400A92AA6 /* YMCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1BE731D7A91B000AFB6C9 /* YMCollectionViewFlowLayout.m */; };
+		8574D1271E6DD00400A92AA6 /* MyNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271BA1D97807F009D8CC1 /* MyNavigationViewController.m */; };
+		8574D1281E6DD00400A92AA6 /* UIView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3FB1D77F8D400468831 /* UIView+Util.m */; };
+		8574D1291E6DD00400A92AA6 /* YMPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDD621DA51EE0009637FB /* YMPayViewController.m */; };
+		8574D12A1E6DD00400A92AA6 /* YMScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF51EF01D938F9A00829EE5 /* YMScrollViewController.m */; };
+		8574D12B1E6DD00400A92AA6 /* UUChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5419B1DA7AC26005AC671 /* UUChart.m */; };
+		8574D12C1E6DD00400A92AA6 /* MyNavbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3271BD1D9780AB009D8CC1 /* MyNavbar.m */; };
+		8574D12D1E6DD00400A92AA6 /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6038A71DB8A1AE004EA3A7 /* PPNetworkHelper.m */; };
+		8574D12E1E6DD00400A92AA6 /* YMCellItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5750FB1D803E4B0032285A /* YMCellItems.m */; };
+		8574D12F1E6DD00400A92AA6 /* YMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14CF5F1E2DFE5300C72077 /* YMPackage.m */; };
+		8574D1301E6DD00400A92AA6 /* YMImageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A082A9C1E5FD1EB00BD6747 /* YMImageLoadView.m */; };
+		8574D1311E6DD00400A92AA6 /* YMMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D5C1D7704240036720E /* YMMineViewController.m */; };
+		8574D1321E6DD00400A92AA6 /* YMNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0336AC1D811DC500877D59 /* YMNetwork.m */; };
+		8574D1331E6DD00400A92AA6 /* YMToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C72325E1D8B9F4B0084397B /* YMToolbarView.m */; };
+		8574D1341E6DD00400A92AA6 /* NSObject+Property.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1BE661D7A42C000AFB6C9 /* NSObject+Property.m */; };
+		8574D1351E6DD00400A92AA6 /* YMStatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5417C1DA68C5E005AC671 /* YMStatisticViewController.m */; };
+		8574D1361E6DD00400A92AA6 /* YMAdviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B5D5F1D7704800036720E /* YMAdviceViewController.m */; };
+		8574D1371E6DD00400A92AA6 /* YMBenefitBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA541901DA77800005AC671 /* YMBenefitBoard.m */; };
+		8574D1391E6DD00400A92AA6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD691DA55C54009637FB /* libz.tbd */; };
+		8574D13A1E6DD00400A92AA6 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD6B1DA55C62009637FB /* libc++.tbd */; };
+		8574D13B1E6DD00400A92AA6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD711DA55C87009637FB /* SystemConfiguration.framework */; };
+		8574D13C1E6DD00400A92AA6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD731DA55C96009637FB /* CoreTelephony.framework */; };
+		8574D13D1E6DD00400A92AA6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD751DA55CA5009637FB /* QuartzCore.framework */; };
+		8574D13E1E6DD00400A92AA6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD771DA55CAD009637FB /* CoreText.framework */; };
+		8574D13F1E6DD00400A92AA6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD791DA55CB7009637FB /* CoreGraphics.framework */; };
+		8574D1401E6DD00400A92AA6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD7B1DA55CBD009637FB /* UIKit.framework */; };
+		8574D1411E6DD00400A92AA6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD7D1DA55CC7009637FB /* Foundation.framework */; };
+		8574D1421E6DD00400A92AA6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD6F1DA55C79009637FB /* CFNetwork.framework */; };
+		8574D1431E6DD00400A92AA6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD6D1DA55C6D009637FB /* CoreMotion.framework */; };
+		8574D1441E6DD00400A92AA6 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3BDD661DA55C03009637FB /* AlipaySDK.framework */; };
+		8574D1451E6DD00400A92AA6 /* libPods-Running.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F4A215FD8B38EF3D8AE9A5 /* libPods-Running.a */; };
+		8574D1471E6DD00400A92AA6 /* icon-pay-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541BE1DAD285A005AC671 /* icon-pay-success@2x.png */; };
+		8574D1481E6DD00400A92AA6 /* nav_back_round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541301DA5E251005AC671 /* nav_back_round@2x.png */; };
+		8574D1491E6DD00400A92AA6 /* rc-question@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7F624D1DC2EE240076E3E2 /* rc-question@2x.png */; };
+		8574D14A1E6DD00400A92AA6 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541141DA5E251005AC671 /* location@2x.png */; };
+		8574D14B1E6DD00400A92AA6 /* tabbar-mine-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D6E1D7709120036720E /* tabbar-mine-selected@2x.png */; };
+		8574D14C1E6DD00400A92AA6 /* Unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5413A1DA5E251005AC671 /* Unselected@3x.png */; };
+		8574D14D1E6DD00400A92AA6 /* person_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5412B1DA5E251005AC671 /* person_back@2x.png */; };
+		8574D14E1E6DD00400A92AA6 /* icon-service@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A8B1E5F1F9300BD6747 /* icon-service@2x.png */; };
+		8574D14F1E6DD00400A92AA6 /* icon-collect.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5410E1DA5E251005AC671 /* icon-collect.png */; };
+		8574D1501E6DD00400A92AA6 /* collect_cart_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541AF1DA93948005AC671 /* collect_cart_sel@2x.png */; };
+		8574D1511E6DD00400A92AA6 /* nav-collect-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5412D1DA5E251005AC671 /* nav-collect-selected@2x.png */; };
+		8574D1521E6DD00400A92AA6 /* product_detail_sub_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541341DA5E251005AC671 /* product_detail_sub_normal@2x.png */; };
+		8574D1531E6DD00400A92AA6 /* tabbar-category-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271561D91713E009D8CC1 /* tabbar-category-selected@3x.png */; };
+		8574D1541E6DD00400A92AA6 /* tabbar-mine-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C32715A1D91713E009D8CC1 /* tabbar-mine-selected@3x.png */; };
+		8574D1551E6DD00400A92AA6 /* icon-checkoff-round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541091DA5E251005AC671 /* icon-checkoff-round@2x.png */; };
+		8574D1561E6DD00400A92AA6 /* icon-checkon-round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5410B1DA5E251005AC671 /* icon-checkon-round@2x.png */; };
+		8574D1571E6DD00400A92AA6 /* tabbar-advice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D641D7709120036720E /* tabbar-advice@2x.png */; };
+		8574D1581E6DD00400A92AA6 /* icon_service@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541281DA5E251005AC671 /* icon_service@2x.png */; };
+		8574D1591E6DD00400A92AA6 /* icon-del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5410F1DA5E251005AC671 /* icon-del@2x.png */; };
+		8574D15A1E6DD00400A92AA6 /* tabbar-shopping@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C32715D1D91713E009D8CC1 /* tabbar-shopping@3x.png */; };
+		8574D15B1E6DD00400A92AA6 /* Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541351DA5E251005AC671 /* Selected.png */; };
+		8574D15C1E6DD00400A92AA6 /* Checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541031DA5E251005AC671 /* Checkmark@3x.png */; };
+		8574D15D1E6DD00400A92AA6 /* Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541381DA5E251005AC671 /* Unselected.png */; };
+		8574D15E1E6DD00400A92AA6 /* Selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541371DA5E251005AC671 /* Selected@3x.png */; };
+		8574D15F1E6DD00400A92AA6 /* forReceive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541211DA5E251005AC671 /* forReceive.png */; };
+		8574D1601E6DD00400A92AA6 /* tabbar-shopping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D741D7709120036720E /* tabbar-shopping@2x.png */; };
+		8574D1611E6DD00400A92AA6 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541021DA5E251005AC671 /* Checkmark@2x.png */; };
+		8574D1621E6DD00400A92AA6 /* icon-pay-weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541731DA6362E005AC671 /* icon-pay-weixin@2x.png */; };
+		8574D1631E6DD00400A92AA6 /* defaultMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271931D966CF2009D8CC1 /* defaultMenu.png */; };
+		8574D1641E6DD00400A92AA6 /* product_detail_add_no@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541311DA5E251005AC671 /* product_detail_add_no@2x.png */; };
+		8574D1651E6DD00400A92AA6 /* Unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541391DA5E251005AC671 /* Unselected@2x.png */; };
+		8574D1661E6DD00400A92AA6 /* icon-addpic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A91CCD91E616D4500EBEF58 /* icon-addpic@2x.png */; };
+		8574D1671E6DD00400A92AA6 /* icon-starfull.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A941E5FC51100BD6747 /* icon-starfull.png */; };
+		8574D1681E6DD00400A92AA6 /* collect_del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541AC1DA92D2F005AC671 /* collect_del@2x.png */; };
+		8574D1691E6DD00400A92AA6 /* rc-tele@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5418B1DA7444C005AC671 /* rc-tele@2x.png */; };
+		8574D16A1E6DD00400A92AA6 /* icon-edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541101DA5E251005AC671 /* icon-edit@2x.png */; };
+		8574D16B1E6DD00400A92AA6 /* icon_box_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541121DA5E251005AC671 /* icon_box_select.png */; };
+		8574D16C1E6DD00400A92AA6 /* accountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541161DA5E251005AC671 /* accountIcon.png */; };
+		8574D16D1E6DD00400A92AA6 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C3BDD651DA55C03009637FB /* AlipaySDK.bundle */; };
+		8574D16E1E6DD00400A92AA6 /* tabbar-home@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271591D91713E009D8CC1 /* tabbar-home@3x.png */; };
+		8574D16F1E6DD00400A92AA6 /* icon_search_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541131DA5E251005AC671 /* icon_search_big@2x.png */; };
+		8574D1701E6DD00400A92AA6 /* icon-pay-ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541721DA6362E005AC671 /* icon-pay-ok@2x.png */; };
+		8574D1711E6DD00400A92AA6 /* icon_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541291DA5E251005AC671 /* icon_setting@2x.png */; };
+		8574D1721E6DD00400A92AA6 /* defaultHead.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5411C1DA5E251005AC671 /* defaultHead.png */; };
+		8574D1731E6DD00400A92AA6 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541011DA5E251005AC671 /* Checkmark.png */; };
+		8574D1741E6DD00400A92AA6 /* tabbar-category@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271571D91713E009D8CC1 /* tabbar-category@3x.png */; };
+		8574D1751E6DD00400A92AA6 /* tabbar-mine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C32715B1D91713E009D8CC1 /* tabbar-mine@3x.png */; };
+		8574D1761E6DD00400A92AA6 /* forSend.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541221DA5E251005AC671 /* forSend.png */; };
+		8574D1771E6DD00400A92AA6 /* tabbar-category-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D661D7709120036720E /* tabbar-category-selected@2x.png */; };
+		8574D1781E6DD00400A92AA6 /* nav-collect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5412E1DA5E251005AC671 /* nav-collect@2x.png */; };
+		8574D1791E6DD00400A92AA6 /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5412F1DA5E251005AC671 /* nav_back@2x.png */; };
+		8574D17A1E6DD00400A92AA6 /* icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541261DA5E251005AC671 /* icon_location@2x.png */; };
+		8574D17B1E6DD00400A92AA6 /* icon_cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541231DA5E251005AC671 /* icon_cart@2x.png */; };
+		8574D17C1E6DD00400A92AA6 /* forComment.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5411E1DA5E251005AC671 /* forComment.png */; };
+		8574D17D1E6DD00400A92AA6 /* tabbar-shopping-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D721D7709120036720E /* tabbar-shopping-selected@2x.png */; };
+		8574D17E1E6DD00400A92AA6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FB3E91D77DC1200468831 /* Images.xcassets */; };
+		8574D17F1E6DD00400A92AA6 /* product_detail_sub_no@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541331DA5E251005AC671 /* product_detail_sub_no@2x.png */; };
+		8574D1801E6DD00400A92AA6 /* image_guide1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7F62441DC2346B0076E3E2 /* image_guide1@2x.png */; };
+		8574D1811E6DD00400A92AA6 /* detail_collect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541061DA5E251005AC671 /* detail_collect@2x.png */; };
+		8574D1821E6DD00400A92AA6 /* forPay.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541201DA5E251005AC671 /* forPay.png */; };
+		8574D1831E6DD00400A92AA6 /* detail_cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541051DA5E251005AC671 /* detail_cart@2x.png */; };
+		8574D1841E6DD00400A92AA6 /* login_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541181DA5E251005AC671 /* login_btn.png */; };
+		8574D1851E6DD00400A92AA6 /* big_collect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC05CCD1D9C147200209F75 /* big_collect@2x.png */; };
+		8574D1861E6DD00400A92AA6 /* loading_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271C41D97B201009D8CC1 /* loading_line.png */; };
+		8574D1871E6DD00400A92AA6 /* icon_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541271DA5E251005AC671 /* icon_more@2x.png */; };
+		8574D1881E6DD00400A92AA6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3A6038A11DB8A1AE004EA3A7 /* LICENSE */; };
+		8574D1891E6DD00400A92AA6 /* passwordIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5411A1DA5E251005AC671 /* passwordIcon.png */; };
+		8574D18A1E6DD00400A92AA6 /* product_detail_add_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541321DA5E251005AC671 /* product_detail_add_normal@2x.png */; };
+		8574D18B1E6DD00400A92AA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C7232321D8AD57B0084397B /* Localizable.strings */; };
+		8574D18C1E6DD00400A92AA6 /* big_cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9FACE01D98BF7900731A8E /* big_cart@2x.png */; };
+		8574D18D1E6DD00400A92AA6 /* defaultMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5411D1DA5E251005AC671 /* defaultMe.png */; };
+		8574D18E1E6DD00400A92AA6 /* big_address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC05CCC1D9C147200209F75 /* big_address@2x.png */; };
+		8574D18F1E6DD00400A92AA6 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271921D966CF2009D8CC1 /* default.png */; };
+		8574D1901E6DD00400A92AA6 /* Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541361DA5E251005AC671 /* Selected@2x.png */; };
+		8574D1911E6DD00400A92AA6 /* tabbar-advice-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271541D91713E009D8CC1 /* tabbar-advice-selected@3x.png */; };
+		8574D1921E6DD00400A92AA6 /* icon-checkon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5410C1DA5E251005AC671 /* icon-checkon@2x.png */; };
+		8574D1931E6DD00400A92AA6 /* icon-pay-fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541BD1DAD285A005AC671 /* icon-pay-fail@2x.png */; };
+		8574D1941E6DD00400A92AA6 /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A5A3E271E30905A00BB4ABA /* main.json */; };
+		8574D1951E6DD00400A92AA6 /* icon-starempty.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A082A931E5FC51100BD6747 /* icon-starempty.png */; };
+		8574D1961E6DD00400A92AA6 /* login_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541171DA5E251005AC671 /* login_bg.png */; };
+		8574D1971E6DD00400A92AA6 /* bigShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271A11D96BC18009D8CC1 /* bigShadow.png */; };
+		8574D1981E6DD00400A92AA6 /* icon_favourate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541241DA5E251005AC671 /* icon_favourate@2x.png */; };
+		8574D1991E6DD00400A92AA6 /* tabbar-home-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D6A1D7709120036720E /* tabbar-home-selected@2x.png */; };
+		8574D19A1E6DD00400A92AA6 /* rc-more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5418D1DA74C93005AC671 /* rc-more@2x.png */; };
+		8574D19B1E6DD00400A92AA6 /* detail_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541081DA5E251005AC671 /* detail_home@2x.png */; };
+		8574D19C1E6DD00400A92AA6 /* icon-collect-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5410D1DA5E251005AC671 /* icon-collect-selected.png */; };
+		8574D19D1E6DD00400A92AA6 /* big_order@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC05CCE1D9C147200209F75 /* big_order@2x.png */; };
+		8574D19E1E6DD00400A92AA6 /* image_guide3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7F62461DC2346B0076E3E2 /* image_guide3@2x.png */; };
+		8574D19F1E6DD00400A92AA6 /* collect_cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541AB1DA92D2F005AC671 /* collect_cart@2x.png */; };
+		8574D1A01E6DD00400A92AA6 /* loading_dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271C31D97B201009D8CC1 /* loading_dot.png */; };
+		8574D1A11E6DD00400A92AA6 /* icon-pay-ali@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541711DA6362E005AC671 /* icon-pay-ali@2x.png */; };
+		8574D1A21E6DD00400A92AA6 /* image_guide2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7F62451DC2346B0076E3E2 /* image_guide2@2x.png */; };
+		8574D1A31E6DD00400A92AA6 /* rc-level@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7F624F1DC2EF320076E3E2 /* rc-level@2x.png */; };
+		8574D1A41E6DD00400A92AA6 /* icon_level@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541251DA5E251005AC671 /* icon_level@2x.png */; };
+		8574D1A51E6DD00400A92AA6 /* tabbar-home-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271581D91713E009D8CC1 /* tabbar-home-selected@3x.png */; };
+		8574D1A61E6DD00400A92AA6 /* detail_collect_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541071DA5E251005AC671 /* detail_collect_select@2x.png */; };
+		8574D1A71E6DD00400A92AA6 /* tabbar-category@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D681D7709120036720E /* tabbar-category@2x.png */; };
+		8574D1A81E6DD00400A92AA6 /* tabbar-mine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D701D7709120036720E /* tabbar-mine@2x.png */; };
+		8574D1A91E6DD00400A92AA6 /* tabbar-shopping-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C32715C1D91713E009D8CC1 /* tabbar-shopping-selected@3x.png */; };
+		8574D1AA1E6DD00400A92AA6 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541191DA5E251005AC671 /* logo.png */; };
+		8574D1AB1E6DD00400A92AA6 /* tabbar-advice-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D621D7709120036720E /* tabbar-advice-selected@2x.png */; };
+		8574D1AC1E6DD00400A92AA6 /* forOrder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5411F1DA5E251005AC671 /* forOrder.png */; };
+		8574D1AD1E6DD00400A92AA6 /* icon-checkoff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5410A1DA5E251005AC671 /* icon-checkoff@2x.png */; };
+		8574D1AE1E6DD00400A92AA6 /* person_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5412A1DA5E251005AC671 /* person_back.png */; };
+		8574D1AF1E6DD00400A92AA6 /* tabbar-advice@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3271551D91713E009D8CC1 /* tabbar-advice@3x.png */; };
+		8574D1B01E6DD00400A92AA6 /* tabbar-home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B5D6C1D7709120036720E /* tabbar-home@2x.png */; };
+		8574D1B11E6DD00400A92AA6 /* icon_box_nonselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA541111DA5E251005AC671 /* icon_box_nonselect.png */; };
 		D7878C9C1D256064E109521B /* libPods-Running.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F4A215FD8B38EF3D8AE9A5 /* libPods-Running.a */; };
 /* End PBXBuildFile section */
 
@@ -581,6 +810,8 @@
 		3AFC74611D991A2E009B792F /* YMCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMCollectViewController.m; sourceTree = "<group>"; };
 		636372A9E33B9D023DA50ADA /* Pods-Running.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Running.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Running/Pods-Running.debug.xcconfig"; sourceTree = "<group>"; };
 		7E83B72052BF4B01BF36FB56 /* Pods-Running.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Running.release.xcconfig"; path = "Pods/Target Support Files/Pods-Running/Pods-Running.release.xcconfig"; sourceTree = "<group>"; };
+		8574D1B71E6DD00400A92AA6 /* Running_copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Running_copy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8574D1B81E6DD00500A92AA6 /* Running copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Running copy-Info.plist"; path = "/Users/zhangyongming/Documents/ENE/Running copy-Info.plist"; sourceTree = "<absolute>"; };
 		B1F4A215FD8B38EF3D8AE9A5 /* libPods-Running.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Running.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -602,6 +833,26 @@
 				2C3BDD6E1DA55C6D009637FB /* CoreMotion.framework in Frameworks */,
 				2C3BDD681DA55C03009637FB /* AlipaySDK.framework in Frameworks */,
 				D7878C9C1D256064E109521B /* libPods-Running.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8574D1381E6DD00400A92AA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8574D1391E6DD00400A92AA6 /* libz.tbd in Frameworks */,
+				8574D13A1E6DD00400A92AA6 /* libc++.tbd in Frameworks */,
+				8574D13B1E6DD00400A92AA6 /* SystemConfiguration.framework in Frameworks */,
+				8574D13C1E6DD00400A92AA6 /* CoreTelephony.framework in Frameworks */,
+				8574D13D1E6DD00400A92AA6 /* QuartzCore.framework in Frameworks */,
+				8574D13E1E6DD00400A92AA6 /* CoreText.framework in Frameworks */,
+				8574D13F1E6DD00400A92AA6 /* CoreGraphics.framework in Frameworks */,
+				8574D1401E6DD00400A92AA6 /* UIKit.framework in Frameworks */,
+				8574D1411E6DD00400A92AA6 /* Foundation.framework in Frameworks */,
+				8574D1421E6DD00400A92AA6 /* CFNetwork.framework in Frameworks */,
+				8574D1431E6DD00400A92AA6 /* CoreMotion.framework in Frameworks */,
+				8574D1441E6DD00400A92AA6 /* AlipaySDK.framework in Frameworks */,
+				8574D1451E6DD00400A92AA6 /* libPods-Running.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +1081,7 @@
 				3A2B5D131D76E5750036720E /* Products */,
 				9EA97E0454B776E1A3933C64 /* Frameworks */,
 				AE0BBEBD6F835C09B14E9354 /* Pods */,
+				8574D1B81E6DD00500A92AA6 /* Running copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -837,6 +1089,7 @@
 			isa = PBXGroup;
 			children = (
 				3A2B5D121D76E5750036720E /* Running.app */,
+				8574D1B71E6DD00400A92AA6 /* Running_copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1317,6 +1570,26 @@
 			productReference = 3A2B5D121D76E5750036720E /* Running.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8574D0C81E6DD00400A92AA6 /* Running_copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8574D1B41E6DD00400A92AA6 /* Build configuration list for PBXNativeTarget "Running_copy" */;
+			buildPhases = (
+				8574D0C91E6DD00400A92AA6 /* [CP] Check Pods Manifest.lock */,
+				8574D0CA1E6DD00400A92AA6 /* Sources */,
+				8574D1381E6DD00400A92AA6 /* Frameworks */,
+				8574D1461E6DD00400A92AA6 /* Resources */,
+				8574D1B21E6DD00400A92AA6 /* [CP] Embed Pods Frameworks */,
+				8574D1B31E6DD00400A92AA6 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Running_copy;
+			productName = Running;
+			productReference = 8574D1B71E6DD00400A92AA6 /* Running_copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1329,6 +1602,9 @@
 					3A2B5D111D76E5750036720E = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 77565T989X;
+					};
+					8574D0C81E6DD00400A92AA6 = {
+						DevelopmentTeam = UPTTXHV3LP;
 					};
 				};
 			};
@@ -1347,6 +1623,7 @@
 			projectRoot = "";
 			targets = (
 				3A2B5D111D76E5750036720E /* Running */,
+				8574D0C81E6DD00400A92AA6 /* Running_copy */,
 			);
 		};
 /* End PBXProject section */
@@ -1466,6 +1743,120 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8574D1461E6DD00400A92AA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8574D1471E6DD00400A92AA6 /* icon-pay-success@2x.png in Resources */,
+				8574D1481E6DD00400A92AA6 /* nav_back_round@2x.png in Resources */,
+				8574D1491E6DD00400A92AA6 /* rc-question@2x.png in Resources */,
+				8574D14A1E6DD00400A92AA6 /* location@2x.png in Resources */,
+				8574D14B1E6DD00400A92AA6 /* tabbar-mine-selected@2x.png in Resources */,
+				8574D14C1E6DD00400A92AA6 /* Unselected@3x.png in Resources */,
+				8574D14D1E6DD00400A92AA6 /* person_back@2x.png in Resources */,
+				8574D14E1E6DD00400A92AA6 /* icon-service@2x.png in Resources */,
+				8574D14F1E6DD00400A92AA6 /* icon-collect.png in Resources */,
+				8574D1501E6DD00400A92AA6 /* collect_cart_sel@2x.png in Resources */,
+				8574D1511E6DD00400A92AA6 /* nav-collect-selected@2x.png in Resources */,
+				8574D1521E6DD00400A92AA6 /* product_detail_sub_normal@2x.png in Resources */,
+				8574D1531E6DD00400A92AA6 /* tabbar-category-selected@3x.png in Resources */,
+				8574D1541E6DD00400A92AA6 /* tabbar-mine-selected@3x.png in Resources */,
+				8574D1551E6DD00400A92AA6 /* icon-checkoff-round@2x.png in Resources */,
+				8574D1561E6DD00400A92AA6 /* icon-checkon-round@2x.png in Resources */,
+				8574D1571E6DD00400A92AA6 /* tabbar-advice@2x.png in Resources */,
+				8574D1581E6DD00400A92AA6 /* icon_service@2x.png in Resources */,
+				8574D1591E6DD00400A92AA6 /* icon-del@2x.png in Resources */,
+				8574D15A1E6DD00400A92AA6 /* tabbar-shopping@3x.png in Resources */,
+				8574D15B1E6DD00400A92AA6 /* Selected.png in Resources */,
+				8574D15C1E6DD00400A92AA6 /* Checkmark@3x.png in Resources */,
+				8574D15D1E6DD00400A92AA6 /* Unselected.png in Resources */,
+				8574D15E1E6DD00400A92AA6 /* Selected@3x.png in Resources */,
+				8574D15F1E6DD00400A92AA6 /* forReceive.png in Resources */,
+				8574D1601E6DD00400A92AA6 /* tabbar-shopping@2x.png in Resources */,
+				8574D1611E6DD00400A92AA6 /* Checkmark@2x.png in Resources */,
+				8574D1621E6DD00400A92AA6 /* icon-pay-weixin@2x.png in Resources */,
+				8574D1631E6DD00400A92AA6 /* defaultMenu.png in Resources */,
+				8574D1641E6DD00400A92AA6 /* product_detail_add_no@2x.png in Resources */,
+				8574D1651E6DD00400A92AA6 /* Unselected@2x.png in Resources */,
+				8574D1661E6DD00400A92AA6 /* icon-addpic@2x.png in Resources */,
+				8574D1671E6DD00400A92AA6 /* icon-starfull.png in Resources */,
+				8574D1681E6DD00400A92AA6 /* collect_del@2x.png in Resources */,
+				8574D1691E6DD00400A92AA6 /* rc-tele@2x.png in Resources */,
+				8574D16A1E6DD00400A92AA6 /* icon-edit@2x.png in Resources */,
+				8574D16B1E6DD00400A92AA6 /* icon_box_select.png in Resources */,
+				8574D16C1E6DD00400A92AA6 /* accountIcon.png in Resources */,
+				8574D16D1E6DD00400A92AA6 /* AlipaySDK.bundle in Resources */,
+				8574D16E1E6DD00400A92AA6 /* tabbar-home@3x.png in Resources */,
+				8574D16F1E6DD00400A92AA6 /* icon_search_big@2x.png in Resources */,
+				8574D1701E6DD00400A92AA6 /* icon-pay-ok@2x.png in Resources */,
+				8574D1711E6DD00400A92AA6 /* icon_setting@2x.png in Resources */,
+				8574D1721E6DD00400A92AA6 /* defaultHead.png in Resources */,
+				8574D1731E6DD00400A92AA6 /* Checkmark.png in Resources */,
+				8574D1741E6DD00400A92AA6 /* tabbar-category@3x.png in Resources */,
+				8574D1751E6DD00400A92AA6 /* tabbar-mine@3x.png in Resources */,
+				8574D1761E6DD00400A92AA6 /* forSend.png in Resources */,
+				8574D1771E6DD00400A92AA6 /* tabbar-category-selected@2x.png in Resources */,
+				8574D1781E6DD00400A92AA6 /* nav-collect@2x.png in Resources */,
+				8574D1791E6DD00400A92AA6 /* nav_back@2x.png in Resources */,
+				8574D17A1E6DD00400A92AA6 /* icon_location@2x.png in Resources */,
+				8574D17B1E6DD00400A92AA6 /* icon_cart@2x.png in Resources */,
+				8574D17C1E6DD00400A92AA6 /* forComment.png in Resources */,
+				8574D17D1E6DD00400A92AA6 /* tabbar-shopping-selected@2x.png in Resources */,
+				8574D17E1E6DD00400A92AA6 /* Images.xcassets in Resources */,
+				8574D17F1E6DD00400A92AA6 /* product_detail_sub_no@2x.png in Resources */,
+				8574D1801E6DD00400A92AA6 /* image_guide1@2x.png in Resources */,
+				8574D1811E6DD00400A92AA6 /* detail_collect@2x.png in Resources */,
+				8574D1821E6DD00400A92AA6 /* forPay.png in Resources */,
+				8574D1831E6DD00400A92AA6 /* detail_cart@2x.png in Resources */,
+				8574D1841E6DD00400A92AA6 /* login_btn.png in Resources */,
+				8574D1851E6DD00400A92AA6 /* big_collect@2x.png in Resources */,
+				8574D1861E6DD00400A92AA6 /* loading_line.png in Resources */,
+				8574D1871E6DD00400A92AA6 /* icon_more@2x.png in Resources */,
+				8574D1881E6DD00400A92AA6 /* LICENSE in Resources */,
+				8574D1891E6DD00400A92AA6 /* passwordIcon.png in Resources */,
+				8574D18A1E6DD00400A92AA6 /* product_detail_add_normal@2x.png in Resources */,
+				8574D18B1E6DD00400A92AA6 /* Localizable.strings in Resources */,
+				8574D18C1E6DD00400A92AA6 /* big_cart@2x.png in Resources */,
+				8574D18D1E6DD00400A92AA6 /* defaultMe.png in Resources */,
+				8574D18E1E6DD00400A92AA6 /* big_address@2x.png in Resources */,
+				8574D18F1E6DD00400A92AA6 /* default.png in Resources */,
+				8574D1901E6DD00400A92AA6 /* Selected@2x.png in Resources */,
+				8574D1911E6DD00400A92AA6 /* tabbar-advice-selected@3x.png in Resources */,
+				8574D1921E6DD00400A92AA6 /* icon-checkon@2x.png in Resources */,
+				8574D1931E6DD00400A92AA6 /* icon-pay-fail@2x.png in Resources */,
+				8574D1941E6DD00400A92AA6 /* main.json in Resources */,
+				8574D1951E6DD00400A92AA6 /* icon-starempty.png in Resources */,
+				8574D1961E6DD00400A92AA6 /* login_bg.png in Resources */,
+				8574D1971E6DD00400A92AA6 /* bigShadow.png in Resources */,
+				8574D1981E6DD00400A92AA6 /* icon_favourate@2x.png in Resources */,
+				8574D1991E6DD00400A92AA6 /* tabbar-home-selected@2x.png in Resources */,
+				8574D19A1E6DD00400A92AA6 /* rc-more@2x.png in Resources */,
+				8574D19B1E6DD00400A92AA6 /* detail_home@2x.png in Resources */,
+				8574D19C1E6DD00400A92AA6 /* icon-collect-selected.png in Resources */,
+				8574D19D1E6DD00400A92AA6 /* big_order@2x.png in Resources */,
+				8574D19E1E6DD00400A92AA6 /* image_guide3@2x.png in Resources */,
+				8574D19F1E6DD00400A92AA6 /* collect_cart@2x.png in Resources */,
+				8574D1A01E6DD00400A92AA6 /* loading_dot.png in Resources */,
+				8574D1A11E6DD00400A92AA6 /* icon-pay-ali@2x.png in Resources */,
+				8574D1A21E6DD00400A92AA6 /* image_guide2@2x.png in Resources */,
+				8574D1A31E6DD00400A92AA6 /* rc-level@2x.png in Resources */,
+				8574D1A41E6DD00400A92AA6 /* icon_level@2x.png in Resources */,
+				8574D1A51E6DD00400A92AA6 /* tabbar-home-selected@3x.png in Resources */,
+				8574D1A61E6DD00400A92AA6 /* detail_collect_select@2x.png in Resources */,
+				8574D1A71E6DD00400A92AA6 /* tabbar-category@2x.png in Resources */,
+				8574D1A81E6DD00400A92AA6 /* tabbar-mine@2x.png in Resources */,
+				8574D1A91E6DD00400A92AA6 /* tabbar-shopping-selected@3x.png in Resources */,
+				8574D1AA1E6DD00400A92AA6 /* logo.png in Resources */,
+				8574D1AB1E6DD00400A92AA6 /* tabbar-advice-selected@2x.png in Resources */,
+				8574D1AC1E6DD00400A92AA6 /* forOrder.png in Resources */,
+				8574D1AD1E6DD00400A92AA6 /* icon-checkoff@2x.png in Resources */,
+				8574D1AE1E6DD00400A92AA6 /* person_back.png in Resources */,
+				8574D1AF1E6DD00400A92AA6 /* tabbar-advice@3x.png in Resources */,
+				8574D1B01E6DD00400A92AA6 /* tabbar-home@2x.png in Resources */,
+				8574D1B11E6DD00400A92AA6 /* icon_box_nonselect.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1482,6 +1873,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Running/Pods-Running-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8574D0C91E6DD00400A92AA6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8574D1B21E6DD00400A92AA6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Running/Pods-Running-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8574D1B31E6DD00400A92AA6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Running/Pods-Running-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB2BC9B69E589B73D233A290 /* [CP] Check Pods Manifest.lock */ = {
@@ -1630,6 +2066,122 @@
 				3AA5417D1DA68C5E005AC671 /* YMStatisticViewController.m in Sources */,
 				3A2B5D601D7704800036720E /* YMAdviceViewController.m in Sources */,
 				3AA541911DA77800005AC671 /* YMBenefitBoard.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8574D0CA1E6DD00400A92AA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8574D0CB1E6DD00400A92AA6 /* YMResetPwdViewController.m in Sources */,
+				8574D0CC1E6DD00400A92AA6 /* YMShoppingCartViewController.m in Sources */,
+				8574D0CD1E6DD00400A92AA6 /* YMCommentItem.m in Sources */,
+				8574D0CE1E6DD00400A92AA6 /* YMNewAddressViewController.m in Sources */,
+				8574D0CF1E6DD00400A92AA6 /* UIScrollView+ScalableCover.m in Sources */,
+				8574D0D01E6DD00400A92AA6 /* MXNavigationBarManager.m in Sources */,
+				8574D0D11E6DD00400A92AA6 /* YMBaseNavigationController.m in Sources */,
+				8574D0D21E6DD00400A92AA6 /* YMConfig.m in Sources */,
+				8574D0D31E6DD00400A92AA6 /* UULineChart.m in Sources */,
+				8574D0D41E6DD00400A92AA6 /* YMGoodsInfoController.m in Sources */,
+				8574D0D51E6DD00400A92AA6 /* UUBarChart.m in Sources */,
+				8574D0D61E6DD00400A92AA6 /* YMSettingViewController.m in Sources */,
+				8574D0D71E6DD00400A92AA6 /* YMSearchViewController.m in Sources */,
+				8574D0D81E6DD00400A92AA6 /* SFHFKeychainUtils.m in Sources */,
+				8574D0D91E6DD00400A92AA6 /* UIColor+Util.m in Sources */,
+				8574D0DA1E6DD00400A92AA6 /* NSString+pinyin.m in Sources */,
+				8574D0DB1E6DD00400A92AA6 /* YMMainViewController.m in Sources */,
+				8574D0DC1E6DD00400A92AA6 /* UUChartLabel.m in Sources */,
+				8574D0DD1E6DD00400A92AA6 /* YMCollectionTestController.m in Sources */,
+				8574D0DE1E6DD00400A92AA6 /* YMPageControl.m in Sources */,
+				8574D0DF1E6DD00400A92AA6 /* YMScrollBarMenuView.m in Sources */,
+				8574D0E01E6DD00400A92AA6 /* YMRootViewController.m in Sources */,
+				8574D0E11E6DD00400A92AA6 /* YMAddressCell.m in Sources */,
+				8574D0E21E6DD00400A92AA6 /* YMGoodsCommentController.m in Sources */,
+				8574D0E31E6DD00400A92AA6 /* YMOrdersViewController.m in Sources */,
+				8574D0E41E6DD00400A92AA6 /* YMButton.m in Sources */,
+				8574D0E51E6DD00400A92AA6 /* YMMyBenefitViewController.m in Sources */,
+				8574D0E61E6DD00400A92AA6 /* YMGoodsListController.m in Sources */,
+				8574D0E71E6DD00400A92AA6 /* YMCallPasswordViewController.m in Sources */,
+				8574D0E81E6DD00400A92AA6 /* YMImageButton.m in Sources */,
+				8574D0E91E6DD00400A92AA6 /* YMMyBoy.m in Sources */,
+				8574D0EA1E6DD00400A92AA6 /* YMGlobal.m in Sources */,
+				8574D0EB1E6DD00400A92AA6 /* NSDateFormatter+Singleton.m in Sources */,
+				8574D0EC1E6DD00400A92AA6 /* UUBar.m in Sources */,
+				8574D0ED1E6DD00400A92AA6 /* YMCategoryViewController.m in Sources */,
+				8574D0EE1E6DD00400A92AA6 /* YMAddressView.m in Sources */,
+				8574D0EF1E6DD00400A92AA6 /* YMLoginViewController.m in Sources */,
+				8574D0F01E6DD00400A92AA6 /* YMRoundCornerCell.m in Sources */,
+				8574D0F11E6DD00400A92AA6 /* YMCollectViewController.m in Sources */,
+				8574D0F21E6DD00400A92AA6 /* UUChartConst.m in Sources */,
+				8574D0F31E6DD00400A92AA6 /* YMPersonChangeViewController.m in Sources */,
+				8574D0F41E6DD00400A92AA6 /* YMDataManager.m in Sources */,
+				8574D0F51E6DD00400A92AA6 /* YMOrderGenerateViewController.m in Sources */,
+				8574D0F61E6DD00400A92AA6 /* NSTextAttachment+Util.m in Sources */,
+				8574D0F71E6DD00400A92AA6 /* YMCity.m in Sources */,
+				8574D0F81E6DD00400A92AA6 /* YMVersionManager.m in Sources */,
+				8574D0F91E6DD00400A92AA6 /* YMGoodsViewController.m in Sources */,
+				8574D0FA1E6DD00400A92AA6 /* YMFirstGuideViewController.m in Sources */,
+				8574D0FB1E6DD00400A92AA6 /* YMCell.m in Sources */,
+				8574D0FC1E6DD00400A92AA6 /* YMUserManager.m in Sources */,
+				8574D0FD1E6DD00400A92AA6 /* YMLabel.m in Sources */,
+				8574D0FE1E6DD00400A92AA6 /* UIImage+Util.m in Sources */,
+				8574D0FF1E6DD00400A92AA6 /* YMPageScrollView.m in Sources */,
+				8574D1001E6DD00400A92AA6 /* YMCitySelectViewController.m in Sources */,
+				8574D1011E6DD00400A92AA6 /* YMShowNoticeController.m in Sources */,
+				8574D1021E6DD00400A92AA6 /* YMAddress.m in Sources */,
+				8574D1031E6DD00400A92AA6 /* YMTextView.m in Sources */,
+				8574D1041E6DD00400A92AA6 /* YMCommentViewController.m in Sources */,
+				8574D1051E6DD00400A92AA6 /* YMDefaultViewController.m in Sources */,
+				8574D1061E6DD00400A92AA6 /* YMHomeViewController.m in Sources */,
+				8574D1071E6DD00400A92AA6 /* YMRegisterViewController.m in Sources */,
+				8574D1081E6DD00400A92AA6 /* UIButton+Badge.m in Sources */,
+				8574D1091E6DD00400A92AA6 /* AppDelegate.m in Sources */,
+				8574D10A1E6DD00400A92AA6 /* YMOrder.m in Sources */,
+				8574D10B1E6DD00400A92AA6 /* YMCategory.m in Sources */,
+				8574D10C1E6DD00400A92AA6 /* YMBaseViewController.m in Sources */,
+				8574D10D1E6DD00400A92AA6 /* YMChangeCountView.m in Sources */,
+				8574D10E1E6DD00400A92AA6 /* YMDataBase.m in Sources */,
+				8574D10F1E6DD00400A92AA6 /* YMGoodsDetailController.m in Sources */,
+				8574D1101E6DD00400A92AA6 /* PPNetworkCache.m in Sources */,
+				8574D1111E6DD00400A92AA6 /* NSDate+Util.m in Sources */,
+				8574D1121E6DD00400A92AA6 /* UIBarButtonItem+Badge.m in Sources */,
+				8574D1131E6DD00400A92AA6 /* UIImageView+Util.m in Sources */,
+				8574D1141E6DD00400A92AA6 /* YMSegment.m in Sources */,
+				8574D1151E6DD00400A92AA6 /* UITabBar+badge.m in Sources */,
+				8574D1161E6DD00400A92AA6 /* main.m in Sources */,
+				8574D1171E6DD00400A92AA6 /* Config.m in Sources */,
+				8574D1181E6DD00400A92AA6 /* YMAddressViewController.m in Sources */,
+				8574D1191E6DD00400A92AA6 /* YMRatingBar.m in Sources */,
+				8574D11A1E6DD00400A92AA6 /* YMHttpPackage.m in Sources */,
+				8574D11B1E6DD00400A92AA6 /* YMBaseItem.m in Sources */,
+				8574D11C1E6DD00400A92AA6 /* LBLaunchImageAdView.m in Sources */,
+				8574D11D1E6DD00400A92AA6 /* YMMyBoysViewController.m in Sources */,
+				8574D11E1E6DD00400A92AA6 /* YMCategoryModel.m in Sources */,
+				8574D11F1E6DD00400A92AA6 /* YMGoods.m in Sources */,
+				8574D1201E6DD00400A92AA6 /* YMPayResultViewController.m in Sources */,
+				8574D1211E6DD00400A92AA6 /* YMUser.m in Sources */,
+				8574D1221E6DD00400A92AA6 /* YMLocalResource.m in Sources */,
+				8574D1231E6DD00400A92AA6 /* NSString+Util.m in Sources */,
+				8574D1241E6DD00400A92AA6 /* YMUtil.m in Sources */,
+				8574D1251E6DD00400A92AA6 /* YMHttpNetwork.m in Sources */,
+				8574D1261E6DD00400A92AA6 /* YMCollectionViewFlowLayout.m in Sources */,
+				8574D1271E6DD00400A92AA6 /* MyNavigationViewController.m in Sources */,
+				8574D1281E6DD00400A92AA6 /* UIView+Util.m in Sources */,
+				8574D1291E6DD00400A92AA6 /* YMPayViewController.m in Sources */,
+				8574D12A1E6DD00400A92AA6 /* YMScrollViewController.m in Sources */,
+				8574D12B1E6DD00400A92AA6 /* UUChart.m in Sources */,
+				8574D12C1E6DD00400A92AA6 /* MyNavbar.m in Sources */,
+				8574D12D1E6DD00400A92AA6 /* PPNetworkHelper.m in Sources */,
+				8574D12E1E6DD00400A92AA6 /* YMCellItems.m in Sources */,
+				8574D12F1E6DD00400A92AA6 /* YMPackage.m in Sources */,
+				8574D1301E6DD00400A92AA6 /* YMImageLoadView.m in Sources */,
+				8574D1311E6DD00400A92AA6 /* YMMineViewController.m in Sources */,
+				8574D1321E6DD00400A92AA6 /* YMNetwork.m in Sources */,
+				8574D1331E6DD00400A92AA6 /* YMToolbarView.m in Sources */,
+				8574D1341E6DD00400A92AA6 /* NSObject+Property.m in Sources */,
+				8574D1351E6DD00400A92AA6 /* YMStatisticViewController.m in Sources */,
+				8574D1361E6DD00400A92AA6 /* YMAdviceViewController.m in Sources */,
+				8574D1371E6DD00400A92AA6 /* YMBenefitBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1783,6 +2335,53 @@
 			};
 			name = Release;
 		};
+		8574D1B51E6DD00400A92AA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 636372A9E33B9D023DA50ADA /* Pods-Running.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yongming Zhang (V76QA6Q843)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yongming Zhang (V76QA6Q843)";
+				DEVELOPMENT_TEAM = 77565T989X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Running/Alipay",
+				);
+				INFOPLIST_FILE = "Running copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longlifelink.ene;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2296c9e8-aa44-4fa5-9f9f-c5da751f97f1";
+				PROVISIONING_PROFILE_SPECIFIER = YMWildPro;
+			};
+			name = Debug;
+		};
+		8574D1B61E6DD00400A92AA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E83B72052BF4B01BF36FB56 /* Pods-Running.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Bodeng Industry Co.,Ltd (UPTTXHV3LP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Bodeng Industry Co.,Ltd (UPTTXHV3LP)";
+				DEVELOPMENT_TEAM = UPTTXHV3LP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Running/Alipay",
+				);
+				INFOPLIST_FILE = "Running copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.longlifelink.ene;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "52ea3d33-f565-47b9-b15d-9185e89f7052";
+				PROVISIONING_PROFILE_SPECIFIER = Energetic;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1800,6 +2399,15 @@
 			buildConfigurations = (
 				3A2B5D2A1D76E5750036720E /* Debug */,
 				3A2B5D2B1D76E5750036720E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8574D1B41E6DD00400A92AA6 /* Build configuration list for PBXNativeTarget "Running_copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8574D1B51E6DD00400A92AA6 /* Debug */,
+				8574D1B61E6DD00400A92AA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
