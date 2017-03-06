@@ -106,7 +106,7 @@
     NSArray *section3 = @[item6];
 
     YMBaseCellItem *item7=[[YMBaseCellItem alloc] init];
-    item7.title = @"我已阅读并接受 版权声明 和 隐私保护 条款";
+    item7.title = @"我已阅读并接受 版权声明和隐私保护 条款";
     item7.key = @"readme";
     
     NSArray *section4 = @[item7];
@@ -245,7 +245,7 @@
                 [detailLabel setText:item.title afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
                  {
                      //注销划线
-                     NSRange boldRange = [[mutableAttributedString string] rangeOfString:@"版权声明" options:NSCaseInsensitiveSearch];
+                     NSRange boldRange = [[mutableAttributedString string] rangeOfString:@"版权声明和" options:NSCaseInsensitiveSearch];
                      NSRange strikeRange = [[mutableAttributedString string] rangeOfString:@"隐私保护" options:NSCaseInsensitiveSearch];
                      // Core Text APIs use C functions without a direct bridge to UIFont. See Apple's "Core Text Programming Guide" to learn how to configure string attributes.
                      UIFont *boldSystemFont = [UIFont systemFontOfSize:14];
@@ -276,15 +276,16 @@
             detailLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
             detailLabel.delegate = self;
             detailLabel.linkAttributes = @{(NSString *)kCTFontAttributeName:(__bridge id)font,(id)kCTForegroundColorAttributeName:[UIColor blueColor]};//NSForegroundColorAttributeName  不能改变颜色 必须用   (id)kCTForegroundColorAttributeName,此段代码必须在前设置
-            NSRange range1= [detailLabel.text rangeOfString:@"版权声明"];
+//            NSRange range1= [detailLabel.text rangeOfString:@"版权声明"];
+            NSRange range1= [detailLabel.text rangeOfString:@"版权声明和隐私保护"];
             NSString* path = @"authority";//[[NSBundle mainBundle] pathForResource:@"软件许可及服务协议" ofType:@"html"];
             NSURL* url = [NSURL fileURLWithPath:path];
             [detailLabel addLinkToURL:url withRange:range1];
             
-            NSRange range2= [detailLabel.text rangeOfString:@"隐私保护"];
-            path = @"privacy";//[[NSBundle mainBundle] pathForResource:@"会员服务协议" ofType:@"html"];
-            url = [NSURL fileURLWithPath:path];
-            [detailLabel addLinkToURL:url withRange:range2];
+//            NSRange range2= [detailLabel.text rangeOfString:@"隐私保护"];
+//            path = @"privacy";//[[NSBundle mainBundle] pathForResource:@"会员服务协议" ofType:@"html"];
+//            url = [NSURL fileURLWithPath:path];
+//            [detailLabel addLinkToURL:url withRange:range2];
         }
     }
 
@@ -295,23 +296,36 @@
    didSelectLinkWithURL:(NSURL *)url
 {
     NSString *title = nil;
-    NSString *msgContent = @"基金定期定额申购(以下简称“基金定投”)是指投资者委托海通证券(以下简称“我公司”)，以约定时间、约定金额、约定基金按照基金公司业务规则定期定额申购相应基金，并从投资者客户交易结算资金账户中扣取相应申购款的一种长期投资方式。\n"
-    "一、 基金定投业务办理时间\n"
-    "基金定投签约、解约及变更业务办理时间为上海、深圳证券交易所交易日的9:30-15:00。\n"
-    "二、 基金定投业务签约\n"
-    "投资者通过营业部柜台方式申请办理基金定投业务的签约。投资者应确保在我公司资金账户中已成功开立开放式基金账户，并已完成《风险承受能力测评问卷》。\n\n"
-    "三、 基金定投业务的要素\n"
-    "1、 定投的基金产品\n"
-    "投资者申请的定投基金品种仅限于已公告我公司可开通基金定投业务的基金产品。\n"
-    "2、 最低金额\n"
-    "投资者选择的基金定投扣款金额应大于或等于基金定投产品日最低金额。若我公司对基金产品最低定投金额有明确规定的，以我公司为准；若我公司无明确规定的，以基金公司为准。\n"
-    "3、 基金定投周期\n"
-    "投资者可以选择按三个月、二个月和一个月进行基金定投。\n";
-    
+    NSString *msgContent = @"重要须知：上海铂登实业有限公司电商平台“长生汇”一贯重视用户的个人信息及隐私的保护，在您使用长生汇的服务和/或在长生汇购物的时候，长生汇有可能会收集和使用您的个人信息及隐私。为此，长生汇通过本《长生汇用户个人信息及隐私保护政策》（以下简称“本《隐私政策》”）向您说明您在使用长生汇的服务和/或在长生汇购物时，长生汇是如何收集、存储、使用和分享这些信息的，以及长生汇向您提供的访问、更新、控制和保护这些信息的方式。\n"
+    "本《隐私政策》与您使用长生汇的服务、在长生汇购物息息相关，请您务必仔细阅读、充分理解（未成年人应当在其监护人的陪同下阅读），包括但不限于免除或者限制长生汇责任的条款。\n"
+    "您如果使用或者继续使用长生汇的服务和/或在长生汇购物，即视为您充分理解并完全接受本《隐私政策》；您如果对本《隐私政策》有任何疑问、异议或者不能完全接受本《隐私政策》，请联系长生汇客户服务部，客户服务电话：021-23560070。\n"
+    "第一条    本《隐私政策》所述的个人信息，是指个人姓名、住址、出生日期、身份证号码、银行账号、移动电话号码等单独或与其他信息对照可以设别特定的个人的信息，包括但不限于您在注册长生汇用户账号时填写并提供给长生汇的姓名、性别、生日、移动电话号码、送货地址、身高、体重。\n"
+    "第二条    您承诺并保证：您主动填写或者提供给长生汇的个人信息是真实的、准确的、完整的。而且，填写或者提供给长生汇后，如果发生了变更的，您会在第一时间内，通过原有的渠道或者长生汇提供的新的渠道进行更新，以确保长生汇所获得的您的这些个人信息是最新的、真实的、准确的和完整的；否则，长生汇无须承担由此给您造成的任何损失。\n"
+    "第三条    您应当重视您的个人信息的保护，您如果发现您的个人信息已经被泄露或者存在被泄露的可能，且有可能会危及您注册获得的长生汇账户安全，或者给您造成其他的损失的，您务必在第一时间通知长生汇，以便长生汇采取相应的措施确保您的长生汇账户安全，防止损失的发生或者进一步扩大；否则，长生汇无须承担由此给您造成的任何损失（及扩大的损失）。\n"
+    "第四条    您充分理解并完全接受：您在使用长生汇的服务和/或在长生汇购物时，长生汇有可能会收集您的如下信息（以下统称“用户信息”）：\n"
+    "（一） 第一条所述的您的个人信息；\n"
+    "（二） 您提供给第三方或者向第三方披露的个人信息及隐私；\n"
+    "（三） 您登录和使用长生汇网站、App的时间、时长、支付账号、购物记录、系统日志信息以及行为数据（包括但不限于订单下达及取消数据、退货退款申请数据、手机钱包账户余额、交易纠纷数据等）；\n"
+    "（四） 您所使用的台式计算机、移动设备的品牌、型号、IP地址以及软件版本信息\n"
+    "（五） 为了实现前述目的，通过cookie或者其他方式自动采集到的您的其他个人信息或者隐私。\n"
+    "您通过具有定位功能的移动设备登录、使用长生汇的App时，长生汇有可能会通过GPS或者Wifi收集您的地理位置信息；您如果不同意收集，您在您的移动设备上关闭此项功能。\n"
+    "第五条    您充分理解并完全接受：保护用户信息是长生汇一贯的政策，长生汇将会使用各种安全技术和程序存储、保护用户信息，防止其被未经授权的访问、使用、复制和泄露。长生汇不向任何第三方透漏用户信息，但存在下列任何一项情形或者为第七条所述的目的而披露给第三方的除外：\n"
+    "（一） 基于国家法律法规的规定而对外披露；\n"
+    "（二） 应国家司法机关及其他有法律权限的政府机关基于法定程序的要求而披露；\n"
+    "（三） 为保护长生汇或您的合法权益而披露；\n"
+    "（四） 在紧急情况下，为保护其他用户或者第三方人身安全而披露；\n"
+    "（五） 用户本人或其监护人授权披露；\n"
+    "（六） 应用户的监护人的合法要求而向其披露。\n"
+    "长生汇即便是按照前款约定将用户信息披露给第三方，亦会要求接收上述用户信息的第三方严格按照国家法律法规使用和保护用户信息。\n"
+    "第六条    您充分理解并完全接受：即便是长生汇采取各种安全技术和程序存储、保护用户信息，防止其被未经授权的访问、使用、复制和泄露，但用户信息仍然有可能发生被黑客攻击、窃取，因不可抗力或者其他非长生汇的自身原因而被泄露的情形。对此，只要是长生汇采取了必要的措施防止上述情形之发生，并在上述情形发生之后采取必要的措施防止其损失进一步扩大，长生汇则无须赔偿由此给您造成的任何损失。\n"
+    "第七条    您充分理解并完全接受：长生汇有可能将用户信息用于下列某一个或者某几个目的：\n"
+    "（一）在您登录长生汇网站或者App时，用于验证您的身份、供您支付货款、为您提供送货服务、售后服务以及其他客户服务；\n"
+    "（二）帮助长生汇分析、了解用户需求，设计新的商业模式，向您及其他用户推荐新的商品，或者将其用于长生汇所开展的新业务当中；\n"
+    "（三）评估和改进长生汇服务中的广告和其他促销及推广活动。\n";
     
     NSString *hrefStr = url.absoluteString;
     if ([hrefStr rangeOfString:@"authority"].location!=NSNotFound) {
-        title = @"版权声明";
+        title = @"版权声明和隐私保护";//@"版权声明";
     } else if ([hrefStr rangeOfString:@"privacy"].location!=NSNotFound) {
         title = @"隐私保护";
     }
