@@ -429,7 +429,6 @@
     
     CGPoint center = self.view.center;
     _noItemDesc = [[UILabel alloc] initWithFrame:CGRectMake(0,center.y,g_screenWidth, 50)];
-//    _noItemDesc.center = self.view.center;
     _noItemDesc.text = @"暂无商品，快点去选购点吧!";
     _noItemDesc.textAlignment = NSTextAlignmentCenter;
     _noItemDesc.textColor = rgba(183, 183, 183, 1);
@@ -438,7 +437,6 @@
     _noItemImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"big_cart"]];
     CGFloat imgWidth = g_screenWidth/4;
     _noItemImg.frame = CGRectMake(center.x-imgWidth/2, center.y-imgWidth, g_screenWidth/4, g_screenWidth/4);
-//    _noItemImg.center = CGPointMake(_noItemDesc.centerX, _noItemDesc.centerY-50);
     _noItemImg.hidden = YES;
     _noItemDesc.hidden = YES;
 

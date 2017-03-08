@@ -1604,7 +1604,7 @@
 						DevelopmentTeam = 77565T989X;
 					};
 					8574D0C81E6DD00400A92AA6 = {
-						DevelopmentTeam = UPTTXHV3LP;
+						DevelopmentTeam = 77565T989X;
 					};
 				};
 			};

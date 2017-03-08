@@ -11,6 +11,7 @@
 #import "YMSearchViewController.h"
 #import "YMGoodsListController.h"
 #import "YMBaseNavigationController.h"
+#import "YMGoodsDetailController.h"
 
 #import "YMPageScrollView.h"
 #import "YMCommon.h"
@@ -20,7 +21,7 @@
 
 #define kPageScrollViewHeight 200
 
-@interface YMCategoryViewController () <YMGoodsItemActionDelegate>
+@interface YMCategoryViewController () <YMGoodsItemActionDelegate, YMSearchDelegate>
 {
     UIBarButtonItem *barBtnItem2;
     
@@ -65,6 +66,7 @@
 - (void)letsSearch
 {
     YMSearchViewController *searchViewController = [[YMSearchViewController alloc] init];
+    searchViewController.delegate = self;
     YMBaseNavigationController *nav = [[YMBaseNavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -140,6 +142,16 @@
     self.searchList= [NSMutableArray arrayWithArray:[_dataList filteredArrayUsingPredicate:preicate]];
     //刷新表格
     return YES;
+}
+
+
+#pragma mark YMSearchDelegate
+- (void)goodsSearchItemSelect:(YMShoppingCartItem *)goodsItem
+{
+    YMGoodsDetailController *detailController = [[YMGoodsDetailController alloc] init];
+    detailController.goods_id = goodsItem.goods.goods_id;
+    detailController.goods_subid = goodsItem.goods.sub_gid;
+    [self.navigationController pushViewController:detailController animated:YES];
 }
 
 @end

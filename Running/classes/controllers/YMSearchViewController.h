@@ -8,6 +8,12 @@
 
 #import "YMBaseViewController.h"
 
-@interface YMSearchViewController : YMBaseViewController
+@protocol YMSearchDelegate <NSObject>
 
+- (void)goodsSearchItemSelect:(YMShoppingCartItem *)goodsItem;
+
+@end
+
+@interface YMSearchViewController : YMBaseViewController
+@property (nonatomic, weak) id<YMSearchDelegate> delegate;
 @end

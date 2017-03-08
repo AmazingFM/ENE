@@ -211,6 +211,28 @@
     [self.view addSubview:self.collectionView];
 }
 
+- (void)setItemData:(NSArray*)items
+{
+    self.collectionView.bounces = NO;
+    self.collectionView.mj_footer = nil;
+    
+    if (items&&items.count>0) {
+        [self.itemArray removeAllObjects];
+        [self.itemArray addObjectsFromArray:items];
+        [self.collectionView reloadData];
+        
+        self.collectionView.hidden = NO;
+        _noItemImg.hidden = YES;
+        _noItemDesc.hidden = YES;
+
+    } else {
+        self.collectionView.hidden = YES;
+        _noItemImg.hidden = NO;
+        _noItemDesc.hidden = NO;
+        _noItemDesc.text = @"没有找到相应商品";
+    }
+}
+
 - (NSMutableArray *)itemArray
 {
     if (_itemArray==nil) {
@@ -255,7 +277,7 @@
         [_collectionView registerClass:[YMGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"goodslist"];
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
         
-        _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+        _collectionView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
         [self.view addSubview:_collectionView];
     }
     return _collectionView;
@@ -273,7 +295,6 @@
 - (void)loadMoreData
 {
     self.myRefreshView = self.collectionView.mj_footer;
-    
     if (!self.lastPage) {
         self.pageNum++;
         [self startRequest];
@@ -305,13 +326,16 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     YMShoppingCartItem *item = (YMShoppingCartItem *)self.itemArray[indexPath.row];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(goodsItemDidSelect:)]) {
+        [self.delegate goodsItemDidSelect:item];
+        return;
+    }
+    
     YMGoodsDetailController *detailController = [[YMGoodsDetailController alloc] init];
     detailController.goods_id = item.goods.goods_id;
     detailController.goods_subid = item.goods.sub_gid;
     [self.navigationController pushViewController:detailController animated:YES];
 }
-
-
 
 #pragma mark YMGoodsListCellDelegate
 
@@ -343,10 +367,6 @@
 
 - (void)startRequest
 {
-//    if (![self getParameters]) {
-//        return;
-//    }
-    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     parameters[kYM_SPECID] = self.spec_id;
@@ -422,8 +442,8 @@
                     _noItemDesc.hidden = NO;
                 }
             } else {
-                NSString *resp_desc = respDict[kYM_RESPDESC];
-                showDefaultAlert(resp_id, resp_desc);
+//                NSString *resp_desc = respDict[kYM_RESPDESC];
+//                showDefaultAlert(resp_id, resp_desc);
             }
         }
     } failure:^(NSError *error) {

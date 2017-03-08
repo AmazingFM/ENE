@@ -62,7 +62,7 @@
 
 @end
 
-@interface YMHomeViewController () <UISearchBarDelegate, YMHomeCollectionHeaderDelegate, YMGoodsCollectionViewCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface YMHomeViewController () <UISearchBarDelegate, YMHomeCollectionHeaderDelegate, YMGoodsCollectionViewCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, YMSearchDelegate>
 {
     NSMutableArray *_goodsTopArr;
     NSMutableArray *_headLinkArr;
@@ -70,6 +70,7 @@
     float rowHeight;
     
     YMPageScrollView *_pageScrollView;//顶部的滚动栏
+    UISearchBar *searchBar;
 }
 
 @property (nonatomic, retain) UICollectionView *collectionView;
@@ -122,6 +123,8 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 
     [_collectionView.mj_header beginRefreshing];
+    
+    [searchBar resignFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -250,15 +253,15 @@
 
 - (void)addSearchBar
 {
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(20, 20, g_screenWidth-40, 34)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(20, 20, g_screenWidth-40, 34)];
     searchBar.showsCancelButton = NO;
     searchBar.translucent =YES;
     [searchBar sizeToFit];
-    searchBar.autocapitalizationType =UITextAutocapitalizationTypeNone;
-    searchBar.autocorrectionType =UITextAutocorrectionTypeNo;
+//    searchBar.autocapitalizationType =UITextAutocapitalizationTypeNone;
+//    searchBar.autocorrectionType =UITextAutocorrectionTypeNo;
     searchBar.placeholder = @"请输入商品代码/名称";
     searchBar.delegate = self;
-    searchBar.keyboardType = UIKeyboardTypeDefault;
+//    searchBar.keyboardType = UIKeyboardTypeDefault;
     
     
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -312,34 +315,17 @@
         [[searchBar.subviews objectAtIndex:0] removeFromSuperview];
         [searchBar setBackgroundColor:[UIColor clearColor]];
     }
-    [self.view addSubview:searchBar];
     
+    self.navigationItem.titleView = searchBar;
 }
 
 #pragma mark - 协议UISearchBarDelegate
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    [searchBar setShowsCancelButton:YES animated:NO];
-//    YMSearchViewController *searchVC = [[YMSearchViewController alloc] init];
-//    YMBaseNavigationController *nav = [[YMBaseNavigationController alloc] initWithRootViewController:searchVC];
-//    
-//    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    //@ 当搜索内容变化时，执行该方法。很有用，可以实现时实搜索
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
-{
-    [searchBar setShowsCancelButton:NO animated:NO];    // 取消按钮回收
-    [searchBar resignFirstResponder];                                // 取消第一响应值,键盘回收,搜索结束
+    YMSearchViewController *searchViewController = [[YMSearchViewController alloc] init];
+    searchViewController.delegate = self;
+    YMBaseNavigationController *nav = [[YMBaseNavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark UICollectionViewDataSource
@@ -414,6 +400,15 @@
             [self showCustomHUDView:@"取消收藏失败"];
         }
     }
+}
+
+#pragma mark YMSearchDelegate
+- (void)goodsSearchItemSelect:(YMShoppingCartItem *)goodsItem
+{
+    YMGoodsDetailController *detailController = [[YMGoodsDetailController alloc] init];
+    detailController.goods_id = goodsItem.goods.goods_id;
+    detailController.goods_subid = goodsItem.goods.sub_gid;
+    [self.navigationController pushViewController:detailController animated:YES];
 }
 
 #pragma mark 网络请求
@@ -495,5 +490,4 @@
         [self.myRefreshView endRefreshing];
     }];
 }
-
 @end

@@ -19,7 +19,6 @@
 @protocol YMGoodsCollectionViewCellDelegate <NSObject>
 
 - (void)favorateButtonSelect:(YMGoodsCollectionViewCell *)cell withIndexPath:(NSIndexPath *)indexPath withType:(BOOL)select;
-
 @end
 
 @interface YMGoodsCollectionViewCell : UICollectionViewCell
@@ -29,6 +28,11 @@
 
 @end
 
+@protocol YMGoodsListDelegate <NSObject>
+
+- (void)goodsItemDidSelect:(YMShoppingCartItem *)goodsItem;
+
+@end
 
 @interface YMGoodsListController : YMBaseViewController <YMGoodsCollectionViewCellDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -40,7 +44,8 @@
 @property (nonatomic) int pageNum;
 @property (nonatomic) BOOL lastPage;
 @property (nonatomic, retain) MJRefreshComponent *myRefreshView;
-
 @property (nonatomic, retain) NSString *spec_id;
+@property (nonatomic, weak) id<YMGoodsListDelegate> delegate;
 
+- (void)setItemData:(NSArray*)items;
 @end
