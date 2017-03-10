@@ -61,12 +61,13 @@
     _barView.toolbarDelegate = self;
     _barView.backgroundColor = [UIColor whiteColor];
     
-    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,kPersonalHeaderHeight+kPersonalBarHeight, g_screenWidth, g_screenHeight-(20+kPersonalHeaderHeight-kPersonalBarHeight))];
+    _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,kPersonalHeaderHeight+kPersonalBarHeight, g_screenWidth, g_screenHeight-(kPersonalHeaderHeight+kPersonalBarHeight+kYMTabbarHeight))];
+    _mainTableView.bounces = NO;
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     _mainTableView.backgroundColor = rgba(242, 242, 242, 1);
     _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _mainTableView.scrollEnabled = NO;
+    _mainTableView.scrollEnabled = YES;
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectZero];
     footerView.backgroundColor = [UIColor grayColor];
