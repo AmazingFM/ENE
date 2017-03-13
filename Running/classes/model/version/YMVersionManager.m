@@ -78,6 +78,11 @@
     self.updateLog = versionInfoDict[@"update_log"];
     self.forced = ![versionInfoDict[@"forces"] boolValue];
     
+//    self.newestVersion = @"1.2.0";
+//    self.downloadUrl = @"itms-apps://itunes.apple.com/cn/app/id1212423793?mt=8";
+//    self.updateLog = @"test";
+//    self.forced = [@"1" boolValue];
+    
     if ([self needUpgradeVesion:g_strVersion newVersion:self.newestVersion]) {
         UIAlertView *alertView = nil;
         if (self.forced) {
