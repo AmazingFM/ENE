@@ -140,7 +140,7 @@
 @property(nonatomic,retain)NSDictionary*         statusTitles;
 @property(nonatomic,retain)NSMutableArray<YMOrderItem *>*  itemArr;
 
-@property(nonatomic,retain)NSMutableArray*  commentList;
+//@property(nonatomic,retain)NSMutableArray*  commentList;
 
 @end
 
@@ -274,22 +274,10 @@
     return _itemArr;
 }
 
-- (NSMutableArray *)commentList
-{
-    if (_commentList==nil) {
-        _commentList = [NSMutableArray array];
-    }
-    return _commentList;
-}
-
 #pragma mark- UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (self.selectedIndex==kCommentIndex) {
-        return 10;
-    } else {
-        return kYMSectionHeaderHeight;
-    }
+    return kYMSectionHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -386,11 +374,14 @@
             [title addObjectsFromArray:@[@"确认收货"]];
             break;
         case YMOrderTypeAccept:
-        case YMOrderTypeComment:
         case YMOrderTypeTimeout:
         case YMOrderTypeCancel:
             [title addObjectsFromArray:@[@"删除订单"]];
             break;
+        case YMOrderTypeComment:
+            [title addObjectsFromArray:@[@"去评价"]];
+            break;
+            
         default:
             break;
     }
@@ -458,129 +449,100 @@
         [self deleteOrder:item.order];
     } else if([sender.titleLabel.text isEqualToString:@"确认收货"]) {
         [self confirmOrder:item.order];
+    } else if([sender.titleLabel.text isEqualToString:@"待评价"]) {
+        YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
+        commentVC.order = item.order;
+        [self.navigationController pushViewController:commentVC animated:YES];
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.selectedIndex==kCommentIndex) {
-        return self.commentList.count;
-    } else {
-        return self.itemArr.count;
-    }
+    return self.itemArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.selectedIndex==kCommentIndex) {
-        return 1;
-    } else {
-        YMOrderItem *item = self.itemArr[section];
-        NSMutableArray<YMOrderContent *> *goodsItems = item.order.goodsItems;
-        
-        if (goodsItems.count>0) {
-            return goodsItems.count+3;
-        }
-        return 0;
+    YMOrderItem *item = self.itemArr[section];
+    NSMutableArray<YMOrderContent *> *goodsItems = item.order.goodsItems;
+    
+    if (goodsItems.count>0) {
+        return goodsItems.count+3;
     }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex==kCommentIndex) {
-        return kYMOrderTableGoodsRowHeight;
+    NSMutableArray<YMOrderContent *> *goodsItems = self.itemArr[indexPath.section].order.goodsItems;
+    
+    if (indexPath.row==goodsItems.count+2) {
+        return [self heightForFootView:indexPath.section];
+    } else if(indexPath.row==goodsItems.count||
+              indexPath.row==goodsItems.count+1) {
+        return kYMOrderTableDefaultRowHeight;
     } else {
-        NSMutableArray<YMOrderContent *> *goodsItems = self.itemArr[indexPath.section].order.goodsItems;
-        
-        if (indexPath.row==goodsItems.count+2) {
-            return [self heightForFootView:indexPath.section];
-        } else if(indexPath.row==goodsItems.count||
-                  indexPath.row==goodsItems.count+1) {
-            return kYMOrderTableDefaultRowHeight;
-        } else {
-            return kYMOrderTableGoodsRowHeight;
-        }
+        return kYMOrderTableGoodsRowHeight;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex==kCommentIndex) {
-        NSDictionary *commentDict = self.commentList[indexPath.section];
-        YMGoods *goods = commentDict[@"goods"];
-        
-        NSString *cellIdentifier = @"goodsCellId";
-        YMGoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell==nil) {
+    YMOrder *order =  self.itemArr[indexPath.section].order;
+    NSMutableArray<YMOrderContent *> *goodsItems = order.goodsItems;
+    
+    NSString *cellIdentifier = nil;
+    
+    if (indexPath.row==goodsItems.count+2) {
+        cellIdentifier = @"footerCellId";
+    } else if (indexPath.row>=goodsItems.count) {
+        cellIdentifier = @"defaultCellId";
+    } else if (indexPath.row<goodsItems.count){
+        cellIdentifier = @"goodsCellId";
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell==nil) {
+        if ([cellIdentifier containsString:@"goods"]) {
             cell = [[YMGoodsCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         }
-        
-        YMOrderContent *detailContent = [[YMOrderContent alloc] init];
-        detailContent.count = 0;
-        detailContent.goods = goods;
-
-        [cell setItem:detailContent];
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
-    } else {
-        YMOrder *order =  self.itemArr[indexPath.section].order;
-        NSMutableArray<YMOrderContent *> *goodsItems = order.goodsItems;
-        
-        NSString *cellIdentifier = nil;
-        
-        if (indexPath.row==goodsItems.count+2) {
-            cellIdentifier = @"footerCellId";
-        } else if (indexPath.row>=goodsItems.count) {
-            cellIdentifier = @"defaultCellId";
-        } else if (indexPath.row<goodsItems.count){
-            cellIdentifier = @"goodsCellId";
+        else
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         }
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell==nil) {
-            if ([cellIdentifier containsString:@"goods"]) {
-                cell = [[YMGoodsCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-            }
-            else
-            {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-            }
-        }
-        
-        if ([cell isKindOfClass:[YMGoodsCell class]]){
-            YMGoodsCell *goodCell = (YMGoodsCell *)cell;
-            [goodCell setItem:goodsItems[indexPath.row]];
-        } else if ([cell isKindOfClass:[UITableViewCell class]]) {
-            if ((indexPath.row-goodsItems.count)==0) {
-                UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
-                priceLabel.font = kYMOrderDetailFont;
-                priceLabel.attributedText = [self priceString:order];
-                priceLabel.textAlignment = NSTextAlignmentRight;
-                cell.accessoryView = priceLabel;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }  else if ((indexPath.row-goodsItems.count)==1) {
-                UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
-                YMAddress *address = order.address;
-                addressLabel.text = [NSString stringWithFormat:@"收货信息 %@(%@，%@%@%@%@)", address.delivery_name, address.contact_no, address.city.province, address.city.city, address.city.town, address.delivery_addr];//@"收货信息";
-                addressLabel.font = kYMOrderDetailFont;
-                addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-                addressLabel.numberOfLines = 2;
-                addressLabel.textAlignment = NSTextAlignmentRight;
-                cell.accessoryView = addressLabel;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            } else if ((indexPath.row-goodsItems.count)==2) {
-                for (UIView *sub in cell.subviews) {
-                    [sub removeFromSuperview];
-                }
-                [cell addSubview:[self footerView:indexPath.section]];
-            }
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }
+    
+    if ([cell isKindOfClass:[YMGoodsCell class]]){
+        YMGoodsCell *goodCell = (YMGoodsCell *)cell;
+        [goodCell setItem:goodsItems[indexPath.row]];
+    } else if ([cell isKindOfClass:[UITableViewCell class]]) {
+        if ((indexPath.row-goodsItems.count)==0) {
+            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
+            priceLabel.font = kYMOrderDetailFont;
+            priceLabel.attributedText = [self priceString:order];
+            priceLabel.textAlignment = NSTextAlignmentRight;
+            cell.accessoryView = priceLabel;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }  else if ((indexPath.row-goodsItems.count)==1) {
+            UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, g_screenWidth-50, kYMOrderTableDefaultRowHeight)];
+            YMAddress *address = order.address;
+            addressLabel.text = [NSString stringWithFormat:@"收货信息 %@(%@，%@%@%@%@)", address.delivery_name, address.contact_no, address.city.province, address.city.city, address.city.town, address.delivery_addr];//@"收货信息";
+            addressLabel.font = kYMOrderDetailFont;
+            addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+            addressLabel.numberOfLines = 2;
+            addressLabel.textAlignment = NSTextAlignmentRight;
+            cell.accessoryView = addressLabel;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else if ((indexPath.row-goodsItems.count)==2) {
+            for (UIView *sub in cell.subviews) {
+                [sub removeFromSuperview];
+            }
+            [cell addSubview:[self footerView:indexPath.section]];
+        }
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -596,12 +558,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (self.selectedIndex==kCommentIndex) {
-//        NSDictionary *commentDict = self.commentList[indexPath.section];
-//        YMCommentViewController *commentVC = [[YMCommentViewController alloc] init];
-//        commentVC.commentDict = commentDict;
-//        [self.navigationController pushViewController:commentVC animated:YES];
-//    }
+    //
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -698,7 +655,6 @@
                     }
                     
                     NSMutableArray *ordersList = [NSMutableArray array];
-                    NSMutableArray *tmpCommentList = [NSMutableArray array];
                     
                     if ([resp_data[@"order_list"] isKindOfClass:[NSArray class]]) {
                         for (NSDictionary *dict in resp_data[@"order_list"]) {
@@ -730,14 +686,14 @@
                                     
                                     [order.goodsItems addObject:detailContent];
                                     
-                                    if (self.selectedIndex==4) {
-                                        NSMutableDictionary *orderDict = [NSMutableDictionary new];
-                                        [orderDict setObject:order.orderId forKey:@"order_id"];
-                                        [orderDict setObject:order.user_id forKey:@"user_id"];
-                                        [orderDict setObject:goods forKey:@"goods"];
-                                        
-                                        [tmpCommentList addObject:orderDict];
-                                    }
+//                                    if (self.selectedIndex==4) {
+//                                        NSMutableDictionary *orderDict = [NSMutableDictionary new];
+//                                        [orderDict setObject:order.orderId forKey:@"order_id"];
+//                                        [orderDict setObject:order.user_id forKey:@"user_id"];
+//                                        [orderDict setObject:goods forKey:@"goods"];
+//                                        
+//                                        [tmpCommentList addObject:orderDict];
+//                                    }
                                 }
                             }
                             
@@ -756,10 +712,7 @@
                     //..下拉刷新
                     if (self.myRefreshView == _tableView.mj_header) {
                         [self.itemArr removeAllObjects];
-                        [self.commentList removeAllObjects];
-                        
                         [self.itemArr addObjectsFromArray:arrayM];
-                        [self.commentList addObjectsFromArray:tmpCommentList];
                         [_tableView reloadData];
                         [self.myRefreshView endRefreshing];
                         
@@ -769,7 +722,6 @@
                         }
                     } else if (self.myRefreshView == _tableView.mj_footer) {
                         [self.itemArr addObjectsFromArray:arrayM];
-                        [self.commentList addObjectsFromArray:tmpCommentList];
                         [_tableView reloadData];
                         [self.myRefreshView endRefreshing];
                         if (self.lastPage) {
@@ -799,9 +751,6 @@
 
 - (void)cancleOrder:(YMOrder *)order
 {
-//    if (![self getParameters]) {
-//        return;
-//    }
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[kYM_USERID] = [YMUserManager sharedInstance].user.user_id;
     parameters[@"order_id"] = order.orderId;

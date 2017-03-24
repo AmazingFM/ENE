@@ -7,10 +7,16 @@
 //
 
 #import "YMBaseViewController.h"
-#import "YMGoods.h"
+#import "YMOrder.h"
+
+@interface YMCommentCell : UITableViewCell
+
+@property (nonatomic,retain) YMGoods* goods;
+
+@end
 
 @interface YMCommentViewController : YMBaseViewController
 
-@property (nonatomic, retain) NSDictionary *commentDict;
+@property (nonatomic, retain) YMOrder   *order;
 
 @end
