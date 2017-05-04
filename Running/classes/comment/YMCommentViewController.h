@@ -9,7 +9,7 @@
 #import "YMBaseViewController.h"
 #import "YMOrder.h"
 
-@interface YMCommentCell : UITableViewCell
+@interface YMDoCommentCell : UITableViewCell
 
 @property (nonatomic,retain) YMGoods* goods;
 

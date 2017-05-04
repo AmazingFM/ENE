@@ -13,6 +13,7 @@
 #import "YMSearchViewController.h"
 #import "YMCollectionViewFlowLayout.h"
 #import "YMPageScrollView.h"
+#import "YMSearchBar.h"
 
 #import "YMCommon.h"
 #import "YMGlobal.h"
@@ -62,7 +63,7 @@
 
 @end
 
-@interface YMHomeViewController () <UISearchBarDelegate, YMHomeCollectionHeaderDelegate, YMGoodsCollectionViewCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, YMSearchDelegate>
+@interface YMHomeViewController () <YMHomeCollectionHeaderDelegate, YMGoodsCollectionViewCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, YMSearchBarDelegate, YMSearchDelegate>
 {
     NSMutableArray *_goodsTopArr;
     NSMutableArray *_headLinkArr;
@@ -70,7 +71,6 @@
     float rowHeight;
     
     YMPageScrollView *_pageScrollView;//顶部的滚动栏
-    UISearchBar *searchBar;
 }
 
 @property (nonatomic, retain) UICollectionView *collectionView;
@@ -123,8 +123,6 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 
     [_collectionView.mj_header beginRefreshing];
-    
-    [searchBar resignFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -253,6 +251,16 @@
 
 - (void)addSearchBar
 {
+    float searchBarWidth = g_screenWidth>320?320:260;
+    float searchBarHeight = 30;
+    YMSearchBar *titleSearchBar = [[YMSearchBar alloc] initWithFrame:CGRectMake(0, 0, searchBarWidth, searchBarHeight)];
+    self.navigationItem.titleView = titleSearchBar;
+    titleSearchBar.placeholder = @"请输入商品代码/名称";
+    [titleSearchBar setBGViewAlpha:0.2];
+    titleSearchBar.delegate = self;
+    
+    return;
+    /**
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(20, 20, g_screenWidth-40, 34)];
     searchBar.showsCancelButton = NO;
     searchBar.translucent =YES;
@@ -266,7 +274,7 @@
     
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     //第一种方法
-    /**
+    
 
     if (version == 7.0) {
         searchBar.backgroundColor = [UIColor clearColor];
@@ -296,7 +304,7 @@
             }
         }
     }
-    */
+    
     //第二种方法
 //    version = [[[UIDevice currentDevice] systemVersion] floatValue];
     if ([searchBar respondsToSelector:@selector(barTintColor)]) {
@@ -317,10 +325,11 @@
     }
     
     self.navigationItem.titleView = searchBar;
+     */
 }
 
-#pragma mark - 协议UISearchBarDelegate
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+#pragma mark - YMSearchBarDelegate
+- (void)searchBarAction
 {
     YMSearchViewController *searchViewController = [[YMSearchViewController alloc] init];
     searchViewController.delegate = self;

@@ -13,7 +13,7 @@
 
 #define MAX_LIMIT_NUMS 50 //来限制最大输入只能50个字符
 
-@interface YMCommentCell()
+@interface YMDoCommentCell()
 {
     float goodsImageHeight;
     float textViewHeight;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation YMCommentCell
+@implementation YMDoCommentCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -83,7 +83,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    goods = self.commentDict[@"goods"];
+    goods = nil;//self.commentDict[@"goods"];
     self.navigationItem.title = @"评价";
     
     // Do any additional setup after loading the view.
