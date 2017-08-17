@@ -167,22 +167,6 @@ static BOOL _isNetwork;
                    failure:(HttpRequestFailed)failure
 {
     NSDictionary *newParameters = [self addDescParams:parameters];
-//    NSMutableDictionary *newParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-//    
-//    NSString *md5Str = newParameters[@"sign"];
-//    
-//    if (md5Str==nil || md5Str.length==0) {
-//        NSArray *keys = newParameters.allKeys;
-//        NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(compare:)];
-//        
-//        NSMutableString *mStr = [NSMutableString stringWithString:@"ene"];
-//        for (int i=0; i<sortedKeys.count; i++) {
-//            [mStr appendFormat:@"%@%@", sortedKeys[i], newParameters[sortedKeys[i]]];
-//        }
-//        [mStr appendString:@"ene"];
-//        md5Str = [YMUtil md5HexDigest:mStr];
-//        newParameters[@"sign"] = md5Str;
-//    }
     
     //读取缓存
     responseCache ? responseCache([PPNetworkCache getHttpCacheForKey:URL]) : nil;
